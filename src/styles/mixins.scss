@@ -1,0 +1,21 @@
+$tablet-width: 768px;
+$desktop-width: 1280px;
+$highres-width: 1600px;
+
+@mixin tablet {
+    @media (min-width: $tablet-width) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $desktop-width) {
+        @content;
+    }
+}
+
+@mixin highres {
+    @media (min-width: $highres-width) {
+        @content;
+    }
+}
