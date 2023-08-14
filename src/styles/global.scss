@@ -1,3 +1,5 @@
+@use './mixins.scss' as *;
+
 // conversions
 
 $px3: 0.1875rem;
@@ -22,3 +24,16 @@ $px44: 2.75rem;
 $px80: 5rem;
 $px114: 7.125rem;
 $px120: 7.5rem;
+
+// device specific
+
+.hidden-mobile {
+    display: none;
+}
+
+.hidden-large {
+
+    @include tablet {
+        display: none;
+    }
+}
