@@ -12,29 +12,33 @@ const Header = () => {
     };
 
     return (
-        <div id='header'>
-            <Link className="headerlogo" to={"/"} onClick={handleNavLinkClick}>
-                UpDaily
-            </Link>
+        <header className='header'>
 
-            {/* Hamburger menu */}
-            <div className={`hamburger ${isHamburgerOpen ? 'active' : ''}`} onClick={toggleHamburger}>
-                <span className="hamburger__bar hamburger__bar--1"></span>
-                <span className="hamburger__bar hamburger__bar--2"></span>
-                <span className="hamburger__bar hamburger__bar--3"></span>
+            <div className="header__group">
+                <Link className="header__logo" to={"/"} onClick={handleNavLinkClick}>
+                    UpDaily
+                </Link>
+
+                {/* Hamburger menu */}
+                <div className={`hamburger ${isHamburgerOpen ? 'active' : ''}`} onClick={toggleHamburger}>
+                    <span className="hamburger__bar hamburger__bar--1"></span>
+                    <span className="hamburger__bar hamburger__bar--2"></span>
+                    <span className="hamburger__bar hamburger__bar--3"></span>
+                </div>
             </div>
+
 
             {/* Navbar */}
             <nav className={`navbar ${isHamburgerOpen ? 'active' : ''}`}>
                 <ul className='navbar__list'>
-                    <li className={`navbar__item navbar__item-1 navbar__item-1`}>
-                        <NavLink to="/contact" className="navbar__link" onClick={handleNavLinkClick}>
+                    <li className={`navbar__item`}>
+                        <NavLink to="/" className="navbar__link" onClick={handleNavLinkClick}>
                             <span className="navbar__link--first hidden-large">01</span>
                             <span className="navbar__link--second">Home</span>
                         </NavLink>
                     </li>
                     <li className="navbar__item">
-                        <NavLink to="/projects/" className="navbar__link" onClick={handleNavLinkClick} >
+                        <NavLink to="/explore/" className="navbar__link" onClick={handleNavLinkClick} >
                             <span className="navbar__link--first hidden-large">02</span>
                             <span className="navbar__link--second">Explore</span>
                         </NavLink>
@@ -45,10 +49,15 @@ const Header = () => {
                             <span className="navbar__link--second">About</span>
                         </NavLink>
                     </li>
+                    <li className='navbar__item'>
+                        <NavLink to="/register" className="navbar__link navbar__link--register" onClick={handleNavLinkClick} >
+                            Register Business
+                        </NavLink>
+                    </li>
                 </ul>
             </nav>
 
-        </div>
+        </header>
     );
 }
 
