@@ -12,7 +12,7 @@ const Header = () => {
     };
 
     return (
-        <div id='header'>
+        <header id='header'>
             <Link className="headerlogo" to={"/"} onClick={handleNavLinkClick}>
                 UpDaily
             </Link>
@@ -28,13 +28,13 @@ const Header = () => {
             <nav className={`navbar ${isHamburgerOpen ? 'active' : ''}`}>
                 <ul className='navbar__list'>
                     <li className={`navbar__item navbar__item-1 navbar__item-1`}>
-                        <NavLink to="/contact" className="navbar__link" onClick={handleNavLinkClick}>
+                        <NavLink to="/" className="navbar__link" onClick={handleNavLinkClick}>
                             <span className="navbar__link--first hidden-large">01</span>
                             <span className="navbar__link--second">Home</span>
                         </NavLink>
                     </li>
                     <li className="navbar__item">
-                        <NavLink to="/projects/" className="navbar__link" onClick={handleNavLinkClick} >
+                        <NavLink to="/explore/" className="navbar__link" onClick={handleNavLinkClick} >
                             <span className="navbar__link--first hidden-large">02</span>
                             <span className="navbar__link--second">Explore</span>
                         </NavLink>
@@ -48,7 +48,7 @@ const Header = () => {
                 </ul>
             </nav>
 
-        </div>
+        </header>
     );
 }
 
