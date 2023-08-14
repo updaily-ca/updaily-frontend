@@ -1,0 +1,43 @@
+@use "../../styles/mixins.scss" as *;
+@use "../../styles/colours.scss" as *;
+
+.register {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 1rem;
+    gap: 1.5rem;
+    &__title {
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
+    &__selections{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 80%;
+    }
+    &__selection {
+        border: solid 2px $shade-4;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        border-radius: 1rem;
+        padding: 1rem 0;
+        cursor: pointer;
+        &:hover{
+            border: solid 2px $red;
+            color: $red;
+            transition: all 0.3s;
+        }
+    }
+}
+.selection {
+    &__img {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+}

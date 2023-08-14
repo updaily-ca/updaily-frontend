@@ -1,0 +1,10 @@
+@use "../../../styles/colours.scss" as *;
+
+.next-btn {
+    background-color: $red;
+    color: white;
+    border: none;
+    padding: 0.3rem 1.5rem;
+    border-radius: 0.3rem;
+    font-weight: 500;
+}
