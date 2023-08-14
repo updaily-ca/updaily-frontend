@@ -12,17 +12,21 @@ const Header = () => {
     };
 
     return (
-        <header id='header'>
-            <Link className="headerlogo" to={"/"} onClick={handleNavLinkClick}>
-                UpDaily
-            </Link>
+        <header className='header'>
 
-            {/* Hamburger menu */}
-            <div className={`hamburger ${isHamburgerOpen ? 'active' : ''}`} onClick={toggleHamburger}>
-                <span className="hamburger__bar hamburger__bar--1"></span>
-                <span className="hamburger__bar hamburger__bar--2"></span>
-                <span className="hamburger__bar hamburger__bar--3"></span>
+            <div className="header__group">
+                <Link className="header__logo" to={"/"} onClick={handleNavLinkClick}>
+                    UpDaily
+                </Link>
+
+                {/* Hamburger menu */}
+                <div className={`hamburger ${isHamburgerOpen ? 'active' : ''}`} onClick={toggleHamburger}>
+                    <span className="hamburger__bar hamburger__bar--1"></span>
+                    <span className="hamburger__bar hamburger__bar--2"></span>
+                    <span className="hamburger__bar hamburger__bar--3"></span>
+                </div>
             </div>
+
 
             {/* Navbar */}
             <nav className={`navbar ${isHamburgerOpen ? 'active' : ''}`}>
