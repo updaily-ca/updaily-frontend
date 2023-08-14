@@ -1,6 +1,8 @@
 import "./RegisterFormPage.scss";
 import {useParams} from "react-router-dom";
 import {useState} from "react";
+// Library
+import {Line} from "rc-progress";
 // Component
 import NextButton from "../../components/global/NextButton/NextButton";
 // Import Forms
@@ -34,6 +36,13 @@ const RegisterFormPage = () => {
             {/* Title */}
             <h1 className="register-form__title">Let's get you set up in a few steps!</h1>
             {/* Progress Bar */}
+            <Line className="progress-bar" 
+                percent={type === "Event" ? currentPage*25 : currentPage*20} 
+                strokeWidth={3}  
+                trailWidth={3} 
+                strokeColor="#FF3125"
+            />
+
             {/* Submission Form */}
 
             {/* General Form */}
