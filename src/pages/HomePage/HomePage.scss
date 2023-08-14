@@ -1,0 +1,53 @@
+@use '../../styles/colours.scss' as *;
+@use '../../styles/mixins.scss' as *;
+@use '../../styles/global.scss' as *;
+
+#p-home-page {
+    display: flex;
+    justify-content: center;
+}
+
+.home-hero {
+
+    font-size: 1.5rem;
+    text-align: center;
+
+    &__title {
+        margin-top: 2rem;
+    }
+
+    &__description {
+        font-size: 1rem;
+        color: $shade-2;
+        padding: 2rem 0;
+    }
+}
+
+.home-search {
+
+    background: url("../../asset/home/search-icon.png") top left no-repeat;
+
+    &__input {
+        width: 80%;
+        box-sizing: border-box;
+        padding: 0 2rem;
+        height: 2.3rem;
+        border: thin solid $search-border;
+        border-radius: 2rem;
+
+        @include tablet {
+            width: 32rem;
+        }
+    }
+
+    &__icon {
+        width: 1.5rem;
+        height: 1.5rem;
+        background-color: red;
+        position: absolute;
+        margin-left: -2.5rem;
+        margin-top: 0.25rem;
+        border-radius: 2rem;
+        padding: 0.25rem;
+    }
+}
