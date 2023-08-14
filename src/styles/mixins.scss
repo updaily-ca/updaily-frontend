@@ -24,30 +24,34 @@ $highres-width: 1600px;
 
 // Register Main page
 @mixin selection($color) {
-    border: solid 2px $color;
+    border: solid $px2 $color;
     display: flex;
     justify-content: space-around;
     align-items: center;
     border-radius: 1rem;
     padding: 1rem 0;
     cursor: pointer;
-    &:hover{
-        border: solid 2px $red;
-        color: $red;
+
+    &:hover {
+        border: solid $px2 $coloured-bright;
+        color: $coloured-bright;
         transition: all 0.3s;
     }
+
     &__img {
         width: 2.5rem;
         height: 2.5rem;
     }
-    @include tablet{
+
+    @include tablet {
         flex-direction: column;
         gap: 1rem;
         width: 50%;
         padding: 1.5rem 0;
     }
 }
-@mixin center{
+
+@mixin center {
     display: flex;
     height: 100vh;
     flex-direction: column;
