@@ -19,6 +19,13 @@ const Header = () => {
                 UpDaily
             </Link>
 
+            {/* Hamburger menu */}
+            <div className={`hamburger ${isHamburgerOpen ? 'active' : ''}`} onClick={toggleHamburger}>
+                <span className="hamburger__bar hamburger__bar-1"></span>
+                <span className="hamburger__bar hamburger__bar-2"></span>
+                <span className="hamburger__bar hamburger__bar-3"></span>
+            </div>
+
             {/* Navbar */}
             <nav className={`navbar ${isHamburgerOpen ? 'active' : ''}`}>
                 <ul className='navbar__list'>
@@ -40,12 +47,6 @@ const Header = () => {
                 </ul>
             </nav>
 
-            {/* Hamburger menu */}
-            <div className={`hamburger ${isHamburgerOpen ? 'active' : ''}`} onClick={toggleHamburger}>
-                <span className="hamburger__bar hamburger__bar-1"></span>
-                <span className="hamburger__bar hamburger__bar-2"></span>
-                <span className="hamburger__bar hamburger__bar-3"></span>
-            </div>
         </div>
     );
 }
