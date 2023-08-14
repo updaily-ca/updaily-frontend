@@ -13,12 +13,12 @@ function App() {
 
   return (
     <Router>
-      {/* Commenet Header out until the Header code is complete */}
-      {/* <Header /> */}
+      {/* Comment Header out until the Header code is complete */}
+      <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/register/:type" element={<RegisterFormPage />} />
+        {/* <Route path="/register" element={<Register />} /> */}
+        {/* <Route path="/register/:type" element={<RegisterFormPage />} /> */}
       </Routes>
     </Router>
   );

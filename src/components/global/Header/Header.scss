@@ -10,6 +10,7 @@
         font-size: $px28;
         font-weight: medium;
         text-decoration: none;
+        color: $dark;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -22,6 +23,10 @@
         &--second {
             margin-right: 1rem;
         }
+    }
+
+    .active {
+        color: $coloured-bright;
     }
 
 }
