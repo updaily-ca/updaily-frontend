@@ -2,6 +2,30 @@
 @use '../../../styles/mixins.scss' as *;
 @use '../../../styles/global.scss' as *;
 
+
+.navbar {
+
+    &__link {
+
+        font-size: $px28;
+        font-weight: medium;
+        text-decoration: none;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 2rem;
+
+        &--first {
+            margin-left: 1rem;
+        }
+
+        &--second {
+            margin-right: 1rem;
+        }
+    }
+
+}
+
 .hamburger {
     display: flex;
     flex-direction: row;
@@ -24,12 +48,12 @@
         border-radius: 2rem;
     }
 
-    &.active &__bar-1 {
+    &.active &__bar--1 {
         width: 1.5rem;
     }
 
-    &.active &__bar-2,
-    &.active &__bar-3 {
+    &.active &__bar--2,
+    &.active &__bar--3 {
         margin-right: -2rem;
     }
 
