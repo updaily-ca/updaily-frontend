@@ -10,6 +10,7 @@
 
     @include tablet {
         flex-direction: row;
+        padding: 0 2rem;
     }
 
     &__group {
@@ -29,6 +30,10 @@
         font-size: $px26;
         font-weight: 500;
         text-decoration: none;
+
+        @include tablet {
+            font-size: $px24;
+        }
     }
 
 }
@@ -82,7 +87,8 @@
 
     @include tablet {
         height: unset;
-        margin-left: 0;
+        // margin-left: 0;
+        padding: 1.5rem 0;
         display: flex;
         flex-direction: row;
         background-color: transparent;
@@ -108,6 +114,7 @@
             margin-top: 0;
             display: flex;
             flex-direction: row;
+            align-items: center;
         }
     }
 
@@ -131,7 +138,15 @@
         margin-top: 3rem;
 
         @include tablet {
+            font-size: 1rem;
             margin: 0;
+        }
+
+        &--register {
+            color: $bright;
+            background-color: $coloured-bright;
+            padding: 0.1rem 1rem;
+            border-radius: 1rem;
         }
 
         &--first {
