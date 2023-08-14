@@ -12,6 +12,7 @@ const Register = () => {
     const [selectedCategory, setSelectedCategory] = useState("");
     
     const navigate = useNavigate();
+    
     // Handle Submit
     const handleSubmit = () : void => {
         // Check if the category is selected

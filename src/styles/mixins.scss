@@ -23,8 +23,8 @@ $highres-width: 1600px;
 }
 
 // Register Main page
-@mixin selection($border-color) {
-    border: solid 2px $border-color;
+@mixin selection($color) {
+    border: solid 2px $color;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -46,4 +46,13 @@ $highres-width: 1600px;
         width: 50%;
         padding: 1.5rem 0;
     }
+}
+@mixin center{
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 1rem;
 }
