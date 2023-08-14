@@ -12,7 +12,7 @@ const Register = () => {
     const [selectedCategory, setSelectedCategory] = useState("");
     
     const navigate = useNavigate();
-    
+
     // Handle Submit
     const handleSubmit = () : void => {
         // Check if the category is selected
@@ -45,7 +45,7 @@ const Register = () => {
                     <p className="selection__title">Event</p>
                 </div>
             </div>
-            <NextButton handleNext={handleSubmit} />
+            <NextButton handleNext={handleSubmit} text="Next" />
             {/* Login link */}
             <p className="register__login">Already have an account? <a href="#" className="register__highlight">Login</a></p>
         </main>

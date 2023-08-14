@@ -19,7 +19,15 @@ const RegisterFormPage = () => {
     
     // Handle next
     const handleNext = (): void => {
-        setCurrentPage(currentPage+1);
+        // Skip form 4 if it is event type
+        if(currentPage === 3 && type === "Event") {
+            setCurrentPage(currentPage+2);
+        } else {
+            setCurrentPage(currentPage+1);
+        }
+    }
+    const handleSubmit = (): void => {
+
     }
     return (
         <div className="register-form">
@@ -27,13 +35,30 @@ const RegisterFormPage = () => {
             <h1 className="register-form__title">Let's get you set up in a few steps!</h1>
             {/* Progress Bar */}
             {/* Submission Form */}
+
+            {/* General Form */}
             {currentPage === 1 && <Form1 /> }
+
+            {/* Photo Form */}
             {currentPage === 2 && <Form2 /> }
+
+            {/* Detail Form */}
             {currentPage === 3 && <Form3 /> }
+
+            {/* Menu Form */}
             {currentPage === 4 && <Form4 /> }
+
+            {/* Set Up Account Form */}
             {currentPage === 5 && <Form5 /> }
+
             {/* Next Button */}
-            <NextButton handleNext={handleNext} />
+            {
+                currentPage === 5 ? (
+                    <NextButton text="Submit" handleNext={handleSubmit}/> 
+                ) : (
+                    <NextButton text="Next" handleNext={handleNext}/>
+                )
+            }
         </div>
     )
 }
