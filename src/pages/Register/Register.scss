@@ -1,0 +1,54 @@
+@use "../../styles/mixins.scss" as *;
+@use "../../styles/colours.scss" as *;
+
+.register {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 1rem;
+    gap: 1.5rem;
+    @include tablet {
+        gap: 2.5rem;
+    }
+    &__title {
+        font-size: 1.5rem;
+        font-weight: 500;
+        line-height: 2.5rem;
+        @include tablet{
+            font-size: 2rem;
+            padding: 0 15%;
+            line-height: 3rem;
+        }
+    }
+    &__highlight {
+        color: $red;
+    }
+    &__subtitle {
+        @include tablet{
+            font-size: 1.2rem;
+        }
+    };
+    &__selections{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 80%;
+        max-width: 20rem;
+        @include tablet{
+            flex-direction: row;
+        }
+    }
+    &__selection {
+        @include selection($shade-4);
+    }
+    &__selection--active {
+        @include selection($red);
+        color: $red;
+    }
+    &__login {
+        font-size: 0.9rem;
+    }
+}
