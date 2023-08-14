@@ -31,7 +31,7 @@ const Header = () => {
             {/* Navbar */}
             <nav className={`navbar ${isHamburgerOpen ? 'active' : ''}`}>
                 <ul className='navbar__list'>
-                    <li className={`navbar__item navbar__item-1 navbar__item-1`}>
+                    <li className={`navbar__item`}>
                         <NavLink to="/" className="navbar__link" onClick={handleNavLinkClick}>
                             <span className="navbar__link--first hidden-large">01</span>
                             <span className="navbar__link--second">Home</span>
