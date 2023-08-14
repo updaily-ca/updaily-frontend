@@ -24,7 +24,7 @@
         }
     }
     &__highlight {
-        color: $red;
+        color: $coloured-bright;
     }
     &__subtitle {
         @include tablet{
@@ -45,8 +45,8 @@
         @include selection($shade-4);
     }
     &__selection--active {
-        @include selection($red);
-        color: $red;
+        @include selection($coloured-bright);
+        color: $coloured-bright;
     }
     &__login {
         font-size: 0.9rem;

@@ -32,8 +32,8 @@ $highres-width: 1600px;
     padding: 1rem 0;
     cursor: pointer;
     &:hover{
-        border: solid 2px $red;
-        color: $red;
+        border: solid 2px $coloured-bright;
+        color: $coloured-bright;
         transition: all 0.3s;
     }
     &__img {
