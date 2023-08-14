@@ -1,18 +1,21 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDocumentTitle } from './utils/functions';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import './App.css';
+
+import HomePage from './pages/HomePage/HomePage';
 
 function App() {
 
   useDocumentTitle('UpDaily.ca');
 
   return (
-    <div className="App">
-      <header className="App-header">
-
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
+    </Router>
   );
 }
 
