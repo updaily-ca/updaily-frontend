@@ -1,4 +1,5 @@
 import { useDocumentTitle } from "../../utils/functions";
+import { useState } from "react";
 
 
 import './HomePage.scss';
@@ -8,6 +9,18 @@ import searchIcon from '../../asset/home/search-icon.png';
 const HomePage = () => {
     useDocumentTitle("Home Page")
 
+    const [searchTerm, setSearchTerm] = useState<string>('');
+
+    const performSearch = () => {
+        console.log(`Searching: ${searchTerm}`);
+    };
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            performSearch();
+        }
+    };
+
     return (
         <div id="p-home-page">
 
@@ -16,9 +29,15 @@ const HomePage = () => {
                 <p className="home-hero__description">Search for restaurants, events or businesses in Vancouver.</p>
 
                 <div className="home-search">
-                    <input type="text" className="home-search__input" placeholder="Search...">
-                    </input>
-                    <div className="home-search__btn">
+                    <input
+                        type="text"
+                        className="home-search__input"
+                        placeholder="...restaurant name"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                    />
+                    <div className="home-search__btn" onClick={performSearch}>
                         <img className="home-search__btn--icon" src={searchIcon} />
                         <span className="home-search__btn--search">Search</span></div>
 
