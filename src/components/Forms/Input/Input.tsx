@@ -1,22 +1,16 @@
-import React from 'react'
+import "./Input.scss";
 
 interface InputProps {
     id: string,
     name: string,
-    value: string | number | undefined,
-    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    value: string | number
+    handleChange: (newValue: string) => void
 }
-const Input = ({name, id, value, handleChange}: InputProps) => {
+const Input = ({id, name, value, handleChange}: InputProps) => {
     return (
         <div className="input">
             <label htmlFor={id} className="input__label">{name}</label>
-            <input 
-                id={id} 
-                type="text" 
-                className="input__input" 
-                value={value}
-                onChange={(e)=>handleChange(e)}
-            />
+            <input className="input__input" id={id} value={value} onChange={(e)=>handleChange(e.target.value)}/>
         </div>
     )
 }

@@ -17,18 +17,29 @@ import Form5 from "../../components/Forms/Form5/Form5";
 interface FormContextType {
     // Form 1
     event: string,
-    setEvent: React.Dispatch<React.SetStateAction<string>>,
+    setEvent: (newValue: string) => void,
     email: string,
-    setEmail: React.Dispatch<React.SetStateAction<string>>,
+    setEmail: (newValue: string) => void,
     host: string,
-    setHost: React.Dispatch<React.SetStateAction<string>>,
+    setHost: (newValue: string) => void,
     location: string, 
-    setLocation: React.Dispatch<React.SetStateAction<string>>,
+    setLocation: (newValue: string) => void,
     website: string,
-    setWebsite: React.Dispatch<React.SetStateAction<string>>,
+    setWebsite: (newValue: string) => void,
 }
 
-export const FormContext = createContext<FormContextType | null>(null);
+export const FormContext = createContext<FormContextType>({
+    event: "",
+    setEvent: () => {},
+    email: "",
+    setEmail: () => {},
+    location: "",
+    setLocation: () => {},
+    host: "",
+    setHost: () => {},
+    website: "",
+    setWebsite: () => {}
+});
 
 const RegisterFormPage = () => {
     // Event or business type from param

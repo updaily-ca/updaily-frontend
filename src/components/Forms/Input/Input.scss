@@ -1,0 +1,17 @@
+@use "../../../styles/colours.scss" as *;
+@use "../../../styles/mixins.scss" as *;
+
+.input {
+    display:flex;
+    flex-direction: column;
+    &__label {
+        color: $shade-1;
+        font-size: 0.9rem;
+        margin-bottom: 0.3rem;
+    }
+    &__input {
+        border: solid 1px $search-border;
+        border-radius: 0.2rem;
+        padding: 0.3rem 0.5rem;
+    }
+}
