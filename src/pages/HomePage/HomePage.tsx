@@ -5,6 +5,7 @@ import './HomePage.scss';
 
 import searchIcon from '../../asset/home/search-icon.png';
 import SearchCards from "../../components/global/SearchCards/SearchCards";
+import FilterButton from "../../components/global/FilterButton/FilterButton";
 
 const HomePage = () => {
     useDocumentTitle("Home Page")
@@ -67,6 +68,8 @@ const HomePage = () => {
             </section>
 
             <SearchCards />
+
+            <FilterButton />
 
         </div>
     )
