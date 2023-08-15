@@ -18,7 +18,10 @@ const HomePage = () => {
                 <div className="home-search">
                     <input type="text" className="home-search__input" placeholder="Search...">
                     </input>
-                    <img className="home-search__icon" src={searchIcon} />
+                    <div className="home-search__btn">
+                        <img className="home-search__btn--icon" src={searchIcon} />
+                        <span className="home-search__btn--search">Search</span></div>
+
                 </div>
             </section>
 

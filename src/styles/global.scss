@@ -32,9 +32,15 @@ $px120: 7.5rem;
     display: none;
 }
 
-.hidden-large {
+.hidden-tablet {
 
     @include tablet {
+        display: none;
+    }
+}
+
+.hidden-desktop {
+    @include desktop {
         display: none;
     }
 }

@@ -25,12 +25,18 @@
 
 .home-search {
 
-    background: url("../../asset/home/search-icon.png") top left no-repeat;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
 
     &__input {
-        width: 80%;
+        width: 85%;
         box-sizing: border-box;
-        padding: 0 2rem;
+        font-size: 1.2rem;
+        color: $shade-1;
+        padding: 0 0.75rem;
+        line-height: 0.5rem;
         height: 2.3rem;
         border: thin solid $search-border;
         border-radius: 2rem;
@@ -40,14 +46,42 @@
         }
     }
 
-    &__icon {
-        width: 1.5rem;
-        height: 1.5rem;
-        background-color: red;
-        position: absolute;
-        margin-left: -2.5rem;
-        margin-top: 0.25rem;
+    &__btn {
+        box-sizing: border-box;
+        color: $bright;
+        background-color: $coloured;
+        font-size: 1rem;
+        line-height: 1.5rem;
+        height: 1.8rem;
+        background-color: $coloured;
         border-radius: 2rem;
-        padding: 0.25rem;
+        margin-left: -2rem;
+
+        @include desktop {
+            height: 1.6rem;
+            width: 6rem;
+            margin-left: -6.4rem;
+
+        }
+
+        &--icon {
+            margin-left: auto;
+            box-sizing: border-box;
+            width: 1.8rem;
+            padding: 0.25rem;
+
+            @include desktop {
+                display: none;
+            }
+        }
+
+        &--search {
+            display: none;
+
+            @include desktop {
+                display: unset;
+            }
+        }
+
     }
 }
