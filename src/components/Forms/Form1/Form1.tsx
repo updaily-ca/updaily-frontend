@@ -6,15 +6,12 @@ import Input from "../Input/Input";
 // Context
 import { FormContext } from '../../../pages/RegisterFormPage/RegisterFormPage';
 
-interface Form1Prop {
-    handleNext: () => void
-}
 
-const Form1 = ({handleNext}: Form1Prop) => {
-    const {event, setEvent, email, setEmail, host, setHost, location, setLocation, website, setWebsite} = useContext(FormContext);
+const Form1 = () => {
+    const {event, setEvent, email, setEmail, host, setHost, location, setLocation, website, setWebsite, handleBack, handleNext} = useContext(FormContext);
 
     return (
-        <FormContainer name="General Information" handleNext={handleNext}>
+        <FormContainer name="General Information" handleBack={handleBack} handleNext={handleNext}>
             <div className="form-children">
                     <Input id="event" name="Event Name" value={event} handleChange={setEvent} />
                     <Input id="email" name="Email" value={email} handleChange={setEmail} />

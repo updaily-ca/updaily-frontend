@@ -1,5 +1,5 @@
 import "./RegisterFormPage.scss";
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import {useState, createContext} from "react";
 // Library
 import {Line} from "rc-progress";
@@ -26,6 +26,15 @@ interface FormContextType {
     setLocation: (newValue: string) => void,
     website: string,
     setWebsite: (newValue: string) => void,
+    // Form 5
+    pwd: string,
+    setPwd: (newValue: string) => void,
+    matchPwd: string,
+    setMatchPwd: (newValue: string) => void,
+    handleBack: () => void,
+    handleNext: () => void,
+    // Current Page
+    currentPage: number
 }
 
 export const FormContext = createContext<FormContextType>({
@@ -38,10 +47,21 @@ export const FormContext = createContext<FormContextType>({
     host: "",
     setHost: () => {},
     website: "",
-    setWebsite: () => {}
+    setWebsite: () => {},
+    pwd: "",
+    setPwd: () => {},
+    matchPwd: "",
+    setMatchPwd: () => {},
+    handleBack: () => {},
+    handleNext: () => {},
+    currentPage: 1
+
 });
 
 const RegisterFormPage = () => {
+    // useNavgite
+    const navigate = useNavigate();
+ 
     // Event or business type from param
     const {type} = useParams();
 
@@ -52,30 +72,26 @@ const RegisterFormPage = () => {
     const [host, setHost] = useState("");
     const [location, setLocation] = useState("");
     const [website, setWebsite] = useState("");
-
+    // Form5
+    const [pwd, setPwd] = useState("");
+    const [matchPwd, setMatchPwd] = useState("");
 
     // State to keep track of current page
     const [currentPage, setCurrentPage] = useState(1);
     
     // Handle next
     const handleNext = (): void => {
-        // Skip form 4 if it is event type
-        if(currentPage === 3 && type === "Event") {
-            setCurrentPage(currentPage+2);
-        } else {
-            setCurrentPage(currentPage+1);
-        }
+        setCurrentPage(currentPage+1);
     }
 
     // Handle back 
     const handleBack = (): void => {
+
         // Skip form 4 if it is event type
         if(currentPage !== 1) {
-            if(currentPage === 3 && type === "Event") {
-                setCurrentPage(currentPage-2);
-            } else {
-                setCurrentPage(currentPage-1);
-            }
+            setCurrentPage(currentPage-1);
+        } else {
+            navigate(-1);
         }
     }
 
@@ -89,7 +105,7 @@ const RegisterFormPage = () => {
                 <h1 className="register-form__title">Let's get you set up in a few steps!</h1>
                 {/* Progress Bar */}
                 <Line className="progress-bar" 
-                    percent={type === "Event" ? currentPage*25 : currentPage*20} 
+                    percent={currentPage*20} 
                     strokeWidth={3}  
                     trailWidth={3} 
                     strokeColor="#FF3125"
@@ -98,11 +114,11 @@ const RegisterFormPage = () => {
             
             {/* Submission Form */}
             <FormContext.Provider value={
-                {event, setEvent, email, setEmail, host, setHost, location,setLocation, website, setWebsite}
+                {event, setEvent, email, setEmail, host, setHost, location,setLocation, website, setWebsite, handleBack, handleNext, pwd, setPwd, matchPwd, setMatchPwd, currentPage}
             }  
             >
                 {/* General Form */}
-                {currentPage === 1 && <Form1 handleNext={handleNext}/> }
+                {currentPage === 1 && <Form1/> }
 
                 {/* Photo Form */}
                 {currentPage === 2 && <Form2 /> }
@@ -114,7 +130,7 @@ const RegisterFormPage = () => {
                 {currentPage === 4 && <Form4 /> }
 
                 {/* Set Up Account Form */}
-                {currentPage === 5 && <Form5 /> }
+                {currentPage === 5 && <Form5 handleSubmit={handleSubmit} /> }
             </FormContext.Provider>
         </div>
     )

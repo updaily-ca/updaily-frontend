@@ -4,6 +4,9 @@ import "./FormContainer.scss";
 import back_icon from "../../../asset/register/icons8-back-arrow-48.png";
 // Component
 import NextButton from "../../global/NextButton/NextButton";
+// Context
+import { FormContext } from "../../../pages/RegisterFormPage/RegisterFormPage";
+import { useContext } from "react";
 
 interface FormContainerProps {
     handleSubmit?: () => void,
@@ -14,6 +17,8 @@ interface FormContainerProps {
 }
 
 const FormContainer = ({handleSubmit, handleNext, children, handleBack, name}: FormContainerProps) => {
+    const {currentPage} = useContext(FormContext);
+
     return (
         <form className="form-container" onSubmit={handleSubmit}>
             {/* Header of Form */}
@@ -23,7 +28,10 @@ const FormContainer = ({handleSubmit, handleNext, children, handleBack, name}: F
             </div>
             {children}
             {/* Next Button */}
-            <NextButton text="Next" handleNext={handleNext} />
+            {
+                currentPage === 5 ? <NextButton text="Submit" handleNext={handleSubmit} /> : <NextButton text="Next" handleNext={handleNext} />
+            }
+            
         </form>
     )
 }

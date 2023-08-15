@@ -1,7 +1,7 @@
 @use "../../../styles/mixins.scss" as *;
 
 .form-children {
-    margin-bottom: 1.5rem;
+    margin: 1.5rem 0;
     text-align: start;
     display: flex;
     flex-direction: column;

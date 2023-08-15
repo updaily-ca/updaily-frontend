@@ -12,6 +12,9 @@
     @include desktop{
         margin: 3rem 25% 0 25%;
     }
+    @include highres{
+        margin: 3rem 30% 0 30%;
+    }
     &__header{
         display: flex;
         align-items: center;
