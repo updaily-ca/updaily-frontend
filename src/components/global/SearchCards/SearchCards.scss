@@ -1,0 +1,10 @@
+@use '../../../styles/colours.scss' as *;
+
+.c-search {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-card {
+    background-color: red;
+}

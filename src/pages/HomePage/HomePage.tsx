@@ -4,6 +4,7 @@ import { useState } from "react";
 import './HomePage.scss';
 
 import searchIcon from '../../asset/home/search-icon.png';
+import SearchCards from "../../components/global/SearchCards/SearchCards";
 
 const HomePage = () => {
     useDocumentTitle("Home Page")
@@ -64,6 +65,8 @@ const HomePage = () => {
 
                 </div>
             </section>
+
+            <SearchCards />
 
         </div>
     )
