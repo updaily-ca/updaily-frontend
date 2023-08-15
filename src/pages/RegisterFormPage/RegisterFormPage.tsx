@@ -28,6 +28,18 @@ const RegisterFormPage = () => {
             setCurrentPage(currentPage+1);
         }
     }
+    // Handle back 
+    const handleBack = (): void => {
+        // Skip form 4 if it is event type
+        if(currentPage !== 1) {
+            if(currentPage === 3 && type === "Event") {
+                setCurrentPage(currentPage-2);
+            } else {
+                setCurrentPage(currentPage-1);
+            }
+        }
+    }
+
     const handleSubmit = (): void => {
 
     }
@@ -46,7 +58,7 @@ const RegisterFormPage = () => {
             {/* Submission Form */}
 
             {/* General Form */}
-            {currentPage === 1 && <Form1 /> }
+            {currentPage === 1 && <Form1 handleNext={handleNext}/> }
 
             {/* Photo Form */}
             {currentPage === 2 && <Form2 /> }

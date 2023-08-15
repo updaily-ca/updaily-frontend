@@ -1,10 +1,15 @@
 import React from 'react'
+import FormContainer from '../FormContainer/FormContainer';
 
-const Form1 = () => {
+
+interface Form1Prop {
+    handleNext: () => void
+}
+const Form1 = ({handleNext}: Form1Prop) => {
     return (
-        <div>
-        Form1
-        </div>
+        <FormContainer name="General Information" handleNext={handleNext}>
+
+        </FormContainer>
     )
 }
 
