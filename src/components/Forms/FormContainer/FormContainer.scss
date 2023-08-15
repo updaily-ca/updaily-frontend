@@ -1,0 +1,30 @@
+@use "../../../styles/mixins.scss" as *;
+@use "../../../styles/colours.scss" as *;
+
+.form-container {
+    margin-top: 3rem;
+    @include tablet {
+        padding: 1.5rem;
+        border: solid 1px $search-border;
+        border-radius: 0.5rem;
+        margin: 3rem 10% 0 10%;
+    }
+    @include desktop{
+        margin: 3rem 25% 0 25%;
+    }
+    @include highres{
+        margin: 3rem 30% 0 30%;
+    }
+    &__header{
+        display: flex;
+        align-items: center;
+    }
+    &__back-icon {
+        width: 30px;
+        cursor: pointer;
+        &:hover {
+            scale: 1.2;
+            transition: all 0.5s;
+        }
+    }
+}
