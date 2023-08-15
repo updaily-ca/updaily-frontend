@@ -3,8 +3,6 @@ import {useParams, useNavigate} from "react-router-dom";
 import {useState, createContext} from "react";
 // Library
 import {Line} from "rc-progress";
-// Component
-import NextButton from "../../components/global/NextButton/NextButton";
 // Import Forms
 import Form1 from "../../components/Forms/Form1/Form1";
 import Form2 from "../../components/Forms/Form2/Form2";
@@ -72,6 +70,10 @@ const RegisterFormPage = () => {
     const [host, setHost] = useState("");
     const [location, setLocation] = useState("");
     const [website, setWebsite] = useState("");
+    // Form4
+    const [accessibility1,setAccessibility1] = useState("");
+    const [accessibility2,setAccessibility2] = useState("");
+    const [accessibility3,setAccessibility3] = useState("");
     // Form5
     const [pwd, setPwd] = useState("");
     const [matchPwd, setMatchPwd] = useState("");
@@ -126,11 +128,11 @@ const RegisterFormPage = () => {
                 {/* Detail Form */}
                 {currentPage === 3 && <Form3 /> }
 
-                {/* Menu Form */}
-                {currentPage === 4 && <Form4 /> }
+                {/* Menu Form or Accessibility */}
+                {currentPage === 4 && <Form4/> }
 
                 {/* Set Up Account Form */}
-                {currentPage === 5 && <Form5 handleSubmit={handleSubmit} /> }
+                {currentPage === 5 && <Form5 handleSubmit={handleSubmit}/> }
             </FormContext.Provider>
         </div>
     )
