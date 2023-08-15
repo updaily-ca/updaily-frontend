@@ -10,18 +10,37 @@
     margin: auto;
     display: flex;
     flex-direction: column;
-    background-color: rgb(220, 220, 220);
-    width: 90%;
+    width: 15.3125rem;
+    padding: 1rem;
+    border: thin solid $search-border;
+    border-radius: $px5;
 
     &__title {
+        color: $dark;
         font-size: 1.2rem;
+        font-weight: 500;
+        margin-top: 1rem;
     }
 
-    &__photo--image {
-        width: 100%;
-        // height: 10rem;
+    &__photo {
         order: -1;
-        border-radius: $px5;
+
+        &--image {
+            width: 100%;
+            // height: 10rem;
+            border-radius: $px5;
+        }
+    }
+
+    &__location {
+        color: $shade-2;
+        font-size: $px12;
+        margin-top: 0.5rem;
+    }
+
+    &__description {
+        margin-top: 1rem;
+        font-size: $px12;
     }
 
     &__arrow {
