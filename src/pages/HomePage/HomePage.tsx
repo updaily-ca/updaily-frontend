@@ -1,18 +1,40 @@
 import { useDocumentTitle } from "../../utils/functions";
 import { useState } from "react";
 
-
 import './HomePage.scss';
 
 import searchIcon from '../../asset/home/search-icon.png';
+import SearchCards from "../../components/global/SearchCards/SearchCards";
 
 const HomePage = () => {
     useDocumentTitle("Home Page")
 
     const [searchTerm, setSearchTerm] = useState<string>('');
+    const [prevSearchTerm, setPrevSearchTerm] = useState<string>('');
 
     const performSearch = () => {
-        console.log(`Searching: ${searchTerm}`);
+
+
+        if (searchTerm.trim() === '') {
+            console.log('Enter a search term');
+            return;
+        }
+
+        if (searchTerm === prevSearchTerm) {
+            console.log('Search something new');
+            return;
+        }
+
+        if (searchTerm.trim() !== '') {
+            console.log(`Searching: ${searchTerm}`);
+
+            setPrevSearchTerm(searchTerm);
+        }
+
+        else {
+            console.log('Search error');
+        }
+
     };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -32,7 +54,7 @@ const HomePage = () => {
                     <input
                         type="text"
                         className="home-search__input"
-                        placeholder="...restaurant name"
+                        placeholder=""
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         onKeyDown={handleKeyDown}
@@ -43,6 +65,8 @@ const HomePage = () => {
 
                 </div>
             </section>
+
+            <SearchCards />
 
         </div>
     )
