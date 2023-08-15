@@ -1,0 +1,164 @@
+@use '../../../styles/colours.scss' as *;
+@use '../../../styles/mixins.scss' as *;
+@use '../../../styles/global.scss' as *;
+
+
+.header {
+
+    display: flex;
+    flex-direction: column;
+
+    @include tablet {
+        flex-direction: row;
+        padding: 0 2rem;
+    }
+
+    &__group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2rem;
+        padding-bottom: 0;
+        z-index: 2;
+
+        @include tablet {
+            padding: 0;
+        }
+    }
+
+    &__logo {
+        color: $coloured-bright;
+        font-size: $px26;
+        font-weight: 500;
+        text-decoration: none;
+
+        @include tablet {
+            font-size: $px24;
+        }
+    }
+
+}
+
+.hamburger {
+    display: flex;
+    flex-direction: row;
+    width: 3rem;
+    gap: 0.25rem;
+    overflow: hidden;
+    justify-content: flex-end;
+
+    @include tablet {
+        display: none;
+    }
+
+    &__bar {
+        display: block;
+        width: 0.5rem;
+        height: 0.5rem;
+        -webkit-transition: all .3s ease-in-out;
+        transition: all .3s ease-in-out;
+        background-color: $hamburger-bar;
+        border-radius: 2rem;
+    }
+
+    &.active &__bar--1 {
+        background-color: red;
+        width: 1.5rem;
+    }
+
+    &.active &__bar--2,
+    &.active &__bar--3 {
+        margin-right: -0.75rem;
+    }
+
+}
+
+.navbar {
+
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.125s cubic-bezier(0.79, 0.15, 0.4, 0.88);
+    height: 100dvh;
+    width: 100%;
+    background-color: $bright;
+    position: absolute;
+    top: 0;
+    margin-left: -4rem;
+
+    @include tablet {
+        height: unset;
+        padding: 1.5rem 0;
+        display: flex;
+        flex-direction: row;
+        background-color: transparent;
+        opacity: 1;
+        pointer-events: all;
+        justify-content: flex-end;
+        position: unset;
+    }
+
+    &.active {
+        opacity: 1;
+        pointer-events: all;
+        left: 0;
+        margin-left: 0;
+        z-index: 1;
+    }
+
+    &__list {
+        margin-top: 8rem;
+        list-style-type: none;
+
+        @include tablet {
+            margin-top: 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+
+    &__item {
+        margin-top: 4rem;
+
+        @include tablet {
+            margin-top: unset;
+        }
+    }
+
+    &__link {
+
+        font-size: $px28;
+        font-weight: medium;
+        text-decoration: none;
+        color: $dark;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 3rem;
+
+        @include tablet {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        &--register {
+            color: $bright;
+            background-color: $coloured-bright;
+            padding: 0.1rem 1rem;
+            border-radius: 1rem;
+        }
+
+        &--first {
+            margin-left: 2rem;
+        }
+
+        &--second {
+            margin-right: 2rem;
+        }
+    }
+
+    .active {
+        color: $coloured-bright;
+    }
+
+}

@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "UpDaily",
+  "name": "UpDaily makes exploring Vancouver quick and easy.",
   "icons": [
     {
       "src": "favicon.ico",
