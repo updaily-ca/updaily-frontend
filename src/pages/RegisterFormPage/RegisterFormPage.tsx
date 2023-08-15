@@ -1,6 +1,6 @@
 import "./RegisterFormPage.scss";
 import {useParams} from "react-router-dom";
-import {useState} from "react";
+import {useState, createContext} from "react";
 // Library
 import {Line} from "rc-progress";
 // Component
@@ -12,9 +12,36 @@ import Form3 from "../../components/Forms/Form3/Form3";
 import Form4 from "../../components/Forms/Form4/Form4";
 import Form5 from "../../components/Forms/Form5/Form5";
 
+
+// Interface to define context
+interface FormContextType {
+    // Form 1
+    event: string,
+    setEvent: React.Dispatch<React.SetStateAction<string>>,
+    email: string,
+    setEmail: React.Dispatch<React.SetStateAction<string>>,
+    host: string,
+    setHost: React.Dispatch<React.SetStateAction<string>>,
+    location: string, 
+    setLocation: React.Dispatch<React.SetStateAction<string>>,
+    website: string,
+    setWebsite: React.Dispatch<React.SetStateAction<string>>,
+}
+
+export const FormContext = createContext<FormContextType | null>(null);
+
 const RegisterFormPage = () => {
     // Event or business type from param
     const {type} = useParams();
+
+    // States to keep track information of the form - event
+    // Form 1
+    const [event, setEvent] = useState("");
+    const [email, setEmail] = useState("");
+    const [host, setHost] = useState("");
+    const [location, setLocation] = useState("");
+    const [website, setWebsite] = useState("");
+
 
     // State to keep track of current page
     const [currentPage, setCurrentPage] = useState(1);
@@ -28,6 +55,7 @@ const RegisterFormPage = () => {
             setCurrentPage(currentPage+1);
         }
     }
+
     // Handle back 
     const handleBack = (): void => {
         // Skip form 4 if it is event type
@@ -58,21 +86,25 @@ const RegisterFormPage = () => {
             </div>
             
             {/* Submission Form */}
+            <FormContext.Provider value={
+                {event, setEvent, email, setEmail, host, setHost, location,setLocation, website, setWebsite}
+            }  
+            >
+                {/* General Form */}
+                {currentPage === 1 && <Form1 handleNext={handleNext}/> }
 
-            {/* General Form */}
-            {currentPage === 1 && <Form1 handleNext={handleNext}/> }
+                {/* Photo Form */}
+                {currentPage === 2 && <Form2 /> }
 
-            {/* Photo Form */}
-            {currentPage === 2 && <Form2 /> }
+                {/* Detail Form */}
+                {currentPage === 3 && <Form3 /> }
 
-            {/* Detail Form */}
-            {currentPage === 3 && <Form3 /> }
+                {/* Menu Form */}
+                {currentPage === 4 && <Form4 /> }
 
-            {/* Menu Form */}
-            {currentPage === 4 && <Form4 /> }
-
-            {/* Set Up Account Form */}
-            {currentPage === 5 && <Form5 /> }
+                {/* Set Up Account Form */}
+                {currentPage === 5 && <Form5 /> }
+            </FormContext.Provider>
         </div>
     )
 }
