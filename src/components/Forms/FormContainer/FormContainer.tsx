@@ -13,17 +13,17 @@ interface FormContainerProps {
     name: string
 }
 
-const FormContainer = ({handleSubmit, children, handleNext, handleBack, name}: FormContainerProps) => {
+const FormContainer = ({handleSubmit, handleNext, children, handleBack, name}: FormContainerProps) => {
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="form-container" onSubmit={handleSubmit}>
             {/* Header of Form */}
-            <div className="form__header">
-                <img onClick={handleBack} className="form__back-icon" src={back_icon} alt="Back Button"/>
-                <p className="form__name">{name}</p>
+            <div className="form-container__header">
+                <img onClick={handleBack} className="form-container__back-icon" src={back_icon} alt="Back Button"/>
+                <p className="form-container__name">{name}</p>
             </div>
             {children}
             {/* Next Button */}
-            {/* <NextButton text="Next" handleNext={handleNext} /> */}
+            <NextButton text="Next" handleNext={handleNext} />
         </form>
     )
 }

@@ -45,16 +45,18 @@ const RegisterFormPage = () => {
     }
     return (
         <div className="register-form">
-            {/* Title */}
-            <h1 className="register-form__title">Let's get you set up in a few steps!</h1>
-            {/* Progress Bar */}
-            <Line className="progress-bar" 
-                percent={type === "Event" ? currentPage*25 : currentPage*20} 
-                strokeWidth={3}  
-                trailWidth={3} 
-                strokeColor="#FF3125"
-            />
-
+            <div className="register-form__header">
+                {/* Title */}
+                <h1 className="register-form__title">Let's get you set up in a few steps!</h1>
+                {/* Progress Bar */}
+                <Line className="progress-bar" 
+                    percent={type === "Event" ? currentPage*25 : currentPage*20} 
+                    strokeWidth={3}  
+                    trailWidth={3} 
+                    strokeColor="#FF3125"
+                />
+            </div>
+            
             {/* Submission Form */}
 
             {/* General Form */}
@@ -71,15 +73,6 @@ const RegisterFormPage = () => {
 
             {/* Set Up Account Form */}
             {currentPage === 5 && <Form5 /> }
-
-            {/* Next Button */}
-            {
-                currentPage === 5 ? (
-                    <NextButton text="Submit" handleNext={handleSubmit}/> 
-                ) : (
-                    <NextButton text="Next" handleNext={handleNext}/>
-                )
-            }
         </div>
     )
 }
