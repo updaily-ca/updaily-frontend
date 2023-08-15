@@ -1,4 +1,5 @@
 @use '../../../styles/colours.scss' as *;
+@use '../../../styles/global.scss' as *;
 
 .c-search {
     display: flex;
@@ -6,5 +7,31 @@
 }
 
 .search-card {
-    background-color: red;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(220, 220, 220);
+    width: 90%;
+
+    &__title {
+        font-size: 1.2rem;
+    }
+
+    &__photo--image {
+        width: 100%;
+        // height: 10rem;
+        order: -1;
+        border-radius: $px5;
+    }
+
+    &__arrow {
+
+        box-sizing: border-box;
+        background-color: $coloured;
+        height: 1.8rem;
+        width: 1.8rem;
+        margin-left: auto;
+        border-radius: 2rem;
+        padding: 0.5rem;
+    }
 }
