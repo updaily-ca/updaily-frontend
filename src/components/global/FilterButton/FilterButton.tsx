@@ -1,27 +1,27 @@
-import './FilterButton.scss';
+import React from 'react';
 import { useToggleClass } from '../../../utils/functions';
+import './FilterButton.scss';
 
-const FilterButton = () => {
+interface FilterButtonProps {
+    isBusinessMode: boolean;
+    toggleBusinessMode: () => void;
+}
 
-    const [isSwitchToggled, toggleSwitch] = useToggleClass(false);
-
-
-
+const FilterButton: React.FC<FilterButtonProps> = ({ isBusinessMode, toggleBusinessMode }) => {
+    const [isOpen, toggleClass] = useToggleClass(isBusinessMode);
 
     return (
-        <>
-
-            <div
-
-                className={`filter-btn ${isSwitchToggled ? 'active' : ''}`}
-
-                onClick={toggleSwitch}>
-                <span className="filter-btn__event">Event</span>
-                <span className="filter-btn__business">Business</span>
-            </div>
-
-        </>
-    )
-}
+        <div
+            className={`filter-btn ${isBusinessMode ? 'active' : ''}`}
+            // className="filter-btn"
+            onClick={() => {
+                toggleBusinessMode();
+            }}
+        >
+            <span className="filter-btn__event">Event</span>
+            <span className="filter-btn__business">Business</span>
+        </div>
+    );
+};
 
 export default FilterButton;
