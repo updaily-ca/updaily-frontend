@@ -5,17 +5,18 @@ export const useDocumentTitle = (title: string): void => {
         document.title = title
     }, [title])
 }
-
 export const useToggleClass = (initialState: boolean = false): [boolean, () => void, boolean, (value: boolean) => void] => {
-    const [isOpen, setIsOpen] = useState<boolean>(initialState)
-    const [isElementClicked, setIsElementClicked] = useState<boolean>(false)
+
+    const [isOpen, setIsOpen] = useState<boolean>(initialState);
+    const [isElementClicked, setIsElementClicked] = useState<boolean>(false);
 
     const toggleClass = () => {
-        setIsOpen(!isOpen)
+        setIsOpen(!isOpen);
         if (isElementClicked) {
-            setIsElementClicked(false)
+            setIsElementClicked(false);
         }
-    }
+    };
 
-    return [isOpen, toggleClass, isElementClicked, setIsElementClicked]
-}
+    return [isOpen, toggleClass, isElementClicked, setIsElementClicked];
+};
+

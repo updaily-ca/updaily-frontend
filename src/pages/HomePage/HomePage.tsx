@@ -13,6 +13,12 @@ const HomePage = () => {
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [prevSearchTerm, setPrevSearchTerm] = useState<string>('');
 
+    const [isFilterBusiness, setIsFilterBusiness] = useState<boolean>(false);
+
+    const toggleBusinessMode = (): void => {
+        setIsFilterBusiness(!isFilterBusiness);
+    };
+
     const performSearch = () => {
 
 
@@ -72,10 +78,12 @@ const HomePage = () => {
                 <SearchCards />
             </section>
 
-            <FilterButton />
+            <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
 
         </div>
     )
 }
 
 export default HomePage;
+
+

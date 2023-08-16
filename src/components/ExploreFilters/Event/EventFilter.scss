@@ -1,0 +1,7 @@
+@use '../../../styles/colours.scss' as *;
+@use '../../../styles/global.scss' as *;
+@use '../../../styles/mixins.scss' as *;
+
+.c-eventfilter {
+    background-color: $shade-2;
+}
