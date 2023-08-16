@@ -1,7 +1,7 @@
 import {useContext} from 'react'
 // Component
-import FormContainer from '../FormContainer/FormContainer';
-import Input from "../Input/Input";
+import FormContainer from '../../Forms/FormContainer/FormContainer';
+import Input from "../../Forms/Input/Input";
 // Context
 import { FormContext } from '../../../pages/RegisterFormPage/RegisterFormPage';
 interface Form5Props {

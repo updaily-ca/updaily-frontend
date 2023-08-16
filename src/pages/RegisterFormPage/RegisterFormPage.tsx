@@ -4,11 +4,11 @@ import {useState, createContext} from "react";
 // Library
 import {Line} from "rc-progress";
 // Import Forms
-import Form1 from "../../components/Forms/Form1/Form1";
-import Form2 from "../../components/Forms/Form2/Form2";
-import Form3 from "../../components/Forms/Form3/Form3";
-import Form4 from "../../components/Forms/Form4/Form4";
-import Form5 from "../../components/Forms/Form5/Form5";
+import Form1 from "../../components/RegisterForm/Form1/Form1";
+import Form2 from "../../components/RegisterForm/Form2/Form2";
+import Form3 from "../../components/RegisterForm/Form3/Form3";
+import Form4 from "../../components/RegisterForm/Form4/Form4";
+import Form5 from "../../components/RegisterForm/Form5/Form5";
 
 
 // Interface to define context

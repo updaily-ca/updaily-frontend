@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 // Component
-import FormContainer from "../FormContainer/FormContainer"
+import FormContainer from "../../Forms/FormContainer/FormContainer"
 // Context
 import { useContext } from "react";
 import { FormContext } from '../../../pages/RegisterFormPage/RegisterFormPage';
