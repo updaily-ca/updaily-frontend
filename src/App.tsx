@@ -11,11 +11,10 @@ function App() {
 
   return (
     <Router>
-      {/* Comment Header out until the Header code is complete */}
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/register" element={<Register />} /> 
+        <Route path="/register" element={<Register />} />
         <Route path="/register/:type" element={<RegisterFormPage />} />
       </Routes>
     </Router>
