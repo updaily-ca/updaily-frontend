@@ -45,7 +45,7 @@ const HomePage = () => {
     };
 
     return (
-        <div id="p-home-page">
+        <div id="p-home-page"> {/* page - home page */}
 
             <section className="home-hero">
                 <h1 className="home-hero__title">We make exploring Vancouver quick and easy!</h1>
@@ -67,7 +67,10 @@ const HomePage = () => {
                 </div>
             </section>
 
-            <SearchCards />
+            <section className="h-cc-searchcards"> {/* home page - component container - search cards */}
+                <h1 className="h-cc-searchcards__title">New events to explore this week</h1>
+                <SearchCards />
+            </section>
 
             <FilterButton />
 
