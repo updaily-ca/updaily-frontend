@@ -24,6 +24,13 @@ interface FormContextType {
     setLocation: (newValue: string) => void,
     website: string,
     setWebsite: (newValue: string) => void,
+    // Form 4
+    accessibility1: boolean,
+    setAccessibility1: (newValue: boolean) => void,
+    accessibility2: boolean,
+    setAccessibility2: (newValue: boolean) => void,
+    accessibility3: boolean,
+    setAccessibility3: (newValue: boolean) => void,
     // Form 5
     pwd: string,
     setPwd: (newValue: string) => void,
@@ -50,6 +57,12 @@ export const FormContext = createContext<FormContextType>({
     setPwd: () => {},
     matchPwd: "",
     setMatchPwd: () => {},
+    accessibility1: true, 
+    setAccessibility1: () => {},
+    accessibility2: true, 
+    setAccessibility2: () => {},
+    accessibility3: true, 
+    setAccessibility3: () => {},
     handleBack: () => {},
     handleNext: () => {},
     currentPage: 1
@@ -59,7 +72,7 @@ export const FormContext = createContext<FormContextType>({
 const RegisterFormPage = () => {
     // useNavgite
     const navigate = useNavigate();
- 
+
     // Event or business type from param
     const {type} = useParams();
 
@@ -71,9 +84,9 @@ const RegisterFormPage = () => {
     const [location, setLocation] = useState("");
     const [website, setWebsite] = useState("");
     // Form4
-    const [accessibility1,setAccessibility1] = useState("");
-    const [accessibility2,setAccessibility2] = useState("");
-    const [accessibility3,setAccessibility3] = useState("");
+    const [accessibility1,setAccessibility1] = useState(true);
+    const [accessibility2,setAccessibility2] = useState(true);
+    const [accessibility3,setAccessibility3] = useState(true);
     // Form5
     const [pwd, setPwd] = useState("");
     const [matchPwd, setMatchPwd] = useState("");
@@ -116,7 +129,7 @@ const RegisterFormPage = () => {
             
             {/* Submission Form */}
             <FormContext.Provider value={
-                {event, setEvent, email, setEmail, host, setHost, location,setLocation, website, setWebsite, handleBack, handleNext, pwd, setPwd, matchPwd, setMatchPwd, currentPage}
+                {event, setEvent, email, setEmail, host, setHost, location,setLocation, website, setWebsite, handleBack, handleNext, pwd, setPwd, matchPwd, setMatchPwd, currentPage, accessibility1, setAccessibility1, accessibility2, setAccessibility2,accessibility3, setAccessibility3 }
             }  
             >
                 {/* General Form */}
