@@ -3,26 +3,29 @@
 
 .filter-btn {
     width: 8.875rem;
-    height: $px23;
-    background-color: $shade-2;
+    height: $px28;
+    background-color: $coloured;
     display: flex;
     flex-direction: row;
     gap: 1rem;
     justify-content: space-evenly;
     border-radius: $px20;
     align-items: center;
+    margin-left: auto;
+    margin-right: 1rem;
 
-    // &::before {
-    //     width: 4rem;
-    //     height: 1.5rem;
-    //     content: '';
-    //     background-color: red;
-    //     position: absolute;
-    //     border-radius: 2rem;
-    // }
+    &::before {
+        width: 4.43525rem;
+        height: $px23;
+        content: '';
+        position: absolute;
+        background-color: $bright;
+        border-radius: 2rem;
+        margin-left: -4rem;
+    }
 
     &__event {
-        color: $bright;
+        color: $coloured;
         margin-left: -4.5rem;
     }
 
@@ -33,8 +36,7 @@
 
     &__event,
     &__business {
-        // width: 4.75rem;
-        color: red;
+        font-weight: 500;
         font-size: $px12;
         position: absolute;
 
