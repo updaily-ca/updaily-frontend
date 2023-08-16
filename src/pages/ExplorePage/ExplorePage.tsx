@@ -1,3 +1,5 @@
+import BusinessFilter from '../../components/ExploreFilters/Business/BusinessFilter';
+import EventFilter from '../../components/ExploreFilters/Event/EventFilter';
 import SearchCards from '../../components/global/SearchCards/SearchCards';
 import './ExplorePage.scss';
 
@@ -7,8 +9,11 @@ const ExplorePage = () => {
 
             <aside className="filter-container">
                 <div className="filters">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam, voluptatibus!
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod veritatis, consectetur possimus nulla recusandae qui? Doloribus nam repellendus corporis debitis?
+
+                    <EventFilter />
+                    <BusinessFilter />
+
+
                 </div>
 
             </aside>
