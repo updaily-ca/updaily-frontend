@@ -1,5 +1,5 @@
-import { useDocumentTitle } from "../../utils/functions";
-import { useState } from "react";
+import { performSearch, useDocumentTitle } from "../../utils/functions";
+import { useEffect, useState } from "react";
 
 import './HomePage.scss';
 
@@ -8,47 +8,29 @@ import SearchCards from "../../components/global/SearchCards/SearchCards";
 import FilterButton from "../../components/global/FilterButton/FilterButton";
 
 const HomePage = () => {
-    useDocumentTitle("Home Page")
-
-    const [searchTerm, setSearchTerm] = useState<string>('');
-    const [prevSearchTerm, setPrevSearchTerm] = useState<string>('');
+    useDocumentTitle("Home Page");
 
     const [isFilterBusiness, setIsFilterBusiness] = useState<boolean>(false);
-
     const toggleBusinessMode = (): void => {
         setIsFilterBusiness(!isFilterBusiness);
     };
 
-    const performSearch = () => {
-
-
-        if (searchTerm.trim() === '') {
-            console.log('Enter a search term');
-            return;
-        }
-
-        if (searchTerm === prevSearchTerm) {
-            console.log('Search something new');
-            return;
-        }
-
-        if (searchTerm.trim() !== '') {
-            console.log(`Searching: ${searchTerm}`);
-
-            setPrevSearchTerm(searchTerm);
-        }
-
-        else {
-            console.log('Search error');
-        }
-
-    };
+    const [searchTerm, setSearchTerm] = useState<string>('');
+    const [prevSearchTerm, setPrevSearchTerm] = useState<string>('');
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            performSearch();
+            performSearch(searchTerm, prevSearchTerm, setPrevSearchTerm);
         }
     };
+
+    const handleSearchClick = () => {
+        performSearch(searchTerm, prevSearchTerm, setPrevSearchTerm);
+    };
+
+    useEffect(() => {
+        console.log(searchTerm, isFilterBusiness);
+    }, [searchTerm, isFilterBusiness]);
 
     return (
         <div id="p-home-page"> {/* page - home page */}
@@ -66,7 +48,7 @@ const HomePage = () => {
                         onChange={(e) => setSearchTerm(e.target.value)}
                         onKeyDown={handleKeyDown}
                     />
-                    <div className="home-search__btn" onClick={performSearch}>
+                    <div className="home-search__btn" onClick={handleSearchClick}>
                         <img className="home-search__btn--icon" src={searchIcon} />
                         <span className="home-search__btn--search">Search</span></div>
 

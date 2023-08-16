@@ -2,17 +2,37 @@ import BusinessFilter from '../../components/ExploreFilters/Business/BusinessFil
 import EventFilter from '../../components/ExploreFilters/Event/EventFilter';
 import FilterButton from '../../components/global/FilterButton/FilterButton';
 import SearchCards from '../../components/global/SearchCards/SearchCards';
-import { useState } from 'react';
+import { performSearch } from '../../utils/functions';
+import { useEffect, useState } from 'react';
 
 import './ExplorePage.scss';
+import { useDocumentTitle } from '../../utils/functions';
 
 const ExplorePage = () => {
+    useDocumentTitle('Explore Page');
 
     const [isFilterBusiness, setIsFilterBusiness] = useState<boolean>(false);
 
     const toggleBusinessMode = (): void => {
         setIsFilterBusiness(!isFilterBusiness);
     };
+
+    const [searchTerm, setSearchTerm] = useState<string>('');
+    const [prevSearchTerm, setPrevSearchTerm] = useState<string>('');
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            performSearch(searchTerm, prevSearchTerm, setPrevSearchTerm);
+        }
+    };
+
+    const handleSearchClick = (): void => {
+        performSearch(searchTerm, prevSearchTerm, setPrevSearchTerm);
+    };
+
+    useEffect(() => {
+        console.log(searchTerm, isFilterBusiness);
+    }, [searchTerm, isFilterBusiness]);
 
     return (
         <div id="p-explorepage"> {/* page - explore page */}
@@ -24,7 +44,7 @@ const ExplorePage = () => {
 
                     {/*  This needs optimising because there's a function we can use in the utils function file */}
 
-                    {isFilterBusiness ? <BusinessFilter /> : <EventFilter />}
+                    {isFilterBusiness ? <BusinessFilter searchTerm={searchTerm} setSearchTerm={setSearchTerm} handleKeyDown={handleKeyDown} handleSearchClick={handleSearchClick} /> : <EventFilter />}
 
                 </div>
 
@@ -41,9 +61,6 @@ const ExplorePage = () => {
                 </div>
 
             </div>
-
-
-
 
         </div>
     )
