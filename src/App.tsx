@@ -6,6 +6,7 @@ import Header from './components/global/Header/Header';
 import HomePage from './pages/HomePage/HomePage';
 import Register from './pages/Register/Register';
 import RegisterFormPage from './pages/RegisterFormPage/RegisterFormPage';
+import ExplorePage from './pages/ExplorePage/ExplorePage';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/register/:type" element={<RegisterFormPage />} />
+        <Route path="/explore" element={<ExplorePage />} />
       </Routes>
     </Router>
   );
