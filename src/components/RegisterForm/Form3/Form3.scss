@@ -1,0 +1,18 @@
+@use "../../../styles/colours.scss" as *;
+
+.detail-form {
+    margin: 1.5rem 0;
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    &__date-time {
+        display: flex;
+        gap: 1.5rem;
+    }
+    &__title {
+        font-size: 0.8rem;
+        color: $shade-1;
+        margin-bottom: 0.3rem;
+    }
+}

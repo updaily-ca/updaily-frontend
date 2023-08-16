@@ -3,14 +3,12 @@ import {useParams, useNavigate} from "react-router-dom";
 import {useState, createContext} from "react";
 // Library
 import {Line} from "rc-progress";
-// Component
-import NextButton from "../../components/global/NextButton/NextButton";
 // Import Forms
-import Form1 from "../../components/Forms/Form1/Form1";
-import Form2 from "../../components/Forms/Form2/Form2";
-import Form3 from "../../components/Forms/Form3/Form3";
-import Form4 from "../../components/Forms/Form4/Form4";
-import Form5 from "../../components/Forms/Form5/Form5";
+import Form1 from "../../components/RegisterForm/Form1/Form1";
+import Form2 from "../../components/RegisterForm/Form2/Form2";
+import Form3 from "../../components/RegisterForm/Form3/Form3";
+import Form4 from "../../components/RegisterForm/Form4/Form4";
+import Form5 from "../../components/RegisterForm/Form5/Form5";
 
 
 // Interface to define context
@@ -26,6 +24,20 @@ interface FormContextType {
     setLocation: (newValue: string) => void,
     website: string,
     setWebsite: (newValue: string) => void,
+    // Form 3 
+    desc: string,
+    setDesc: (newValue: string) => void, 
+    admissionType: string,
+    setAdmissionType: (newValue: string) => void,
+    admission: string,
+    setAdmission: (newValue: string) => void,
+    // Form 4
+    accessibility1: boolean,
+    setAccessibility1: (newValue: boolean) => void,
+    accessibility2: boolean,
+    setAccessibility2: (newValue: boolean) => void,
+    accessibility3: boolean,
+    setAccessibility3: (newValue: boolean) => void,
     // Form 5
     pwd: string,
     setPwd: (newValue: string) => void,
@@ -36,8 +48,9 @@ interface FormContextType {
     // Current Page
     currentPage: number
 }
-
+// Form Context
 export const FormContext = createContext<FormContextType>({
+    // Form 1
     event: "",
     setEvent: () => {},
     email: "",
@@ -52,6 +65,21 @@ export const FormContext = createContext<FormContextType>({
     setPwd: () => {},
     matchPwd: "",
     setMatchPwd: () => {},
+    // Form 4
+    accessibility1: true, 
+    setAccessibility1: () => {},
+    accessibility2: true, 
+    setAccessibility2: () => {},
+    accessibility3: true, 
+    setAccessibility3: () => {},
+    // Form 3
+    desc:"",
+    setDesc: () => {},
+    admissionType: "",
+    setAdmissionType: () => {},
+    admission: "",
+    setAdmission: () => {},
+    // Function
     handleBack: () => {},
     handleNext: () => {},
     currentPage: 1
@@ -61,18 +89,26 @@ export const FormContext = createContext<FormContextType>({
 const RegisterFormPage = () => {
     // useNavgite
     const navigate = useNavigate();
- 
+
     // Event or business type from param
     const {type} = useParams();
 
     // States to keep track information of the form - event
-    // Form 1
+    // Form 1 - Event
     const [event, setEvent] = useState("");
     const [email, setEmail] = useState("");
     const [host, setHost] = useState("");
     const [location, setLocation] = useState("");
     const [website, setWebsite] = useState("");
-    // Form5
+    // Form 4 - Event
+    const [accessibility1,setAccessibility1] = useState(true);
+    const [accessibility2,setAccessibility2] = useState(true);
+    const [accessibility3,setAccessibility3] = useState(true);
+    // Form 3 - Event
+    const[desc, setDesc] = useState("");
+    const [admissionType, setAdmissionType] = useState("");
+    const [admission, setAdmission] = useState("");
+    // Form 5 - Event
     const [pwd, setPwd] = useState("");
     const [matchPwd, setMatchPwd] = useState("");
 
@@ -95,8 +131,11 @@ const RegisterFormPage = () => {
         }
     }
 
-    const handleSubmit = (): void => {
-
+    const handleSubmit = (e: React.FormEvent): void => {
+        e.preventDefault();
+        console.log(accessibility1);
+        console.log(accessibility2);
+        console.log(accessibility3);
     }
     return (
         <div className="register-form">
@@ -114,7 +153,7 @@ const RegisterFormPage = () => {
             
             {/* Submission Form */}
             <FormContext.Provider value={
-                {event, setEvent, email, setEmail, host, setHost, location,setLocation, website, setWebsite, handleBack, handleNext, pwd, setPwd, matchPwd, setMatchPwd, currentPage}
+                {event, setEvent, email, setEmail, host, setHost, location,setLocation, website, setWebsite, handleBack, handleNext, pwd, setPwd, matchPwd, setMatchPwd, currentPage, accessibility1, setAccessibility1, accessibility2, setAccessibility2,accessibility3, setAccessibility3, desc, setDesc, admissionType, setAdmissionType, admission, setAdmission}
             }  
             >
                 {/* General Form */}
@@ -126,11 +165,11 @@ const RegisterFormPage = () => {
                 {/* Detail Form */}
                 {currentPage === 3 && <Form3 /> }
 
-                {/* Menu Form */}
-                {currentPage === 4 && <Form4 /> }
+                {/* Menu Form or Accessibility */}
+                {currentPage === 4 && <Form4/> }
 
                 {/* Set Up Account Form */}
-                {currentPage === 5 && <Form5 handleSubmit={handleSubmit} /> }
+                {currentPage === 5 && <Form5 handleSubmit={handleSubmit}/> }
             </FormContext.Provider>
         </div>
     )
