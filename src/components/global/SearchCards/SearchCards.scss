@@ -4,24 +4,57 @@
 .c-search {
     display: flex;
     flex-direction: column;
+
+    &__title {
+        font-size: $px18;
+        margin-top: 1rem;
+        padding: 1rem 0 0 1rem;
+    }
+
+    &__wrapper {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 1rem;
+        gap: 1rem;
+    }
 }
 
 .search-card {
     margin: auto;
     display: flex;
     flex-direction: column;
-    background-color: rgb(220, 220, 220);
-    width: 90%;
+    min-width: 15.3125rem;
+    padding: 1rem;
+    border: thin solid $search-border;
+    border-radius: $px5;
 
     &__title {
+        color: $dark;
         font-size: 1.2rem;
+        font-weight: 500;
+        margin-top: 1rem;
     }
 
-    &__photo--image {
-        width: 100%;
-        // height: 10rem;
+    &__photo {
         order: -1;
-        border-radius: $px5;
+
+        &--image {
+            width: 100%;
+            // height: 10rem;
+            border-radius: $px5;
+        }
+    }
+
+    &__location {
+        color: $shade-2;
+        font-size: $px12;
+        margin-top: 0.5rem;
+    }
+
+    &__description {
+        margin-top: 1rem;
+        font-size: $px12;
     }
 
     &__arrow {

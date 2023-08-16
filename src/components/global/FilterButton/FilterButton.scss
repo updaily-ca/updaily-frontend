@@ -1,0 +1,61 @@
+@use '../../../styles/colours.scss' as *;
+@use '../../../styles/global.scss' as *;
+
+.filter-btn {
+    width: 8.875rem;
+    height: $px28;
+    background-color: $coloured;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: space-evenly;
+    border-radius: $px20;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 1rem;
+
+    &::before {
+        width: 4.43525rem;
+        height: $px23;
+        content: '';
+        position: absolute;
+        background-color: $bright;
+        border-radius: 2rem;
+        margin-left: -4rem;
+        transition: all .25s ease-in-out;
+    }
+
+    &__event {
+        color: $coloured;
+        margin-left: -4.5rem;
+    }
+
+    &__business {
+        color: $bright;
+        margin-right: -4rem;
+    }
+
+    &__event,
+    &__business {
+        font-weight: 500;
+        font-size: $px12;
+        position: absolute;
+
+        transition: all 0.125s ease-in-out;
+
+    }
+
+    .active &__event {
+        color: $bright;
+        margin-left: 1rem;
+        opacity: 0;
+    }
+
+    .active &__business {
+        color: $coloured;
+    }
+}
+
+.active::before {
+    margin-left: 3.9rem;
+}
