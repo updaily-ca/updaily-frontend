@@ -1,0 +1,29 @@
+@use '../../styles/global.scss' as *;
+@use '../../styles/colours.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+#p-explorepage {
+    background-color: red;
+    display: flex;
+    flex-direction: row;
+}
+
+.filter-container {
+    width: 30%;
+    box-sizing: border-box;
+    background-color: $shade-2;
+
+}
+
+.map-container {
+    width: 70%;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: $shade-1;
+
+    .e-cc-searchcards {
+        margin-top: auto;
+    }
+}
