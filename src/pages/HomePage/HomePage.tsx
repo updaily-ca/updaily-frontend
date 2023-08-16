@@ -28,9 +28,9 @@ const HomePage = () => {
         performSearch(searchTerm, prevSearchTerm, setPrevSearchTerm);
     };
 
-    useEffect(() => {
-        console.log(searchTerm, isFilterBusiness);
-    }, [searchTerm, isFilterBusiness]);
+    // useEffect(() => {
+    //     console.log(searchTerm, isFilterBusiness);
+    // }, [searchTerm, isFilterBusiness]);
 
     return (
         <div id="p-home-page"> {/* page - home page */}

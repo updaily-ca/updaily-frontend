@@ -30,9 +30,9 @@ const ExplorePage = () => {
         performSearch(searchTerm, prevSearchTerm, setPrevSearchTerm);
     };
 
-    useEffect(() => {
-        console.log(searchTerm, isFilterBusiness);
-    }, [searchTerm, isFilterBusiness]);
+    // useEffect(() => {
+    //     console.log(searchTerm, isFilterBusiness);
+    // }, [searchTerm, isFilterBusiness]);
 
     return (
         <div id="p-explorepage"> {/* page - explore page */}
@@ -40,7 +40,12 @@ const ExplorePage = () => {
             <aside className="filter-container">
                 <div className="filters">
 
-                    <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
+                    <div className="filters__header">
+
+                        <div className="filters__title"> Filters
+                        </div>
+                        <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
+                    </div>
 
                     {/*  This needs optimising because there's a function we can use in the utils function file */}
 
