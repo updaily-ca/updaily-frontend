@@ -110,8 +110,11 @@ const RegisterFormPage = () => {
         }
     }
 
-    const handleSubmit = (): void => {
-
+    const handleSubmit = (e: React.FormEvent): void => {
+        e.preventDefault();
+        console.log(accessibility1);
+        console.log(accessibility2);
+        console.log(accessibility3);
     }
     return (
         <div className="register-form">

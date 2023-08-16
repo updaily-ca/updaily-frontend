@@ -9,7 +9,7 @@ import { FormContext } from "../../../pages/RegisterFormPage/RegisterFormPage";
 import { useContext } from "react";
 
 interface FormContainerProps {
-    handleSubmit?: () => void,
+    handleSubmit?: (e: React.FormEvent) => void,
     handleNext?: () => void,
     handleBack?: () => void,
     children:ReactNode,
