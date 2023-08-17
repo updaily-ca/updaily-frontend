@@ -1,7 +1,50 @@
 @use '../../../styles/colours.scss' as *;
+@use '../../../styles/mixins.scss' as *;
 @use '../../../styles/global.scss' as *;
 
 #c-footer {
     display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    justify-content: space-between;
+    flex-direction: row;
     padding: 1rem;
+    justify-content: space-between;
+    gap: 1rem;
+
+    @include desktop {
+        padding: 4rem;
+        flex-direction: row;
+    }
+
+
+    .footer-card {
+
+        min-width: 34%;
+        max-width: 50%;
+        min-height: 10rem;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        font-size: $px14;
+        gap: 1rem;
+
+        @include desktop {
+            flex-basis: 25%;
+        }
+
+        &__title {
+            font-size: 1rem;
+        }
+
+        &__list {
+            list-style-type: none;
+            display: flex;
+            flex-direction: column;
+
+            &-item {
+                margin-top: 0.25rem;
+            }
+        }
+    }
 }
