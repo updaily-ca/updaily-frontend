@@ -20,6 +20,7 @@ $px26: 1.625rem;
 $px28: 1.75rem;
 $px30: 1.875rem;
 $px32: 2rem;
+$px34: 2.125rem;
 $px36: 2.25rem;
 $px40: 2.5rem;
 $px44: 2.75rem;
@@ -44,4 +45,8 @@ $px120: 7.5rem;
     @include desktop {
         display: none;
     }
+}
+
+.uc {
+    text-transform: capitalize;
 }

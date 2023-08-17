@@ -20,3 +20,21 @@ export const useToggleClass = (initialState: boolean = false): [boolean, () => v
     return [isOpen, toggleClass, isElementClicked, setIsElementClicked];
 };
 
+export const performSearch = (searchTerm: string, prevSearchTerm: string, setPrevSearchTerm: (term: string) => void) => {
+    if (searchTerm.trim() === '') {
+        console.log('Enter a search term');
+        return;
+    }
+
+    if (searchTerm === prevSearchTerm) {
+        console.log('Search something new');
+        return;
+    }
+
+    if (searchTerm.trim() !== '') {
+        console.log(`Searching: ${searchTerm}`);
+        setPrevSearchTerm(searchTerm);
+    } else {
+        console.log('Search error');
+    }
+};
