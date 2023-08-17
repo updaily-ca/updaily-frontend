@@ -12,7 +12,7 @@ const HomePage = () => {
 
     const [isFilterBusiness, setIsFilterBusiness] = useState<boolean>(false);
     const toggleBusinessMode = (): void => {
-        setIsFilterBusiness(!isFilterBusiness);
+        setIsFilterBusiness(prevState => !prevState);
     };
 
     const [searchTerm, setSearchTerm] = useState<string>('');
@@ -57,7 +57,7 @@ const HomePage = () => {
 
             <section className="h-cc-searchcards"> {/* home page - component container - search cards */}
                 <h1 className="h-cc-searchcards__title">New events to explore this week</h1>
-                <SearchCards />
+                <SearchCards isBusinessMode={isFilterBusiness} />
             </section>
 
             <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />

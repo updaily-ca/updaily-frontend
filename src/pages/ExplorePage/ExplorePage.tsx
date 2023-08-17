@@ -14,7 +14,7 @@ const ExplorePage = () => {
     const [isFilterBusiness, setIsFilterBusiness] = useState<boolean>(false)
 
     const toggleBusinessMode = (): void => {
-        setIsFilterBusiness(!isFilterBusiness)
+        setIsFilterBusiness(prevState => !prevState);
     }
 
     const [searchTerm, setSearchTerm] = useState<string>("")
@@ -62,7 +62,7 @@ const ExplorePage = () => {
                 <div className="e-cc-searchcards">
                     {" "}
                     {/* explore page - component container - search cards */}
-                    <SearchCards />
+                    <SearchCards isBusinessMode={isFilterBusiness} />
                 </div>
             </div>
         </div>

@@ -19,6 +19,14 @@
     border: thin solid $search-border;
     border-radius: $px5;
 
+    &--event {
+        background-color: red;
+    }
+
+    &--business {
+        background-color: transparent;
+    }
+
     &__title {
         color: $dark;
         font-size: 1.2rem;
