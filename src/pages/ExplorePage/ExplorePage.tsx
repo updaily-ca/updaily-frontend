@@ -2,7 +2,7 @@ import BusinessFilter from "../../components/ExploreFilters/Business/BusinessFil
 import EventFilter from "../../components/ExploreFilters/Event/EventFilter"
 import FilterButton from "../../components/global/FilterButton/FilterButton"
 import SearchCards from "../../components/global/SearchCards/SearchCards"
-import { performSearch } from "../../utils/functions"
+import { performSearch, useToggleClass } from "../../utils/functions"
 import { useEffect, useState } from "react"
 
 import "./ExplorePage.scss"
@@ -30,6 +30,8 @@ const ExplorePage = () => {
         performSearch(searchTerm, prevSearchTerm, setPrevSearchTerm)
     }
 
+    const [isFilterButtonClicked, toggleFilterButton] = useToggleClass(false);
+
     // useEffect(() => {
     //     console.log(searchTerm, isFilterBusiness);
     // }, [searchTerm, isFilterBusiness]);
@@ -41,13 +43,17 @@ const ExplorePage = () => {
             <aside className="filter-container">
                 <div className="filters">
                     <div className="filters__header">
-                        <div className="filters__title"> Filters</div>
+                        <div onClick={toggleFilterButton}
+
+                            className="filters__title"> Filters</div>
                         <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
                     </div>
 
                     {/*  This needs optimising because there's a function we can use in the utils function file */}
 
-                    {isFilterBusiness ? <BusinessFilter searchTerm={searchTerm} setSearchTerm={setSearchTerm} handleKeyDown={handleKeyDown} handleSearchClick={handleSearchClick} /> : <EventFilter />}
+                    {isFilterBusiness ? <BusinessFilter isFilterButtonClicked={isFilterButtonClicked}
+
+                        searchTerm={searchTerm} setSearchTerm={setSearchTerm} handleKeyDown={handleKeyDown} handleSearchClick={handleSearchClick} /> : <EventFilter />}
                 </div>
             </aside>
             <div className="map-container">

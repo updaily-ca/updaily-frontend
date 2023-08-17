@@ -2,14 +2,15 @@ import { businessType } from "../../../utils/FormData"
 import "./BusinessFilter.scss"
 
 interface BusinessFilterProps {
+    isFilterButtonClicked: boolean
     searchTerm: string
     setSearchTerm: (newValues: string) => void
     handleKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void
     handleSearchClick: () => void
 }
-const BusinessFilter = ({ searchTerm, setSearchTerm, handleKeyDown, handleSearchClick }: BusinessFilterProps) => {
+const BusinessFilter = ({ isFilterButtonClicked, searchTerm, setSearchTerm, handleKeyDown, handleSearchClick }: BusinessFilterProps) => {
     return (
-        <div className="c-businessfilter">
+        <div className={`c-businessfilter ${isFilterButtonClicked ? 'active' : ''}`}>
 
             <div className="filter-card">
                 <label className="filter-card__subtitle">Search by location</label>
@@ -35,7 +36,7 @@ const BusinessFilter = ({ searchTerm, setSearchTerm, handleKeyDown, handleSearch
                 <div className="filter-card__subtitle">Search</div>
 
                 {businessType
-                    // .sort((a, b) => a.localeCompare(b))
+                    .sort((a, b) => a.localeCompare(b))
                     .map((businessType) => (
                         <div key={businessType} className="uc filter-card__btn">
                             {businessType}

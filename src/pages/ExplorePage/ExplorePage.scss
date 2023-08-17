@@ -3,9 +3,12 @@
 @use '../../styles/mixins.scss' as *;
 
 #p-explorepage {
-    // background-color: red;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+
+    @include desktop {
+        flex-direction: row;
+    }
 }
 
 .filters {
@@ -29,8 +32,12 @@
 }
 
 .filter-container {
-    width: 27.5%;
+    width: 100%;
     box-sizing: border-box;
+
+    @include desktop {
+        width: 30%;
+    }
 
 }
 
