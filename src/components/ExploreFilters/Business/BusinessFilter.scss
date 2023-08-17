@@ -18,23 +18,27 @@
 
     &__search-btn {
         margin-top: auto;
+        font-weight: 700;
     }
 }
 
 
-.group-filter {
+.filter-card {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     box-sizing: border-box;
     gap: 1rem;
 
-    &__label {
+    &__subtitle {
+        font-size: 1rem;
+        font-weight: 700;
         width: 100%;
         flex-grow: 2;
     }
 
-    &__btn {
+    &__btn,
+    &__input {
         height: 2rem;
         line-height: 2rem;
         font-size: $px18;
@@ -43,9 +47,24 @@
         text-align: center;
     }
 
+    &__input--search,
+    &__input--price-min,
+    &__input--price-max {
+        text-align: left;
+        text-indent: 0.5rem;
+    }
+
     &__input,
     &__btn {
         box-sizing: border-box;
         width: calc(50% - 0.5rem);
+    }
+
+    &__input--search {
+        width: 100%;
+    }
+
+    &__subtitle {
+        margin-top: 1rem;
     }
 }
