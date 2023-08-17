@@ -3,7 +3,7 @@ export const eventType: string[] = [
 ]
 
 export const businessType: string[] = [
-    "Retail and Consumer Goods", "Food and Beverage", "Technology and Software", "Health and Wellness","Financial Services", "Professional Services", "Entertainment and Media", "Beauty and Personal Care", "Others"
+    "food and drink", "nature", "art and culture", "technology", "sports", "hiking & camping", "entertainment", "others"
 ]
 
 export const restuarantSubCategories: string[] = [
@@ -13,9 +13,9 @@ export const cuisine: string[] = [
     "Chinese", "French", "Indian", "Italian", "Japanese", "Mexican", "Middle Eastern", "Sushi", "Thai", "Vietnamese"
 ]
 
-export const admission : string[] = [
+export const admission: string[] = [
     "Free",
-    "Per Person", 
+    "Per Person",
     "Per Group"
 ]
 
@@ -23,8 +23,8 @@ export const generateTime = (): any[] => {
     const times = [];
     const startTime = new Date();
     startTime.setHours(0, 0, 0, 0);
-    
-    for (let i = 0; i < 24 * 2; i++) { 
+
+    for (let i = 0; i < 24 * 2; i++) {
         const time = new Date(startTime.getTime() + i * 30 * 60 * 1000); // Add 30 minutes
         times.push(time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
     }
