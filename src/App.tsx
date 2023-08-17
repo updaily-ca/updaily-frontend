@@ -8,6 +8,7 @@ import Register from './pages/Register/Register';
 import RegisterFormPage from './pages/RegisterFormPage/RegisterFormPage';
 import ExplorePage from './pages/ExplorePage/ExplorePage';
 import DetailPage from './pages/DetailPage/DetailPage';
+import Footer from './components/global/Footer/Footer';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/explore" element={<ExplorePage />} />
         <Route path="/detail" element={<DetailPage />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
