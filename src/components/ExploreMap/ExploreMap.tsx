@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 
 declare global {
@@ -7,23 +7,16 @@ declare global {
     }
 }
 
+interface GeoCode {
+    OK: 'OK',
+    ZERO_RESULTS: 'ZERO_RESULTS',
+    status: 'OK' | 'ZERO_RESULTS' | string,
+    [results: string]: any,
+}
+
 const ExploreMap = () => {
     const token = process.env.REACT_APP_API_KEY || 'error';
-
-    const vancouverLatLng = {
-        lat: 49.2827, lng: -123.1207
-    };
-
-    const brainstationLatLng = {
-        lat: 49.285119, lng: -123.114648
-    };
-
-    const brainstationAddress = '455 Granville St #400, Vancouver, BC V6C 1T1';
-
-
-    //     49°17'06.4"N 123°06'52.7"W
-    // 49.285119, -123.114648
-
+    const [address, setAddress] = React.useState('');
 
     useEffect(() => {
         const loader = new Loader({
@@ -41,15 +34,70 @@ const ExploreMap = () => {
     }, [token]);
 
     const initMap = () => {
-        new window.google.maps.Map(document.getElementById('map'), {
-            center: brainstationAddress,
-            zoom: 18,
+        const map = new window.google.maps.Map(document.getElementById('map'), {
+            center: { lat: 49.2827, lng: -123.1207 },
+            zoom: 12,
+            styles: [
+                {
+                    featureType: "poi",
+                    stylers: [{ visibility: "off" }],
+                },
+            ],
         });
 
-        // Add markers, etc. here
     };
 
-    return <div id="map" style={{ height: '400px', width: '100%' }} />;
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (address) {
+            const geocoder = new window.google.maps.Geocoder();
+
+            geocoder.geocode({ address: address }, (results: GeoCode, status: GeoCode['status']) => {
+                if (status === 'OK') {
+                    const location = results[0].geometry.location;
+                    const map = new window.google.maps.Map(document.getElementById('map'), {
+                        center: location,
+                        zoom: 12,
+                        styles: [
+                            {
+                                featureType: "poi",
+                                stylers: [{ visibility: "off" }],
+                            },
+                        ],
+
+                    });
+
+                    const marker = new window.google.maps.Marker({
+                        position: location,
+                        map: map,
+                        title: 'Search Result'
+                    });
+
+                    console.log('Latitude:', location.lat());
+                    console.log('Longitude:', location.lng());
+                } else {
+                    console.error('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+    };
+    // new changes // End of changes
+
+    return (
+        <div>
+            <form onSubmit={handleSearch}>
+                <input
+                    type="text"
+                    placeholder="Enter address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                />
+                <button type="submit">Search</button>
+            </form>
+
+            <div id="map" style={{ height: '400px', width: '100%' }} />
+        </div>
+    );
 };
 
 export default ExploreMap;
