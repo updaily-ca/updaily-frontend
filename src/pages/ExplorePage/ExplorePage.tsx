@@ -1,12 +1,14 @@
+import { useDocumentTitle } from "../../utils/functions"
+import { performSearch, useToggleClass } from "../../utils/functions"
+import { useState } from "react"
+
 import BusinessFilter from "../../components/ExploreFilters/Business/BusinessFilter"
 import EventFilter from "../../components/ExploreFilters/Event/EventFilter"
 import FilterButton from "../../components/global/FilterButton/FilterButton"
 import SearchCards from "../../components/global/SearchCards/SearchCards"
-import { performSearch, useToggleClass } from "../../utils/functions"
-import { useEffect, useState } from "react"
+import ExploreMap from "../../components/ExploreMap/ExploreMap"
 
 import "./ExplorePage.scss"
-import { useDocumentTitle } from "../../utils/functions"
 
 const ExplorePage = () => {
     useDocumentTitle("Explore Page")
@@ -14,7 +16,7 @@ const ExplorePage = () => {
     const [isFilterBusiness, setIsFilterBusiness] = useState<boolean>(false)
 
     const toggleBusinessMode = (): void => {
-        setIsFilterBusiness(!isFilterBusiness)
+        setIsFilterBusiness((prevState) => !prevState)
     }
 
     const [searchTerm, setSearchTerm] = useState<string>("")
@@ -30,39 +32,33 @@ const ExplorePage = () => {
         performSearch(searchTerm, prevSearchTerm, setPrevSearchTerm)
     }
 
-    const [isFilterButtonClicked, toggleFilterButton] = useToggleClass(false);
-
-    // useEffect(() => {
-    //     console.log(searchTerm, isFilterBusiness);
-    // }, [searchTerm, isFilterBusiness]);
+    const [isFilterButtonClicked, toggleFilterButton] = useToggleClass(false)
 
     return (
         <div id="p-explorepage">
-            {" "}
             {/* page - explore page */}
             <aside className="filter-container">
                 <div className="filters">
                     <div className="filters__header">
-                        <div onClick={toggleFilterButton}
-
-                            className="filters__title"> Filters</div>
+                        <div onClick={toggleFilterButton} className="filters__title">
+                            Filters
+                        </div>
                         <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
                     </div>
 
-                    {/*  This needs optimising because there's a function we can use in the utils function file */}
-
-                    {isFilterBusiness ? <BusinessFilter isFilterButtonClicked={isFilterButtonClicked}
-
-                        searchTerm={searchTerm} setSearchTerm={setSearchTerm} handleKeyDown={handleKeyDown} handleSearchClick={handleSearchClick} /> : <EventFilter />}
+                    {isFilterBusiness ? <BusinessFilter isFilterButtonClicked={isFilterButtonClicked} searchTerm={searchTerm} setSearchTerm={setSearchTerm} handleKeyDown={handleKeyDown} handleSearchClick={handleSearchClick} /> : <EventFilter />}
                 </div>
             </aside>
             <div className="map-container">
-                <div className="map">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente explicabo optio illo cupiditate laborum? Deserunt et eaque blanditiis culpa nulla?</div>
+                <ExploreMap />
+
 
                 <div className="e-cc-searchcards">
-                    {" "}
                     {/* explore page - component container - search cards */}
-                    <SearchCards />
+                    <SearchCards isBusinessMode={isFilterBusiness} />
+
+                    {/* npm install @googlemaps/js-api-loader */}
+
                 </div>
             </div>
         </div>
