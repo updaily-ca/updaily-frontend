@@ -1,12 +1,14 @@
+import { useDocumentTitle } from "../../utils/functions"
+import { performSearch, useToggleClass } from "../../utils/functions"
+import { useState } from "react"
+
 import BusinessFilter from "../../components/ExploreFilters/Business/BusinessFilter"
 import EventFilter from "../../components/ExploreFilters/Event/EventFilter"
 import FilterButton from "../../components/global/FilterButton/FilterButton"
 import SearchCards from "../../components/global/SearchCards/SearchCards"
-import { performSearch, useToggleClass } from "../../utils/functions"
-import { useState } from "react"
+import ExploreMap from "../../components/ExploreMap/ExploreMap"
 
 import "./ExplorePage.scss"
-import { useDocumentTitle } from "../../utils/functions"
 
 const ExplorePage = () => {
     useDocumentTitle("Explore Page")
@@ -51,7 +53,7 @@ const ExplorePage = () => {
                 </div>
             </aside>
             <div className="map-container">
-                <div className="map">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente explicabo optio illo cupiditate laborum? Deserunt et eaque blanditiis culpa nulla?</div>
+                <ExploreMap />
 
                 <div className="e-cc-searchcards">
                     {/* explore page - component container - search cards */}

@@ -1,0 +1,6 @@
+@use '../../styles/colours.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+.c-exploremap {
+    background-color: $shade-2;
+}
