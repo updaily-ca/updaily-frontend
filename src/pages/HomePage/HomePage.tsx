@@ -1,5 +1,5 @@
 import { performSearch, useDocumentTitle } from "../../utils/functions";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import './HomePage.scss';
 
@@ -49,7 +49,7 @@ const HomePage = () => {
                         onKeyDown={handleKeyDown}
                     />
                     <div className="home-search__btn" onClick={handleSearchClick}>
-                        <img className="home-search__btn--icon" src={searchIcon} />
+                        <img className="home-search__btn--icon" src={searchIcon} alt="" />
                         <span className="home-search__btn--search">Search</span></div>
 
                 </div>
