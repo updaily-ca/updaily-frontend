@@ -14,8 +14,8 @@ const SelectionInput = ({id, label, values, handleChange, value}: SelectionInput
             <select value={value} onChange={(e) => handleChange(e.target.value)} className="selection-input__select" name={id} id={id}>
                 {/* Render options */}
                 {
-                    values.map((value) => {
-                        return <option value={value}>{value}</option>
+                    values.map((value, index) => {
+                        return <option key={index} value={value}>{value}</option>
                     })
                 }
             </select>
