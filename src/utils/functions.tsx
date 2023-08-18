@@ -38,3 +38,8 @@ export const performSearch = (searchTerm: string, prevSearchTerm: string, setPre
         console.log('Search error');
     }
 };
+
+export const toTimeStamp = (strDate: string): number => {
+    const dt = Date.parse(strDate);
+    return dt / 1000;
+}

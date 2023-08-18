@@ -25,12 +25,18 @@ interface FormContextType {
     website: string,
     setWebsite: (newValue: string) => void,
     // Form 3 
+    eventType: string,
+    setEventType: (newValue: string) => void,
     desc: string,
     setDesc: (newValue: string) => void, 
     admissionType: string,
     setAdmissionType: (newValue: string) => void,
     admission: string,
     setAdmission: (newValue: string) => void,
+    dateRange: number[],
+    setDateRange: (dates: number[]) => void,
+    timeRange: string[],
+    setTimeRange: (times: string[]) => void,
     // Form 4
     accessibility1: boolean,
     setAccessibility1: (newValue: boolean) => void,
@@ -73,12 +79,18 @@ export const FormContext = createContext<FormContextType>({
     accessibility3: true, 
     setAccessibility3: () => {},
     // Form 3
+    eventType: "",
+    setEventType: () => {},
     desc:"",
     setDesc: () => {},
     admissionType: "",
     setAdmissionType: () => {},
     admission: "",
     setAdmission: () => {},
+    dateRange: [0,0],
+    setDateRange: () => {},
+    timeRange: ["",""],
+    setTimeRange: () => {},
     // Function
     handleBack: () => {},
     handleNext: () => {},
@@ -89,9 +101,6 @@ export const FormContext = createContext<FormContextType>({
 const RegisterFormPage = () => {
     // useNavgite
     const navigate = useNavigate();
-
-    // Event or business type from param
-    const {type} = useParams();
 
     // States to keep track information of the form - event
     // Form 1 - Event
@@ -105,9 +114,12 @@ const RegisterFormPage = () => {
     const [accessibility2,setAccessibility2] = useState(true);
     const [accessibility3,setAccessibility3] = useState(true);
     // Form 3 - Event
+    const [eventType, setEventType] = useState("");
     const[desc, setDesc] = useState("");
     const [admissionType, setAdmissionType] = useState("");
     const [admission, setAdmission] = useState("");
+    const [dateRange, setDateRange] = useState([0,0]);
+    const [timeRange, setTimeRange] = useState(["", ""])
     // Form 5 - Event
     const [pwd, setPwd] = useState("");
     const [matchPwd, setMatchPwd] = useState("");
@@ -133,9 +145,8 @@ const RegisterFormPage = () => {
 
     const handleSubmit = (e: React.FormEvent): void => {
         e.preventDefault();
-        console.log(accessibility1);
-        console.log(accessibility2);
-        console.log(accessibility3);
+        console.log(timeRange)
+        console.log(dateRange)
     }
     return (
         <div className="register-form">
@@ -153,7 +164,7 @@ const RegisterFormPage = () => {
             
             {/* Submission Form */}
             <FormContext.Provider value={
-                {event, setEvent, email, setEmail, host, setHost, location,setLocation, website, setWebsite, handleBack, handleNext, pwd, setPwd, matchPwd, setMatchPwd, currentPage, accessibility1, setAccessibility1, accessibility2, setAccessibility2,accessibility3, setAccessibility3, desc, setDesc, admissionType, setAdmissionType, admission, setAdmission}
+                {event, setEvent, email, setEmail, host, setHost, location,setLocation, website, setWebsite, handleBack, handleNext, pwd, setPwd, matchPwd, setMatchPwd, currentPage, accessibility1, setAccessibility1, accessibility2, setAccessibility2,accessibility3, setAccessibility3, desc, setDesc, admissionType, setAdmissionType, admission, setAdmission, eventType, setEventType, dateRange, setDateRange, timeRange, setTimeRange}
             }  
             >
                 {/* General Form */}
