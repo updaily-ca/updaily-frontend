@@ -13,7 +13,7 @@ import Form5 from "../../components/RegisterForm/Form5/Form5";
 
 // Interface to define context
 interface FormContextType {
-    // Form 1
+    // Form 1 - Event
     event: string,
     setEvent: (newValue: string) => void,
     email: string,
@@ -24,10 +24,17 @@ interface FormContextType {
     setLocation: (newValue: string) => void,
     website: string,
     setWebsite: (newValue: string) => void,
+    // Form 1 - Business
+    business: string,
+    setBusiness: (newValue: string) => void,
+    phone: string,
+    setPhone: (newValue: string) => void,
+    launchingDate: number,
+    setLauchingDate: (newValue: number) => void,
     // Form 2
     selectedImages: File[],
     setSelectedImages: (img: any) => void,
-    // Form 3 
+    // Form 3 - Event
     eventType: string,
     setEventType: (newValue: string) => void,
     desc: string,
@@ -40,6 +47,15 @@ interface FormContextType {
     setDateRange: (dates: number[]) => void,
     timeRange: string[],
     setTimeRange: (times: string[]) => void,
+    // Form 3 - Business
+    businessType: string,
+    setBusinessType: (newValue: string) => void,
+    priceRange: string,
+    setPriceRange: (newValue: string) => void,
+    subtype: string,
+    setSubtype: (newValue: string) => void,
+    cuisine: string, 
+    setCuisine: (newValue: string) => void,
     // Form 4
     accessibility1: boolean,
     setAccessibility1: (newValue: boolean) => void,
@@ -47,6 +63,9 @@ interface FormContextType {
     setAccessibility2: (newValue: boolean) => void,
     accessibility3: boolean,
     setAccessibility3: (newValue: boolean) => void,
+    // Form 4 - Business
+    selectedMenu: File[],
+    setSelectedMenu: (img: any) => void,
     // Form 5
     pwd: string,
     setPwd: (newValue: string) => void,
@@ -59,7 +78,7 @@ interface FormContextType {
 }
 // Form Context
 export const FormContext = createContext<FormContextType>({
-    // Form 1
+    // Form 1 - Event
     event: "",
     setEvent: () => {},
     email: "",
@@ -74,6 +93,13 @@ export const FormContext = createContext<FormContextType>({
     setPwd: () => {},
     matchPwd: "",
     setMatchPwd: () => {},
+    // Form 1 - Business
+    business: "",
+    setBusiness: () => {},
+    phone: "",
+    setPhone: () => {},
+    launchingDate: 0,
+    setLauchingDate: () => {},
     // Form 2
     selectedImages: [],
     setSelectedImages: () => {},
@@ -84,7 +110,10 @@ export const FormContext = createContext<FormContextType>({
     setAccessibility2: () => {},
     accessibility3: true, 
     setAccessibility3: () => {},
-    // Form 3
+    // Form 4 - Business
+    selectedMenu: [],
+    setSelectedMenu: () => {},
+    // Form 3 - event
     eventType: "",
     setEventType: () => {},
     desc:"",
@@ -97,6 +126,15 @@ export const FormContext = createContext<FormContextType>({
     setDateRange: () => {},
     timeRange: ["",""],
     setTimeRange: () => {},
+    // Form 3 - Business
+    businessType: "",
+    setBusinessType: ()=> {},
+    priceRange: "",
+    setPriceRange: () => {},
+    subtype: "",
+    setSubtype: () => {},
+    cuisine: "",
+    setCuisine: () => {},
     // Function
     handleBack: () => {},
     handleNext: () => {},
@@ -115,10 +153,10 @@ const RegisterFormPage = () => {
     const [host, setHost] = useState("");
     const [location, setLocation] = useState("");
     const [website, setWebsite] = useState("");
-    // Form 4 - Event
-    const [accessibility1,setAccessibility1] = useState(true);
-    const [accessibility2,setAccessibility2] = useState(true);
-    const [accessibility3,setAccessibility3] = useState(true);
+    // Form 1 - Business
+    const [business, setBusiness] = useState("")
+    const [phone, setPhone] = useState("");
+    const [launchingDate, setLauchingDate] = useState(0);
     // Form 2
     const [selectedImages, setSelectedImages] = useState([]);
     // Form 3 - Event
@@ -127,7 +165,18 @@ const RegisterFormPage = () => {
     const [admissionType, setAdmissionType] = useState("");
     const [admission, setAdmission] = useState("");
     const [dateRange, setDateRange] = useState([0,0]);
-    const [timeRange, setTimeRange] = useState(["", ""])
+    const [timeRange, setTimeRange] = useState(["", ""]);
+    // Form 3 - Business
+    const [businessType, setBusinessType] = useState("");
+    const [priceRange, setPriceRange] = useState("");
+    const [subtype, setSubtype] = useState("");
+    const [cuisine, setCuisine] = useState("");
+    // Form 4 - Event
+    const [accessibility1,setAccessibility1] = useState(true);
+    const [accessibility2,setAccessibility2] = useState(true);
+    const [accessibility3,setAccessibility3] = useState(true);
+    // Form 4 - Business
+    const [selectedMenu, setSelectedMenu] = useState([]);
     // Form 5 - Event
     const [pwd, setPwd] = useState("");
     const [matchPwd, setMatchPwd] = useState("");
@@ -172,7 +221,7 @@ const RegisterFormPage = () => {
             
             {/* Submission Form */}
             <FormContext.Provider value={
-                {event, setEvent, email, setEmail, host, setHost, location,setLocation, website, setWebsite, handleBack, handleNext, pwd, setPwd, matchPwd, setMatchPwd, currentPage, accessibility1, setAccessibility1, accessibility2, setAccessibility2,accessibility3, setAccessibility3, desc, setDesc, admissionType, setAdmissionType, admission, setAdmission, eventType, setEventType, dateRange, setDateRange, timeRange, setTimeRange, selectedImages, setSelectedImages}
+                {event, setEvent, email, setEmail, host, setHost, location,setLocation, website, setWebsite, handleBack, handleNext, pwd, setPwd, matchPwd, setMatchPwd, currentPage, accessibility1, setAccessibility1, accessibility2, setAccessibility2,accessibility3, setAccessibility3, desc, setDesc, admissionType, setAdmissionType, admission, setAdmission, eventType, setEventType, dateRange, setDateRange, timeRange, setTimeRange, selectedImages, setSelectedImages, launchingDate, setLauchingDate, phone, setPhone, business, setBusiness, businessType, setBusinessType, priceRange, setPriceRange, selectedMenu, setSelectedMenu, subtype, setSubtype, cuisine, setCuisine}
             }  
             >
                 {/* General Form */}
