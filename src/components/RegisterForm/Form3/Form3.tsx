@@ -26,7 +26,7 @@ const Form3 = () => {
     const {type} = useParams();
 
     // Use Form Context
-    const {desc, setDesc, admissionType, setAdmissionType, admission, setAdmission, eventType, setEventType, setDateRange, setTimeRange} = useContext(FormContext);
+    const {desc, setDesc, admissionType, setAdmissionType, admission, setAdmission, setEventType, setDateRange, setTimeRange} = useContext(FormContext);
 
     const {handleBack, handleNext} = useContext(FormContext);
 
@@ -45,7 +45,7 @@ const Form3 = () => {
         <FormContainer name="Detail" handleBack={handleBack} handleNext={handleNext}>
             <div className="detail-form">
                 {/* Event type */}
-                {type==="Event" && <SelectionInput id="type" label="Event Type" values={eventLists} value={eventType} handleChange={setEventType} />}
+                {type==="Event" && <SelectionInput id="type" label="Event Type" values={eventLists} value={type} handleChange={setEventType} />}
                 {type==="Event" && <SelectionInput id="admission" label="Admission fee" values={admissionData} value={admissionType} handleChange={setAdmissionType} />}
                 {type==="Event" && <Input id="price" name="Price" value={admission} handleChange={setAdmission}/>}
                 {

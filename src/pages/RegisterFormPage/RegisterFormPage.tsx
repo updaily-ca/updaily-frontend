@@ -24,6 +24,9 @@ interface FormContextType {
     setLocation: (newValue: string) => void,
     website: string,
     setWebsite: (newValue: string) => void,
+    // Form 2
+    selectedImages: File[],
+    setSelectedImages: (img: any) => void,
     // Form 3 
     eventType: string,
     setEventType: (newValue: string) => void,
@@ -71,6 +74,9 @@ export const FormContext = createContext<FormContextType>({
     setPwd: () => {},
     matchPwd: "",
     setMatchPwd: () => {},
+    // Form 2
+    selectedImages: [],
+    setSelectedImages: () => {},
     // Form 4
     accessibility1: true, 
     setAccessibility1: () => {},
@@ -113,6 +119,8 @@ const RegisterFormPage = () => {
     const [accessibility1,setAccessibility1] = useState(true);
     const [accessibility2,setAccessibility2] = useState(true);
     const [accessibility3,setAccessibility3] = useState(true);
+    // Form 2
+    const [selectedImages, setSelectedImages] = useState([]);
     // Form 3 - Event
     const [eventType, setEventType] = useState("");
     const[desc, setDesc] = useState("");
@@ -164,7 +172,7 @@ const RegisterFormPage = () => {
             
             {/* Submission Form */}
             <FormContext.Provider value={
-                {event, setEvent, email, setEmail, host, setHost, location,setLocation, website, setWebsite, handleBack, handleNext, pwd, setPwd, matchPwd, setMatchPwd, currentPage, accessibility1, setAccessibility1, accessibility2, setAccessibility2,accessibility3, setAccessibility3, desc, setDesc, admissionType, setAdmissionType, admission, setAdmission, eventType, setEventType, dateRange, setDateRange, timeRange, setTimeRange}
+                {event, setEvent, email, setEmail, host, setHost, location,setLocation, website, setWebsite, handleBack, handleNext, pwd, setPwd, matchPwd, setMatchPwd, currentPage, accessibility1, setAccessibility1, accessibility2, setAccessibility2,accessibility3, setAccessibility3, desc, setDesc, admissionType, setAdmissionType, admission, setAdmission, eventType, setEventType, dateRange, setDateRange, timeRange, setTimeRange, selectedImages, setSelectedImages}
             }  
             >
                 {/* General Form */}
