@@ -3,7 +3,7 @@ import EventFilter from "../../components/ExploreFilters/Event/EventFilter"
 import FilterButton from "../../components/global/FilterButton/FilterButton"
 import SearchCards from "../../components/global/SearchCards/SearchCards"
 import { performSearch, useToggleClass } from "../../utils/functions"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 import "./ExplorePage.scss"
 import { useDocumentTitle } from "../../utils/functions"
