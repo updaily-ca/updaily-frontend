@@ -52,9 +52,13 @@ const ExplorePage = () => {
             <div className="map-container">
                 <ExploreMap />
 
+
                 <div className="e-cc-searchcards">
                     {/* explore page - component container - search cards */}
                     <SearchCards isBusinessMode={isFilterBusiness} />
+
+                    {/* npm install @googlemaps/js-api-loader */}
+
                 </div>
             </div>
         </div>
