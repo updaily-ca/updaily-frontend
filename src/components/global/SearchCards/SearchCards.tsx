@@ -9,7 +9,7 @@ import BusinessSearchCards from './Business/BusinessSearchCards';
 
 
 interface SearchCardsProps {
-    isBusinessMode: any;
+    isBusinessMode: boolean;
 }
 
 const SearchCards: React.FC<SearchCardsProps> = ({ isBusinessMode }) => {

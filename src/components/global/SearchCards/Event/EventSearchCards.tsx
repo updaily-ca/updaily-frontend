@@ -7,7 +7,7 @@ interface EventSearchCardProps {
 
 const EventSearchCards: React.FC<EventSearchCardProps> = ({ images }) => {
 
-    const altPhoto = ""
+    const altPhoto = "";
 
     return (
         <>

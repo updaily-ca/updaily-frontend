@@ -7,7 +7,7 @@ interface BusinessSearchCardProps {
 
 const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images }) => {
 
-    const altPhoto = ""
+    const altPhoto = "";
 
     return (
         <>
