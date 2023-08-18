@@ -47,8 +47,6 @@ const ExplorePage = () => {
                         <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
                     </div>
 
-                    {/*  This needs optimising because there's a function we can use in the utils function file */}
-
                     {isFilterBusiness ? <BusinessFilter isFilterButtonClicked={isFilterButtonClicked} searchTerm={searchTerm} setSearchTerm={setSearchTerm} handleKeyDown={handleKeyDown} handleSearchClick={handleSearchClick} /> : <EventFilter />}
                 </div>
             </aside>

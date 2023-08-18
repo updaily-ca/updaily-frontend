@@ -7,7 +7,6 @@ import photo from '../../../asset/samplephotos/fireworks.jpg';
 import EventSearchCards from './Event/EventSearchCards';
 import BusinessSearchCards from './Business/BusinessSearchCards';
 
-
 interface SearchCardsProps {
     isBusinessMode: boolean;
 }
