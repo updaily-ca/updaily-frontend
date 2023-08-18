@@ -41,7 +41,6 @@ const ExplorePage = () => {
                 <div className="filters">
                     <div className="filters__header">
                         <div onClick={toggleFilterButton} className="filters__title">
-                            {" "}
                             Filters
                         </div>
                         <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
