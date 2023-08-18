@@ -4,6 +4,7 @@
 .input {
     display:flex;
     flex-direction: column;
+    margin-bottom: 0.3rem;
     &__label {
         color: $shade-1;
         font-size: 0.8rem;

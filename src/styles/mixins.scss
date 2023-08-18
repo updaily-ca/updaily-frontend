@@ -52,7 +52,7 @@ $highres-width: 1600px;
 
 @mixin register-form {
     display: flex;
-    height: 85vh;
+    min-height: 85vh;
     flex-direction: column;
     text-align: center;
     padding: 0 1rem;

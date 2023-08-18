@@ -1,0 +1,10 @@
+@use "../../../styles/colours.scss" as *;
+
+.photo-form {
+    text-align: start;
+    margin: 1.5rem 0;
+    &__title {
+        color: $shade-1;
+        font-size: 0.9rem;
+    }
+}
