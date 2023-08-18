@@ -1,7 +1,7 @@
 import "./NextButton.scss";
 // Define pass in function for Next Button
 interface NextButtonFunc {
-    handleNext: () => void;
+    handleNext?: (e: React.FormEvent) => void;
     text: string
 }
 

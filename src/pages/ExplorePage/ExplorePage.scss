@@ -1,0 +1,54 @@
+@use '../../styles/global.scss' as *;
+@use '../../styles/colours.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+#p-explorepage {
+    display: flex;
+    flex-direction: column;
+
+    @include desktop {
+        flex-direction: row;
+    }
+}
+
+.filters {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1rem;
+
+    &__header {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+
+        .filter-btn {
+            margin-right: 0;
+        }
+    }
+
+    &__title {
+        font-size: $px24;
+    }
+}
+
+.filter-container {
+    width: 100%;
+    box-sizing: border-box;
+
+    @include desktop {
+        width: 30%;
+    }
+
+}
+
+.map-container {
+    width: 70%;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+
+    .e-cc-searchcards {
+        margin-top: auto;
+    }
+}

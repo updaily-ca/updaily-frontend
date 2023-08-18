@@ -1,0 +1,9 @@
+@use "../../../styles/mixins.scss" as *;
+
+.form-children {
+    margin: 1.5rem 0;
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}

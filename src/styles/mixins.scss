@@ -24,16 +24,15 @@ $highres-width: 1600px;
 
 // Register Main page
 @mixin selection($color) {
-    border: solid $px2 $color;
+    border: solid 2px $color;
     display: flex;
     justify-content: space-around;
     align-items: center;
     border-radius: 1rem;
     padding: 1rem 0;
     cursor: pointer;
-
     &:hover {
-        border: solid $px2 $coloured-bright;
+        border: solid 2px $coloured-bright;
         color: $coloured-bright;
         transition: all 0.3s;
     }
@@ -51,12 +50,20 @@ $highres-width: 1600px;
     }
 }
 
-@mixin center {
+@mixin register-form {
     display: flex;
-    height: 100vh;
+    height: 85vh;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     text-align: center;
     padding: 0 1rem;
+    margin-top: 3rem;
+    @include tablet{
+        margin-top: 6rem;
+    }
+    @include desktop{
+        margin-top: 3rem;
+    }
+    @include highres{
+        margin-top: 5rem;
+    }
 }
