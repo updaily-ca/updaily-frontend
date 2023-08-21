@@ -73,7 +73,8 @@
     &__input {
         height: 2rem;
         line-height: 2rem;
-        font-size: $px18;
+        // font-size: $px18;
+        font-size: 1rem;
         border: thin solid $search-border;
         border-radius: $px5;
         text-align: center;
