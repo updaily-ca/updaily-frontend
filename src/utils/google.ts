@@ -1,13 +1,14 @@
-// mapFunctions.ts
-import { Loader } from '@googlemaps/js-api-loader';
-// import { LatLng, Geocoder } from 'googlemaps';
- 
-interface GeoCode {
-    OK: 'OK';
-    ZERO_RESULTS: 'ZERO_RESULTS';
-    status: 'OK' | 'ZERO_RESULTS' | string;
-    [results: string]: any;
-  }
+declare global {
+    interface Window {
+        google: any;
+    }
+    interface GeoCode {
+      OK: 'OK';
+      ZERO_RESULTS: 'ZERO_RESULTS';
+      status: 'OK' | 'ZERO_RESULTS' | string;
+      [results: string]: any;
+    }
+}
 
   export const gInitMap = () => {
     const map = new window.google.maps.Map(document.getElementById('map'), {
@@ -61,6 +62,6 @@ interface GeoCode {
     console.log('Longitude:', location.lng());
 };
 
-export const gOnSearchError = (error: string) => {
+export const gOnSearchError: any = (error: any) => {
     console.error(error);
 };
