@@ -46,7 +46,7 @@ const ExplorePage = () => {
                         <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
                     </div>
 
-                    {isFilterBusiness ? <BusinessFilter isFilterButtonClicked={isFilterButtonClicked} searchTerm={searchTerm} setSearchTerm={setSearchTerm} handleKeyDown={handleKeyDown} handleSearchClick={handleSearchClick} /> : <EventFilter />}
+                    {isFilterBusiness ? <BusinessFilter isFilterButtonClicked={isFilterButtonClicked} searchTerm={searchTerm} setSearchTerm={setSearchTerm} handleKeyDown={handleKeyDown} handleSearchClick={handleSearchClick} /> : <EventFilter isFilterButtonClicked={isFilterButtonClicked} searchTerm={searchTerm} setSearchTerm={setSearchTerm} handleKeyDown={handleKeyDown} handleSearchClick={handleSearchClick} />}
                 </div>
             </aside>
             <div className="map-container">

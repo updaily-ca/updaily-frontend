@@ -1,4 +1,6 @@
 import { businessType } from "../../../utils/FormData"
+
+import "../ExploreFilters.scss"
 import "./BusinessFilter.scss"
 
 interface BusinessFilterProps {
