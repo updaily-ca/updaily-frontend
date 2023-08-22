@@ -3,7 +3,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 import { gInitMap } from '../../utils/google';
 
 const ExploreMap = () => {
-    const token = process.env.REACT_APP_API_KEY || 'error';
+    const token = process.env.REACT_APP_API_KEY_1 || 'error';
 
     useEffect(() => {
         const loader = new Loader({
