@@ -1,4 +1,5 @@
 import { eventType } from "../../../utils/FormData"
+import { toggleFilter } from "../../../utils/functions"
 import "./EventFilter.scss"
 
 interface EventFilterProps {
@@ -8,9 +9,20 @@ interface EventFilterProps {
     gHandleSearchSubmit: (e: React.FormEvent) => void
     gOnSearchError: any // Update this type
     gOnSearchSuccess: any // Update this type
+
+    activeFilterStates: any;
+    setActiveFilterStates: any;
 }
 
-const EventFilter: React.FC<EventFilterProps> = ({ isFilterButtonClicked, address, setAddress, gHandleSearchSubmit }) => {
+const EventFilter: React.FC<EventFilterProps> = ({
+    isFilterButtonClicked,
+    address,
+    setAddress,
+    gHandleSearchSubmit,
+
+    activeFilterStates,
+    setActiveFilterStates,
+}) => {
     return (
         <div className={`c-eventfilter ${isFilterButtonClicked ? "active" : ""}`}>
             <div className="filter-card">
@@ -45,8 +57,12 @@ const EventFilter: React.FC<EventFilterProps> = ({ isFilterButtonClicked, addres
                 <div className="filter-card__subtitle">Search</div>
                 {eventType
                     .sort((a, b) => a.localeCompare(b))
-                    .map((eventType) => (
-                        <div key={eventType} className="uc filter-card__btn">
+                    .map((eventType, index) => (
+                        <div
+                            onClick={() => toggleFilter(index, activeFilterStates, setActiveFilterStates)} // Pass all three arguments
+                            key={eventType}
+                            className={`uc filter-card__btn ${activeFilterStates[index] ? "active" : ""}`}
+                        >
                             {eventType}
                         </div>
                     ))}

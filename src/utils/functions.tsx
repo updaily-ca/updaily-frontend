@@ -43,3 +43,12 @@ export const toTimeStamp = (strDate: string): number => {
     const dt = Date.parse(strDate);
     return dt / 1000;
 }
+
+// filterFunctions.ts
+export const toggleFilter = (index: number, activeFilterStates: boolean[], setActiveFilterStates: React.Dispatch<React.SetStateAction<boolean[]>>) => {
+    setActiveFilterStates(prevStates => {
+        const newStates = [...prevStates];
+        newStates[index] = !newStates[index];
+        return newStates;
+    });
+};
