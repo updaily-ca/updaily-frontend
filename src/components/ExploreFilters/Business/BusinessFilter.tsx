@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { businessType } from "../../../utils/FormData";
+import { toggleFilter } from "../../../utils/functions";
 import "./BusinessFilter.scss";
 
 interface BusinessFilterProps {
@@ -9,6 +9,8 @@ interface BusinessFilterProps {
     gHandleSearchSubmit: (e: React.FormEvent) => void;
     gOnSearchError: any; // Update this 
     gOnSearchSuccess: any; // Update this
+    activeFilterStates: any;
+    setActiveFilterStates: any;
 }
 
 const BusinessFilter: React.FC<BusinessFilterProps> = ({
@@ -16,21 +18,10 @@ const BusinessFilter: React.FC<BusinessFilterProps> = ({
     address,
     setAddress,
     gHandleSearchSubmit,
+
+    activeFilterStates,
+    setActiveFilterStates,
 }) => {
-
-    const toggleFilter = (index: number) => {
-        if (activeFilterIndices.includes(index)) {
-            setActiveFilterIndices(prevIndices =>
-                prevIndices.filter(activeIndex => activeIndex !== index)
-            );
-        } else {
-            setActiveFilterIndices(prevIndices => [...prevIndices, index]);
-        }
-    };
-
-    const [activeFilterIndices, setActiveFilterIndices] = useState<number[]>([]);
-
-
 
     return (
         <div className={`c-businessfilter ${isFilterButtonClicked ? "active" : ""}`}>
@@ -66,8 +57,11 @@ const BusinessFilter: React.FC<BusinessFilterProps> = ({
                 {businessType
                     .sort((a, b) => a.localeCompare(b))
                     .map((businessType, index) => (
-                        <div onClick={() => toggleFilter(index)} key={businessType}
-                            className={`uc filter-card__btn ${activeFilterIndices.includes(index) ? "active" : ""}`}>
+                        <div
+                            onClick={() => toggleFilter(index, activeFilterStates, setActiveFilterStates)} // Pass all three arguments
+                            key={businessType}
+                            className={`uc filter-card__btn ${activeFilterStates[index] ? "active" : ""}`}
+                        >
                             {businessType}
                         </div>
                     ))}

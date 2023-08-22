@@ -69,6 +69,14 @@
         flex-grow: 2;
     }
 
+    &__btn {
+        transition: border 0.125s ease-in-out;
+    }
+
+    &__btn.active {
+        border: thin solid $coloured;
+    }
+
     &__btn,
     &__input {
         height: 2rem;

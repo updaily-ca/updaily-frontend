@@ -6,6 +6,10 @@ import FilterButton from "../../components/global/FilterButton/FilterButton";
 import SearchCards from "../../components/global/SearchCards/SearchCards";
 import ExploreMap from "../../components/ExploreMap/ExploreMap";
 import { gHandleSearch, gOnSearchError, gOnSearchSuccess } from "../../utils/google";
+
+import { businessType } from "../../utils/FormData";
+import { EventType } from "@testing-library/react";
+
 import "./ExplorePage.scss";
 
 const ExplorePage = () => {
@@ -27,6 +31,11 @@ const ExplorePage = () => {
             gHandleSearch(address, gOnSearchSuccess, gOnSearchError);
         }
     };
+
+    const initialFilterState = Array.from({ length: businessType.length }, () => false);
+
+    const [activeFilterStates, setActiveFilterStates] = useState<boolean[]>(initialFilterState);
+
 
 
 
@@ -51,6 +60,8 @@ const ExplorePage = () => {
                             gHandleSearchSubmit={handleSearchSubmit}
                             gOnSearchError={gOnSearchError}
                             gOnSearchSuccess={gOnSearchSuccess}
+                            activeFilterStates={activeFilterStates}
+                            setActiveFilterStates={setActiveFilterStates}
                         />
                     ) : (
                         <EventFilter
@@ -60,6 +71,8 @@ const ExplorePage = () => {
                             gHandleSearchSubmit={handleSearchSubmit}
                             gOnSearchError={gOnSearchError}
                             gOnSearchSuccess={gOnSearchSuccess}
+                            activeFilterStates={activeFilterStates}
+                            setActiveFilterStates={setActiveFilterStates}
                         />
 
                     )}
