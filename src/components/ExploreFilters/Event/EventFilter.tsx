@@ -12,6 +12,7 @@ interface EventFilterProps {
 
     activeFilterStates: any;
     setActiveFilterStates: any;
+
 }
 
 const EventFilter: React.FC<EventFilterProps> = ({
@@ -56,12 +57,12 @@ const EventFilter: React.FC<EventFilterProps> = ({
             <div className="filter-card">
                 <div className="filter-card__subtitle">Search</div>
                 {eventType
-                    .sort((a, b) => a.localeCompare(b))
+                    // .sort((a, b) => a.localeCompare(b))
                     .map((eventType, index) => (
                         <div
-                            onClick={() => toggleFilter(index, activeFilterStates, setActiveFilterStates)} // Pass all three arguments
+                            onClick={() => toggleFilter(eventType, activeFilterStates, setActiveFilterStates)}
                             key={eventType}
-                            className={`uc filter-card__btn ${activeFilterStates[index] ? "active" : ""}`}
+                            className={`uc filter-card__btn ${activeFilterStates[eventType] ? "active" : ""}`}
                         >
                             {eventType}
                         </div>
