@@ -45,10 +45,10 @@ export const toTimeStamp = (strDate: string): number => {
 }
 
 // filterFunctions.ts
-export const toggleFilter = (index: number, activeFilterStates: boolean[], setActiveFilterStates: React.Dispatch<React.SetStateAction<boolean[]>>) => {
+export const toggleFilter = (id: string, activeFilterStates: Record<string, boolean>, setActiveFilterStates: React.Dispatch<React.SetStateAction<Record<string, boolean>>>) => {
     setActiveFilterStates(prevStates => {
-        const newStates = [...prevStates];
-        newStates[index] = !newStates[index];
+        const newStates = { ...prevStates };
+        newStates[id] = !newStates[id];
         return newStates;
     });
 };

@@ -58,9 +58,9 @@ const BusinessFilter: React.FC<BusinessFilterProps> = ({
                     .sort((a, b) => a.localeCompare(b))
                     .map((businessType, index) => (
                         <div
-                            onClick={() => toggleFilter(index, activeFilterStates, setActiveFilterStates)} // Pass all three arguments
+                            onClick={() => toggleFilter(businessType, activeFilterStates, setActiveFilterStates)}
                             key={businessType}
-                            className={`uc filter-card__btn ${activeFilterStates[index] ? "active" : ""}`}
+                            className={`uc filter-card__btn ${activeFilterStates[businessType] ? "active" : ""}`}
                         >
                             {businessType}
                         </div>
