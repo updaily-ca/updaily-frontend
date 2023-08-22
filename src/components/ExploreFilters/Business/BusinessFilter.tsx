@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { businessType } from "../../../utils/FormData";
 import "./BusinessFilter.scss";
 
@@ -16,6 +17,20 @@ const BusinessFilter: React.FC<BusinessFilterProps> = ({
     setAddress,
     gHandleSearchSubmit,
 }) => {
+
+    const toggleFilter = (index: number) => {
+        if (activeFilterIndices.includes(index)) {
+            setActiveFilterIndices(prevIndices =>
+                prevIndices.filter(activeIndex => activeIndex !== index)
+            );
+        } else {
+            setActiveFilterIndices(prevIndices => [...prevIndices, index]);
+        }
+    };
+
+    const [activeFilterIndices, setActiveFilterIndices] = useState<number[]>([]);
+
+
 
     return (
         <div className={`c-businessfilter ${isFilterButtonClicked ? "active" : ""}`}>
@@ -50,8 +65,9 @@ const BusinessFilter: React.FC<BusinessFilterProps> = ({
                 <div className="filter-card__subtitle">Search</div>
                 {businessType
                     .sort((a, b) => a.localeCompare(b))
-                    .map((businessType) => (
-                        <div key={businessType} className="uc filter-card__btn">
+                    .map((businessType, index) => (
+                        <div onClick={() => toggleFilter(index)} key={businessType}
+                            className={`uc filter-card__btn ${activeFilterIndices.includes(index) ? "active" : ""}`}>
                             {businessType}
                         </div>
                     ))}
