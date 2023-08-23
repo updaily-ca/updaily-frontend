@@ -1,5 +1,5 @@
 import "./RegisterFormPage.scss";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
 // Library
 import {Line} from "rc-progress";
@@ -11,8 +11,12 @@ import Form4 from "../../components/RegisterForm/Form4/Form4";
 import Form5 from "../../components/RegisterForm/Form5/Form5";
 // Context
 import { FormContext } from "../../context/formContext";
+// Upload to cloudinary function
+import { handleUpload } from "../../utils/functions";
 
 const RegisterFormPage = () => {
+    // type
+    const {type} = useParams();
     // useNavgite
     const navigate = useNavigate();
 
@@ -70,33 +74,17 @@ const RegisterFormPage = () => {
             navigate(-1);
         }
     }
-
-    const handleSubmit = (e: React.FormEvent): void => {
+    // handle business submit
+    const handleBusinessSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         // upload images to cloudinary
-        const handleUpload = async () => {
-            const uploadUrls: string[] = [];
+        await handleUpload(selectedImages, setImagesURL);
 
-            for(const image of selectedImages) {
-                const formData = new FormData();
-                formData.append("file",image);
-                formData.append("upload_preset", "UpDaily");
+    }
 
-                const response = await fetch(
-                    `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
-                    {
-                    method: 'POST',
-                    body: formData,
-                    }
-                );
-
-                const data = await response.json();
-                uploadUrls.push(data.secureurl);
-            }
-            console.log(uploadUrls);
-            setImagesURL(uploadUrls);
-        }
-        handleUpload();
+    // handle event submit
+    const handleEventSubmit = async(e: React.FormEvent) => {
+        e.preventDefault()
     }
     return (
         <div className="register-form">
@@ -130,7 +118,7 @@ const RegisterFormPage = () => {
                 {currentPage === 4 && <Form4/> }
 
                 {/* Set Up Account Form */}
-                {currentPage === 5 && <Form5 handleSubmit={handleSubmit}/> }
+                {currentPage === 5 && <Form5  handleSubmit={type==="Business" ? handleBusinessSubmit : handleEventSubmit}/> }
             </FormContext.Provider>
         </div>
     )

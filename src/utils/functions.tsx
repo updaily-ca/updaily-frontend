@@ -52,3 +52,26 @@ export const toggleFilter = (id: string, activeFilterStates: Record<string, bool
         return newStates;
     });
 };
+
+// Upload images to cloudinary
+export const handleUpload = async (images: File[], setURL:(urls: string[])=> void) => {
+    const uploadUrls: string[] = [];
+
+    for(const image of images) {
+        const formData = new FormData();
+        formData.append("file",image);
+        formData.append("upload_preset", "UpDaily");
+
+        const response = await fetch(
+            `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
+            {
+            method: 'POST',
+            body: formData,
+            }
+        );
+
+        const data = await response.json();
+        uploadUrls.push(data.secureurl);
+    }
+    setURL(uploadUrls);
+}
