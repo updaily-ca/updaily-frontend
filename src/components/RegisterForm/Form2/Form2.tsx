@@ -5,8 +5,7 @@ import FormContainer from "../../Forms/FormContainer/FormContainer";
 import Upload from "../../Forms/upload/Upload";
 // Context
 import { useContext } from "react";
-import { FormContext } from '../../../pages/RegisterFormPage/RegisterFormPage';
-
+import { FormContext } from "../../../context/formContext";
 const Form2 = () => {
     // Type
     const {type} = useParams();

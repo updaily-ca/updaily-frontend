@@ -1,6 +1,6 @@
 import "./RegisterFormPage.scss";
-import {useParams, useNavigate} from "react-router-dom";
-import {useState, createContext} from "react";
+import {useNavigate} from "react-router-dom";
+import {useState} from "react";
 // Library
 import {Line} from "rc-progress";
 // Import Forms
@@ -9,138 +9,8 @@ import Form2 from "../../components/RegisterForm/Form2/Form2";
 import Form3 from "../../components/RegisterForm/Form3/Form3";
 import Form4 from "../../components/RegisterForm/Form4/Form4";
 import Form5 from "../../components/RegisterForm/Form5/Form5";
-
-
-// Interface to define context
-interface FormContextType {
-    // Form 1 - Event
-    event: string,
-    setEvent: (newValue: string) => void,
-    email: string,
-    setEmail: (newValue: string) => void,
-    host: string,
-    setHost: (newValue: string) => void,
-    location: string, 
-    setLocation: (newValue: string) => void,
-    website: string,
-    setWebsite: (newValue: string) => void,
-    // Form 1 - Business
-    business: string,
-    setBusiness: (newValue: string) => void,
-    phone: string,
-    setPhone: (newValue: string) => void,
-    launchingDate: number,
-    setLauchingDate: (newValue: number) => void,
-    // Form 2
-    selectedImages: File[],
-    setSelectedImages: (img: any) => void,
-    // Form 3 - Event
-    eventType: string,
-    setEventType: (newValue: string) => void,
-    desc: string,
-    setDesc: (newValue: string) => void, 
-    admissionType: string,
-    setAdmissionType: (newValue: string) => void,
-    admission: string,
-    setAdmission: (newValue: string) => void,
-    dateRange: number[],
-    setDateRange: (dates: number[]) => void,
-    timeRange: string[],
-    setTimeRange: (times: string[]) => void,
-    // Form 3 - Business
-    businessType: string,
-    setBusinessType: (newValue: string) => void,
-    priceRange: string,
-    setPriceRange: (newValue: string) => void,
-    subtype: string,
-    setSubtype: (newValue: string) => void,
-    cuisine: string, 
-    setCuisine: (newValue: string) => void,
-    // Form 4
-    accessibility1: boolean,
-    setAccessibility1: (newValue: boolean) => void,
-    accessibility2: boolean,
-    setAccessibility2: (newValue: boolean) => void,
-    accessibility3: boolean,
-    setAccessibility3: (newValue: boolean) => void,
-    // Form 4 - Business
-    selectedMenu: File[],
-    setSelectedMenu: (img: any) => void,
-    // Form 5
-    pwd: string,
-    setPwd: (newValue: string) => void,
-    matchPwd: string,
-    setMatchPwd: (newValue: string) => void,
-    handleBack: () => void,
-    handleNext: () => void,
-    // Current Page
-    currentPage: number
-}
-// Form Context
-export const FormContext = createContext<FormContextType>({
-    // Form 1 - Event
-    event: "",
-    setEvent: () => {},
-    email: "",
-    setEmail: () => {},
-    location: "",
-    setLocation: () => {},
-    host: "",
-    setHost: () => {},
-    website: "",
-    setWebsite: () => {},
-    pwd: "",
-    setPwd: () => {},
-    matchPwd: "",
-    setMatchPwd: () => {},
-    // Form 1 - Business
-    business: "",
-    setBusiness: () => {},
-    phone: "",
-    setPhone: () => {},
-    launchingDate: 0,
-    setLauchingDate: () => {},
-    // Form 2
-    selectedImages: [],
-    setSelectedImages: () => {},
-    // Form 4
-    accessibility1: true, 
-    setAccessibility1: () => {},
-    accessibility2: true, 
-    setAccessibility2: () => {},
-    accessibility3: true, 
-    setAccessibility3: () => {},
-    // Form 4 - Business
-    selectedMenu: [],
-    setSelectedMenu: () => {},
-    // Form 3 - event
-    eventType: "",
-    setEventType: () => {},
-    desc:"",
-    setDesc: () => {},
-    admissionType: "",
-    setAdmissionType: () => {},
-    admission: "",
-    setAdmission: () => {},
-    dateRange: [0,0],
-    setDateRange: () => {},
-    timeRange: ["",""],
-    setTimeRange: () => {},
-    // Form 3 - Business
-    businessType: "",
-    setBusinessType: ()=> {},
-    priceRange: "",
-    setPriceRange: () => {},
-    subtype: "",
-    setSubtype: () => {},
-    cuisine: "",
-    setCuisine: () => {},
-    // Function
-    handleBack: () => {},
-    handleNext: () => {},
-    currentPage: 1
-
-});
+// Context
+import { FormContext } from "../../context/formContext";
 
 const RegisterFormPage = () => {
     // useNavgite

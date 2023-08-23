@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import FormContainer from '../../Forms/FormContainer/FormContainer';
 import Input from "../../Forms/Input/Input";
 // Context
-import { FormContext } from '../../../pages/RegisterFormPage/RegisterFormPage';
+import { FormContext } from "../../../context/formContext";
 // Date Picker
 import type { DatePickerProps } from "antd";
 import { DatePicker } from "antd";
