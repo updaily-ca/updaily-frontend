@@ -29,6 +29,7 @@ const RegisterFormPage = () => {
     const [launchingDate, setLauchingDate] = useState(0);
     // Form 2
     const [selectedImages, setSelectedImages] = useState([]);
+    const [imagesURL, setImagesURL]: any[] = useState([]);
     // Form 3 - Event
     const [eventType, setEventType] = useState("");
     const[desc, setDesc] = useState("");
@@ -72,8 +73,30 @@ const RegisterFormPage = () => {
 
     const handleSubmit = (e: React.FormEvent): void => {
         e.preventDefault();
-        console.log(timeRange)
-        console.log(dateRange)
+        // upload images to cloudinary
+        const handleUpload = async () => {
+            const uploadUrls: string[] = [];
+
+            for(const image of selectedImages) {
+                const formData = new FormData();
+                formData.append("file",image);
+                formData.append("upload_preset", "UpDaily");
+
+                const response = await fetch(
+                    `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
+                    {
+                    method: 'POST',
+                    body: formData,
+                    }
+                );
+
+                const data = await response.json();
+                uploadUrls.push(data.secureurl);
+            }
+            console.log(uploadUrls);
+            setImagesURL(uploadUrls);
+        }
+        handleUpload();
     }
     return (
         <div className="register-form">
