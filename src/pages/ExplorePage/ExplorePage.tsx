@@ -7,8 +7,7 @@ import SearchCards from "../../components/global/SearchCards/SearchCards";
 import ExploreMap from "../../components/ExploreMap/ExploreMap";
 import { gHandleSearch, gOnSearchError, gOnSearchSuccess } from "../../utils/google";
 
-import { businessType } from "../../utils/FormData";
-import { EventType } from "@testing-library/react";
+import { businessType, eventType } from "../../utils/FormData";
 
 import "./ExplorePage.scss";
 
