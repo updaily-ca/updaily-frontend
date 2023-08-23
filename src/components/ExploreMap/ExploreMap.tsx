@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 import { gInitMap } from '../../utils/google';
 
-const ExploreMap = () => {
+const ExploreMap = ({ userLat, userLng }: any) => {
     const token = process.env.REACT_APP_API_KEY_1 || 'error';
 
     useEffect(() => {
@@ -12,13 +12,13 @@ const ExploreMap = () => {
         });
 
         loader.load().then(() => {
-            gInitMap();
+            gInitMap(userLat, userLng);
         });
 
         return () => {
             // Clean up if needed
         };
-    }, [token]);
+    }, [token, userLat, userLng]);
 
     return (
         <div>

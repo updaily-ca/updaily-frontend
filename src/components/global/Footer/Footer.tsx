@@ -1,13 +1,13 @@
 import './Footer.scss';
 
 // Graphql
-import {useQuery} from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { getFeaturedBusiness } from '../../../graphql/queries';
 
 const Footer = () => {
 
     // Fetch Featured Business
-    const {loading, error, data} = useQuery(getFeaturedBusiness);
+    const { loading, error, data } = useQuery(getFeaturedBusiness);
     return (
         <div id="c-footer">
 
@@ -33,7 +33,8 @@ const Footer = () => {
                     loading ? <p>Loading...</p> : (
                         <ul className="footer-card__list">
                             {
-                                data?.businesses?.slice(0,4).map((business: {name: string, _typename: string}, index: number) => {
+                                data?.businesses?.slice(0, 4).map((business: { name: string, _typename: string }, index: number) => {
+
                                     return <li key={index} className="footer_card__list-item">{business.name}</li>
                                 })
                             }
@@ -45,13 +46,17 @@ const Footer = () => {
             <section className="footer-card footer-card--events">
                 <h3 className="footer-card__title">Newest Events</h3>
                 <ul className="footer-card__list">
-                    <li className="footer_card__list-item">Event 1</li>
-                    <li className="footer_card__list-item">Event 2</li>
-                    <li className="footer_card__list-item">Event 3</li>
-                    <li className="footer_card__list-item">Event 4</li>
+
+                    {
+                        data?.events?.slice(0, 4).map((event: { name: string }, index: number) => {
+                            return <li key={index} className="footer_card__list-item">{event.name}</li>
+                        })
+                    }
+
+
                 </ul>
             </section>
-        </div>
+        </div >
     )
 }
 

@@ -11,7 +11,7 @@ import DetailPage from './pages/DetailPage/DetailPage';
 import Footer from './components/global/Footer/Footer';
 // Apollo Client
 import client from './graphql/apolloClient';
-import {ApolloProvider} from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
           <Footer />
         </Router>
     </ApolloProvider>
-    
+
   );
 }
 
