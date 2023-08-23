@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 const client = new ApolloClient({
-    uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
+    uri: `${process.env.REACT_APP_API_URL_2}:${process.env.REACT_APP_API_PORT_2}`,
     cache: new InMemoryCache(),
 });
 
