@@ -14,10 +14,6 @@ import "./ExplorePage.scss";
 const ExplorePage = () => {
     useDocumentTitle("Explore Page");
 
-
-
-    const [userLocation, setUserLocation] = useState(null);
-
     const [address, setAddress] = useState<string>("");
 
 
