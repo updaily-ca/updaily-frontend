@@ -12,9 +12,14 @@ import { businessType, eventType } from "../../utils/FormData";
 import "./ExplorePage.scss";
 
 const ExplorePage = () => {
+    useDocumentTitle("Explore Page");
+
+
+
+    const [userLocation, setUserLocation] = useState(null);
+
     const [address, setAddress] = useState<string>("");
 
-    useDocumentTitle("Explore Page");
 
     const [isFilterBusiness, setIsFilterBusiness] = useState<boolean>(false);
 
@@ -35,7 +40,26 @@ const ExplorePage = () => {
 
     const [activeFilterStates, setActiveFilterStates] = useState<boolean[]>(initialFilterState);
 
+    const [userLat, setUserLat] = useState(0);
+    const [userLng, setUserLng] = useState(0);
 
+    if ('geolocation' in navigator) {
+        // Request the user's current position
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                setUserLat(latitude);
+                setUserLng(longitude)
+                console.log(`GPS coordinates: Latitude=${latitude}, Longitude=${longitude}`);
+            },
+            (error) => {
+                console.error('Error getting GPS coordinates:', error.message);
+            }
+        );
+    } else {
+        console.error('Geolocation is not available in this browser.');
+    }
 
 
     return (

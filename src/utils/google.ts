@@ -16,6 +16,9 @@ interface LatLng {
   lng: () => number;
 }
 
+const homeLat = 49.2827;
+const homeLng = -123.1207;
+
 // Create a debounce function
 const debounce = <T extends (...args: any[]) => any>(func: T, delay: number) => {
   let timeoutId: ReturnType<typeof setTimeout>;
@@ -29,7 +32,7 @@ const debounce = <T extends (...args: any[]) => any>(func: T, delay: number) => 
 
 export const gInitMap = () => {
   const map = new window.google.maps.Map(document.getElementById('map'), {
-    center: { lat: 49.2827, lng: -123.1207 },
+    center: { lat: homeLat, lng: homeLng },
     zoom: 12,
     styles: [
       {
@@ -38,6 +41,8 @@ export const gInitMap = () => {
       },
     ],
   });
+
+  
 
   let shouldPerformRequest = false;
 
@@ -96,12 +101,6 @@ export const gOnSearchSuccess = (location: google.maps.LatLng) => {
         stylers: [{ visibility: 'off' }],
       },
     ],
-  });
-
-  const marker = new window.google.maps.Marker({
-    position: location,
-    map: map,
-    title: 'Search Result',
   });
 
   console.log('Latitude:', location.lat());
