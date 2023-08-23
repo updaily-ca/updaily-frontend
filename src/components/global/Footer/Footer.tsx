@@ -35,9 +35,6 @@ const Footer = () => {
                             {
                                 data?.businesses?.slice(0, 4).map((business: { name: string, _typename: string }, index: number) => {
 
-                                    console.log(business);
-
-
                                     return <li key={index} className="footer_card__list-item">{business.name}</li>
                                 })
                             }
