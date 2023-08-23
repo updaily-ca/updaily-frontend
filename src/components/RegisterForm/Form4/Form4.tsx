@@ -2,13 +2,13 @@ import { useParams } from "react-router-dom";
 import "./Form4.scss";
 import { useContext, ChangeEvent } from "react";
 // Component
-import FormContainer from "../../Forms/FormContainer/FormContainer"
+import FormContainer from "../../Forms/FormContainer/FormContainer";
+import Upload from "../../Forms/upload/Upload";
 // Context
-import { FormContext } from '../../../pages/RegisterFormPage/RegisterFormPage';
-
+import { FormContext } from "../../../context/formContext";
 const Form4 = () => {
     const {type} = useParams();
-    const {handleBack, handleNext, accessibility1, setAccessibility1, accessibility2, setAccessibility2,accessibility3, setAccessibility3} = useContext(FormContext);
+    const {handleBack, handleNext, accessibility1, setAccessibility1, accessibility2, setAccessibility2,accessibility3, setAccessibility3, selectedMenu,setSelectedMenu} = useContext(FormContext);
 
     // Handle change for accessibility questions
     const handleAccessibilityChange = (e: ChangeEvent<HTMLInputElement>, setStateFunction: (newValue: boolean) => void) => {
@@ -16,7 +16,7 @@ const Form4 = () => {
         setStateFunction(value);
     }
     return (
-        <FormContainer name="Accessibility" handleBack={handleBack} handleNext={handleNext}>
+        <FormContainer name={type==="Event" ? "Accessibility" : "Menu"} handleBack={handleBack} handleNext={handleNext}>
             {
                 type === "Event" && (
                     <div className="radio__form">
@@ -96,8 +96,12 @@ const Form4 = () => {
                 )
             }
             {
-                type === "Business" && <p>Business Form</p>
-            }
+                type === "Business" && (
+                    <div className="photo-form">
+                        <p className="photo-form__title">Please upload photos of your {type?.toLowerCase()} (Minimum 4 photos)</p>
+                        <Upload selectedImages={selectedMenu} setSelectedImages={setSelectedMenu} />
+                    </div>
+            )}
             
         </FormContainer>
     )
