@@ -7,16 +7,17 @@ import SearchCards from "../../components/global/SearchCards/SearchCards";
 import ExploreMap from "../../components/ExploreMap/ExploreMap";
 import { gHandleSearch, gOnSearchError, gOnSearchSuccess } from "../../utils/google";
 
+
+
 import { businessType, eventType } from "../../utils/FormData";
 
 import "./ExplorePage.scss";
+import NextButton from "../../components/global/NextButton/NextButton";
 
 const ExplorePage = () => {
     useDocumentTitle("Explore Page");
 
     const [address, setAddress] = useState<string>("");
-
-
     const [isFilterBusiness, setIsFilterBusiness] = useState<boolean>(false);
 
     const toggleBusinessMode = () => {
@@ -36,8 +37,12 @@ const ExplorePage = () => {
 
     const [activeFilterStates, setActiveFilterStates] = useState<boolean[]>(initialFilterState);
 
+
+    const [userLocationAvailable, setUserLocationAvailable] = useState<boolean>(false);
     const [userLat, setUserLat] = useState(0);
     const [userLng, setUserLng] = useState(0);
+
+
 
     if ('geolocation' in navigator) {
         // Request the user's current position
@@ -47,7 +52,10 @@ const ExplorePage = () => {
                 const longitude = position.coords.longitude;
                 setUserLat(latitude);
                 setUserLng(longitude)
-                console.log(`GPS coordinates: Latitude=${latitude}, Longitude=${longitude}`);
+
+                setUserLocationAvailable(true);
+
+                console.log('coordinates set.');
             },
             (error) => {
                 console.error('Error getting GPS coordinates:', error.message);
@@ -98,7 +106,17 @@ const ExplorePage = () => {
                 </div>
             </aside>
             <div className="map-container">
-                <ExploreMap />
+
+                {userLocationAvailable ? <ExploreMap userLat={userLat} userLng={userLng}
+                /> : <div>
+                    <h3>Error</h3>
+
+                    <p>
+                        Retrieving location data. If this message continues to show, please check you have enabled location access with your browser.
+                    </p>
+
+                </div>}
+
                 <div className="e-cc-searchcards">
                     <SearchCards isBusinessMode={isFilterBusiness} />
                 </div>

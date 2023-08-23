@@ -10,14 +10,10 @@ declare global {
   }
 }
 
-// Define LatLng type
 interface LatLng {
-  lat: () => number;
-  lng: () => number;
+  lat: number;
+  lng: number;
 }
-
-const homeLat = 49.2827;
-const homeLng = -123.1207;
 
 // Create a debounce function
 const debounce = <T extends (...args: any[]) => any>(func: T, delay: number) => {
@@ -30,9 +26,9 @@ const debounce = <T extends (...args: any[]) => any>(func: T, delay: number) => 
   };
 };
 
-export const gInitMap = () => {
+export const gInitMap = (userLat: number, userLng: number) => {
   const map = new window.google.maps.Map(document.getElementById('map'), {
-    center: { lat: homeLat, lng: homeLng },
+    center: { lat: userLat, lng: userLng },
     zoom: 12,
     styles: [
       {
@@ -42,6 +38,13 @@ export const gInitMap = () => {
     ],
   });
 
+
+    // Create a marker at the user's location
+    const userMarker = new window.google.maps.Marker({
+      position: { lat: userLat, lng: userLng },
+      map: map,
+      title: 'Your location',
+    });
   
 
   let shouldPerformRequest = false;
@@ -53,8 +56,8 @@ export const gInitMap = () => {
         const northeast = bounds.getNorthEast() as LatLng;
         const southwest = bounds.getSouthWest() as LatLng;
 
-        console.log('Bounds Changed - Northeast Corner - Latitude:', northeast.lat(), 'Longitude:', northeast.lng());
-        console.log('Bounds Changed - Southwest Corner - Latitude:', southwest.lat(), 'Longitude:', southwest.lng());
+        // console.log('Bounds Changed - Northeast Corner - Latitude:', northeast.lat(), 'Longitude:', northeast.lng());
+        // console.log('Bounds Changed - Southwest Corner - Latitude:', southwest.lat(), 'Longitude:', southwest.lng());
 
         // We can use these corner coordinates for the database search
         // For example, send these coordinates to the database query function
@@ -103,8 +106,8 @@ export const gOnSearchSuccess = (location: google.maps.LatLng) => {
     ],
   });
 
-  console.log('Latitude:', location.lat());
-  console.log('Longitude:', location.lng());
+  console.log('google utils, line 106. Lat:', location.lat());
+  console.log('google utils, line 107. Lng:', location.lng());
 };
 
 export const gOnSearchError: any = (error: any) => {
