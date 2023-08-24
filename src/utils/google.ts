@@ -16,6 +16,8 @@ interface LatLng {
 }
 
 interface Location {
+  id: number,
+  name: string,
   lat: number
   lng: number
   // Other properties of the location object, if any
@@ -32,7 +34,7 @@ const debounce = <T extends (...args: any[]) => any>(func: T, delay: number) => 
   }
 }
 
-export const gInitMap = (userLat: number, userLng: number, addMarkers: boolean = true, locations: Location[] = []) => {
+export const gInitMap = (userLat: number, userLng: number, addMarkers: boolean = true, locations: Location[] = [], handleMarkerClick: (id:number)=> void) => {
   const map = new window.google.maps.Map(document.getElementById("map"), {
     center: { lat: userLat, lng: userLng },
     zoom: 12,
@@ -65,13 +67,19 @@ export const gInitMap = (userLat: number, userLng: number, addMarkers: boolean =
     infoWindow.open(map, userMarker)
   })
 
-  // Inside gInitMap function
+// Inside gInitMap function
   if (addMarkers) {
     locations.forEach((location, index) => {
       const marker = new window.google.maps.Marker({
         position: { lat: location.lat, lng: location.lng },
         map: map,
         title: `Location ${index + 1}`,
+      });
+      // attach data to marker
+      marker.data = location;
+      // Add Event Listenr to each marker
+      marker.addListener("click", () => {
+        handleMarkerClick(marker.data.id)
       })
     })
   }

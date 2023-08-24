@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDocumentTitle, useToggleClass } from '../../utils/functions';
 import BusinessFilter from "../../components/ExploreFilters/Business/BusinessFilter";
 import EventFilter from "../../components/ExploreFilters/Event/EventFilter";
@@ -9,22 +9,9 @@ import { gHandleSearch, gOnSearchError, gOnSearchSuccess } from "../../utils/goo
 
 import { businessType, eventType } from "../../utils/FormData";
 
-
-
-
-
-
-
-
-
-
-import { useQuery } from "@apollo/client";
+import { useQuery, useLazyQuery } from "@apollo/client";
 import { getFeaturedBusiness } from '../../graphql/queries';
-
-
-
-
-
+import { getBusinessDetail } from "../../graphql/queries";
 
 import "./ExplorePage.scss";
 
@@ -55,10 +42,6 @@ const ExplorePage = () => {
     const [userLocationAvailable, setUserLocationAvailable] = useState<boolean>(false);
     const [userLat, setUserLat] = useState(0);
     const [userLng, setUserLng] = useState(0);
-
-
-
-
 
     if ('geolocation' in navigator) {
         // Request the user's current position
@@ -101,8 +84,19 @@ const ExplorePage = () => {
         lng: number;
         // Other properties of the location object, if any
     }
-
-
+    // Marker and detail card
+    const [businessDetail, setBusinessDetail]:any = useState({});
+    const [id, setId] = useState(0);
+    const [GetBusinessDetail,{loading, data: businessData}] = useLazyQuery(getBusinessDetail, {
+        variables: {
+            id: id
+        }
+    });
+    const handleMarkerClick =async (id:number) => {
+        setId(id);
+        await GetBusinessDetail();
+        setBusinessDetail(businessData?.business);
+    }
     return (
         <div id="p-explorepage">
 
@@ -111,10 +105,6 @@ const ExplorePage = () => {
                     <div className="filters__header">
                         <div onClick={toggleFilterButton} className="filters__title">
                             Filters
-
-
-
-
                         </div>
                         <FilterButton
                             isBusinessMode={isFilterBusiness}
@@ -149,7 +139,7 @@ const ExplorePage = () => {
             </aside>
             <div className="map-container">
 
-                {userLocationAvailable ? <ExploreMap userLat={userLat} userLng={userLng} locations={locations}
+                {userLocationAvailable ? <ExploreMap userLat={userLat} userLng={userLng} locations={locations} handleMarkerClick={handleMarkerClick}
                 /> : <div>
                     <h3>Error</h3>
 
@@ -160,7 +150,7 @@ const ExplorePage = () => {
                 </div>}
 
                 <div className="e-cc-searchcards">
-                    <SearchCards isBusinessMode={isFilterBusiness} />
+                    <SearchCards businessDetail={businessDetail} isBusinessMode={isFilterBusiness} />
                 </div>
             </div>
         </div>

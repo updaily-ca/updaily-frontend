@@ -3,9 +3,8 @@ import { Loader } from '@googlemaps/js-api-loader';
 import { gInitMap } from '../../utils/google';
 
 
-const ExploreMap = ({ userLat, userLng, locations }: any) => {
+const ExploreMap = ({ userLat, userLng, locations, handleMarkerClick }: any) => {
     const token = process.env.REACT_APP_API_KEY_1 || 'error';
-
     useEffect(() => {
         const loader = new Loader({
             apiKey: token,
@@ -13,7 +12,7 @@ const ExploreMap = ({ userLat, userLng, locations }: any) => {
         });
 
         loader.load().then(() => {
-            gInitMap(userLat, userLng, true, locations); // Pass the locations array to gInitMap
+            gInitMap(userLat, userLng, true, locations, handleMarkerClick); // Pass the locations array to gInitMap
         });
 
         return () => {
