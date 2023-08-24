@@ -13,6 +13,10 @@ import Form5 from "../../components/RegisterForm/Form5/Form5";
 import { FormContext } from "../../context/formContext";
 // Upload to cloudinary function
 import { handleUpload } from "../../utils/functions";
+// Firebase authentication
+import { auth } from "../../utils/firebase";
+import {createUserWithEmailAndPassword} from "firebase/auth";
+
 
 const RegisterFormPage = () => {
     // type
@@ -61,6 +65,8 @@ const RegisterFormPage = () => {
     // State to keep track of current page
     const [currentPage, setCurrentPage] = useState(1);
     
+    // User ID
+    const [userId, setUserId] = useState<string>("");
     // Handle next
     const handleNext = (): void => {
         setCurrentPage(currentPage+1);
@@ -79,12 +85,22 @@ const RegisterFormPage = () => {
     // handle business submit
     const handleBusinessSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        console.log("submit clicked")
+        // Create a new user with firebase
+        await createUserWithEmailAndPassword(auth, email, pwd)
+            .then((userCredential) => {
+                const uid: string = userCredential.user.uid;
+                setUserId(uid);
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode);
+                console.log(errorMessage);
+            })
         // upload images to cloudinary
         await handleUpload(selectedImages, setImagesURL);
-        console.log(imagesURL)
-        console.log(location)
-        console.log(lat)
-        console.log(lng)
+        
 
     }
 
