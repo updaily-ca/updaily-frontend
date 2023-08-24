@@ -7,12 +7,26 @@ import SearchCards from "../../components/global/SearchCards/SearchCards";
 import ExploreMap from "../../components/ExploreMap/ExploreMap";
 import { gHandleSearch, gOnSearchError, gOnSearchSuccess } from "../../utils/google";
 
-
-
 import { businessType, eventType } from "../../utils/FormData";
 
+
+
+
+
+
+
+
+
+
+import { useQuery } from "@apollo/client";
+import { getFeaturedBusiness } from '../../graphql/queries';
+
+
+
+
+
+
 import "./ExplorePage.scss";
-import NextButton from "../../components/global/NextButton/NextButton";
 
 const ExplorePage = () => {
     useDocumentTitle("Explore Page");
@@ -44,6 +58,8 @@ const ExplorePage = () => {
 
 
 
+
+
     if ('geolocation' in navigator) {
         // Request the user's current position
         navigator.geolocation.getCurrentPosition(
@@ -66,8 +82,28 @@ const ExplorePage = () => {
     }
 
 
+    const { data } = useQuery(getFeaturedBusiness);
+
+    console.log(data?.businesses?.slice(0, 200))
+
+    const locations = data?.businesses?.slice(0, 4).map((business) => {
+        return {
+            lat: business.lat,
+            lng: business.lng
+        };
+    });
+
+    // this needs fixing
+
     return (
         <div id="p-explorepage">
+
+
+
+            {locations}
+
+
+
             <aside className="filter-container">
                 <div className="filters">
                     <div className="filters__header">
