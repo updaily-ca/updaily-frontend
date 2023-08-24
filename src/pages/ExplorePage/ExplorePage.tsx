@@ -86,7 +86,13 @@ const ExplorePage = () => {
 
     console.log(data?.businesses?.slice(0, 200))
 
-    const locations = data?.businesses?.slice(0, 4).map((business) => {
+    interface Business {
+        lat: number;
+        lng: number;
+        // Other properties of the business object
+    }
+
+    const locations = data?.businesses?.slice(0, 4).map((business: Business) => {
         return {
             lat: business.lat,
             lng: business.lng
