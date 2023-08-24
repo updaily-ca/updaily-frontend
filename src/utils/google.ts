@@ -137,3 +137,4 @@ export const gOnSearchSuccess = (location: google.maps.LatLng) => {
 export const gOnSearchError: any = (error: any) => {
   console.error(error)
 }
+
