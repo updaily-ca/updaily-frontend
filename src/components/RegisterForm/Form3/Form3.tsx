@@ -10,7 +10,7 @@ import SelectionInput from "../../Forms/SelectionInput/SelectionInput";
 import Input from "../../Forms/Input/Input";
 // Context
 import { useContext } from "react";
-import { FormContext } from '../../../pages/RegisterFormPage/RegisterFormPage';
+import { FormContext } from "../../../context/formContext";
 // Data
 import { eventType as eventLists } from "../../../utils/FormData";
 import { businessType as businessList } from "../../../utils/FormData";

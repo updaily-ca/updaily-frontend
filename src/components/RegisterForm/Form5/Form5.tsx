@@ -3,7 +3,8 @@ import {useContext} from 'react'
 import FormContainer from '../../Forms/FormContainer/FormContainer';
 import Input from "../../Forms/Input/Input";
 // Context
-import { FormContext } from '../../../pages/RegisterFormPage/RegisterFormPage';
+import { FormContext } from '../../../context/formContext';
+
 interface Form5Props {
     handleSubmit: (e: React.FormEvent)=> void,
 }

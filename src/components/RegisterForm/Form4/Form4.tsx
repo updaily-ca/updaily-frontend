@@ -5,8 +5,7 @@ import { useContext, ChangeEvent } from "react";
 import FormContainer from "../../Forms/FormContainer/FormContainer";
 import Upload from "../../Forms/upload/Upload";
 // Context
-import { FormContext } from '../../../pages/RegisterFormPage/RegisterFormPage';
-
+import { FormContext } from "../../../context/formContext";
 const Form4 = () => {
     const {type} = useParams();
     const {handleBack, handleNext, accessibility1, setAccessibility1, accessibility2, setAccessibility2,accessibility3, setAccessibility3, selectedMenu,setSelectedMenu} = useContext(FormContext);

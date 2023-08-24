@@ -16,17 +16,17 @@ import { ApolloProvider } from "@apollo/client";
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/register/:type" element={<RegisterFormPage />} />
-          <Route path="/explore" element={<ExplorePage />} />
-          <Route path="/detail" element={<DetailPage />} />
-        </Routes>
-        <Footer />
-      </Router>
+        <Router>
+          <Header />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/register/:type" element={<RegisterFormPage />} />
+            <Route path="/explore" element={<ExplorePage />} />
+            <Route path="/detail" element={<DetailPage />} />
+          </Routes>
+          <Footer />
+        </Router>
     </ApolloProvider>
 
   );

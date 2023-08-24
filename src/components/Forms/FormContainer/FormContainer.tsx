@@ -5,7 +5,7 @@ import back_icon from "../../../asset/register/icons8-back-arrow-48.png";
 // Component
 import NextButton from "../../global/NextButton/NextButton";
 // Context
-import { FormContext } from "../../../pages/RegisterFormPage/RegisterFormPage";
+import { FormContext } from "../../../context/formContext";
 import { useContext } from "react";
 
 interface FormContainerProps {
