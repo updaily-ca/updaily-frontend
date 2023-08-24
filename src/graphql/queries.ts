@@ -4,9 +4,20 @@ import {gql} from "@apollo/client";
 export const getFeaturedBusiness = gql `
     query GetFeaturedBusiness{
         businesses{
+            id
             name
             lat
             lng
+        }
+    }
+`
+export const getBusinessDetail = gql `
+    query GetBusinessDetail($id: ID!) {
+        business(id: $id) {
+            name
+            address
+            photos
+            description
         }
     }
 `
@@ -17,7 +28,6 @@ export const getFeaturedEvent = gql `
         }
     }
 `
-
 export const addBusiness = gql`
     mutation AddBusiness(
         $name: String,
