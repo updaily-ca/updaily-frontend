@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./Form1.scss";
 import { useParams } from "react-router-dom";
 // Component
@@ -12,7 +12,6 @@ import { DatePicker } from "antd";
 // to timestamp
 import { toTimeStamp } from "../../../utils/functions";
 
-
 import { Loader } from '@googlemaps/js-api-loader';
 
 
@@ -21,6 +20,9 @@ const Form1 = () => {
     const { type } = useParams();
 
     const { event, setEvent, email, setEmail, host, setHost, location, setLocation, website, setWebsite, handleBack, handleNext, business, setBusiness, phone, setPhone, setLauchingDate } = useContext(FormContext);
+
+    const [addressLat, setAddressLat] = useState(0);
+    const [addressLng, setAddressLng] = useState(0);
 
     // Lauch Date
     const handleChange: DatePickerProps['onChange'] = (date, dateString) => {
@@ -52,8 +54,11 @@ const Form1 = () => {
                 if (place && place.geometry && place.geometry.location) {
                     const { lat, lng } = place.geometry.location;
                     const coordinates = { latitude: lat(), longitude: lng() };
-                    console.log(coordinates);
-                    setLocation(place.formatted_address);
+                    console.log(coordinates.latitude);
+                    console.log(coordinates.longitude);
+
+                    setAddressLat(coordinates.latitude);
+                    setAddressLng(coordinates.longitude);
                 }
             });
         });
