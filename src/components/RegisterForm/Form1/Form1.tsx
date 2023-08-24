@@ -42,7 +42,7 @@ const Form1 = () => {
 
             // Initialize Autocomplete service
             const autocomplete = new window.google.maps.places.Autocomplete(input, {
-                types: ['address'],
+                types: ['establishment'],
                 componentRestrictions: { country: 'CA' },
             });
 
