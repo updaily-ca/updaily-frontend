@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./Form1.scss";
 import { useParams } from "react-router-dom";
 // Component
@@ -12,16 +12,59 @@ import { DatePicker } from "antd";
 // to timestamp
 import { toTimeStamp } from "../../../utils/functions";
 
+import { Loader } from '@googlemaps/js-api-loader';
+
+
 const Form1 = () => {
     // Type
-    const {type} = useParams();
+    const { type } = useParams();
 
-    const { event, setEvent, email, setEmail, host, setHost, location, setLocation, website, setWebsite, handleBack, handleNext, business, setBusiness, phone, setPhone, setLauchingDate} = useContext(FormContext);
+    const { event, setEvent, email, setEmail, host, setHost, location, setLocation, website, setWebsite, handleBack, handleNext, business, setBusiness, phone, setPhone, setLauchingDate } = useContext(FormContext);
+
+    const [addressLat, setAddressLat] = useState(0);
+    const [addressLng, setAddressLng] = useState(0);
 
     // Lauch Date
     const handleChange: DatePickerProps['onChange'] = (date, dateString) => {
         setLauchingDate(toTimeStamp(dateString));
     }
+
+
+    const token = process.env.REACT_APP_API_KEY_1 || 'error';
+
+    useEffect(() => {
+        const loader = new Loader({
+            apiKey: token,
+            version: 'weekly',
+            libraries: ['places'],
+        });
+
+        loader.load().then(() => {
+            const input = document.getElementById("location");
+
+            // Initialize Autocomplete service
+            const autocomplete = new window.google.maps.places.Autocomplete(input, {
+                types: ['establishment'],
+                componentRestrictions: { country: 'CA' },
+            });
+
+            // Listen for place_changed event
+            autocomplete.addListener('place_changed', () => {
+                const place = autocomplete.getPlace();
+                if (place && place.geometry && place.geometry.location) {
+                    const { lat, lng } = place.geometry.location;
+                    const coordinates = { latitude: lat(), longitude: lng() };
+                    console.log(coordinates.latitude);
+                    console.log(coordinates.longitude);
+
+                    setAddressLat(coordinates.latitude);
+                    setAddressLng(coordinates.longitude);
+                }
+            });
+        });
+    }, []);
+
+
 
     return (
         <FormContainer name="General Information" handleBack={handleBack} handleNext={handleNext}>
@@ -41,7 +84,7 @@ const Form1 = () => {
                         <Input id="phone" name="Phone Number" value={phone} handleChange={setPhone} />
                     )
                 }
-                <Input id="location" name="Location" value={location} handleChange={setLocation} />
+                <Input id="location" name="Address" value={location} handleChange={setLocation} />
                 {/* Business: when did your business launch? */}
                 {
                     type === "Business" && (
@@ -49,7 +92,7 @@ const Form1 = () => {
                             <label className="input__label">When did you business launch?</label>
                             <DatePicker format="MM/DD/YYYY" onChange={handleChange} />
                         </div>
-                        
+
                     )
                 }
                 {/* {type === "Business" && <Input />} */}
