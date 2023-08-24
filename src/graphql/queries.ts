@@ -5,6 +5,8 @@ export const getFeaturedBusiness = gql `
     query GetFeaturedBusiness{
         businesses{
             name
+            lat
+            lng
         }
     }
 `

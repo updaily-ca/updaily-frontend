@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 import { gInitMap } from '../../utils/google';
 
-const ExploreMap = ({ userLat, userLng }: any) => {
+
+const ExploreMap = ({ userLat, userLng, locations }: any) => {
     const token = process.env.REACT_APP_API_KEY_1 || 'error';
 
     useEffect(() => {
@@ -12,13 +13,13 @@ const ExploreMap = ({ userLat, userLng }: any) => {
         });
 
         loader.load().then(() => {
-            gInitMap(userLat, userLng);
+            gInitMap(userLat, userLng, true, locations); // Pass the locations array to gInitMap
         });
 
         return () => {
             // Clean up if needed
         };
-    }, [token, userLat, userLng]);
+    }, [token, userLat, userLng, locations]); // Include locations in the dependency array
 
     return (
         <div>

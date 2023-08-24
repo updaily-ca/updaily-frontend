@@ -7,12 +7,26 @@ import SearchCards from "../../components/global/SearchCards/SearchCards";
 import ExploreMap from "../../components/ExploreMap/ExploreMap";
 import { gHandleSearch, gOnSearchError, gOnSearchSuccess } from "../../utils/google";
 
-
-
 import { businessType, eventType } from "../../utils/FormData";
 
+
+
+
+
+
+
+
+
+
+import { useQuery } from "@apollo/client";
+import { getFeaturedBusiness } from '../../graphql/queries';
+
+
+
+
+
+
 import "./ExplorePage.scss";
-import NextButton from "../../components/global/NextButton/NextButton";
 
 const ExplorePage = () => {
     useDocumentTitle("Explore Page");
@@ -44,6 +58,8 @@ const ExplorePage = () => {
 
 
 
+
+
     if ('geolocation' in navigator) {
         // Request the user's current position
         navigator.geolocation.getCurrentPosition(
@@ -66,13 +82,39 @@ const ExplorePage = () => {
     }
 
 
+    const { data } = useQuery(getFeaturedBusiness);
+
+    console.log(data?.businesses?.slice(0, 200))
+
+    interface Business {
+        lat: number;
+        lng: number;
+        // Other properties of the business object
+    }
+
+    const locations = data?.businesses?.slice(0, 4)
+
+    console.log(locations);
+
+    interface Location {
+        lat: number;
+        lng: number;
+        // Other properties of the location object, if any
+    }
+
+
     return (
         <div id="p-explorepage">
+
             <aside className="filter-container">
                 <div className="filters">
                     <div className="filters__header">
                         <div onClick={toggleFilterButton} className="filters__title">
                             Filters
+
+
+
+
                         </div>
                         <FilterButton
                             isBusinessMode={isFilterBusiness}
@@ -107,7 +149,7 @@ const ExplorePage = () => {
             </aside>
             <div className="map-container">
 
-                {userLocationAvailable ? <ExploreMap userLat={userLat} userLng={userLng}
+                {userLocationAvailable ? <ExploreMap userLat={userLat} userLng={userLng} locations={locations}
                 /> : <div>
                     <h3>Error</h3>
 
