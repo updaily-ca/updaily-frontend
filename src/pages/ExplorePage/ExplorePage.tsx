@@ -9,22 +9,8 @@ import { gHandleSearch, gOnSearchError, gOnSearchSuccess } from "../../utils/goo
 
 import { businessType, eventType } from "../../utils/FormData";
 
-
-
-
-
-
-
-
-
-
 import { useQuery } from "@apollo/client";
 import { getFeaturedBusiness } from '../../graphql/queries';
-
-
-
-
-
 
 import "./ExplorePage.scss";
 
@@ -55,10 +41,6 @@ const ExplorePage = () => {
     const [userLocationAvailable, setUserLocationAvailable] = useState<boolean>(false);
     const [userLat, setUserLat] = useState(0);
     const [userLng, setUserLng] = useState(0);
-
-
-
-
 
     if ('geolocation' in navigator) {
         // Request the user's current position
@@ -102,7 +84,9 @@ const ExplorePage = () => {
         // Other properties of the location object, if any
     }
 
-
+    const handleMarkerClick = (id: number): void => {
+        console.log(id);
+    }
     return (
         <div id="p-explorepage">
 
@@ -111,10 +95,6 @@ const ExplorePage = () => {
                     <div className="filters__header">
                         <div onClick={toggleFilterButton} className="filters__title">
                             Filters
-
-
-
-
                         </div>
                         <FilterButton
                             isBusinessMode={isFilterBusiness}
@@ -149,7 +129,7 @@ const ExplorePage = () => {
             </aside>
             <div className="map-container">
 
-                {userLocationAvailable ? <ExploreMap userLat={userLat} userLng={userLng} locations={locations}
+                {userLocationAvailable ? <ExploreMap userLat={userLat} userLng={userLng} locations={locations} handleMarkerClick={handleMarkerClick}
                 /> : <div>
                     <h3>Error</h3>
 
