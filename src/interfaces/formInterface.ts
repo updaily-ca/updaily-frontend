@@ -8,6 +8,10 @@ export interface FormContextType {
     setHost: (newValue: string) => void,
     location: string, 
     setLocation: (newValue: string) => void,
+    lat: number,
+    setLat: (newValue: number) => void,
+    lng: number,
+    setLng: (newValue: number) => void,
     website: string,
     setWebsite: (newValue: string) => void,
     // Form 1 - Business

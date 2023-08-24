@@ -19,10 +19,7 @@ const Form1 = () => {
     // Type
     const { type } = useParams();
 
-    const { event, setEvent, email, setEmail, host, setHost, location, setLocation, website, setWebsite, handleBack, handleNext, business, setBusiness, phone, setPhone, setLauchingDate } = useContext(FormContext);
-
-    const [addressLat, setAddressLat] = useState(0);
-    const [addressLng, setAddressLng] = useState(0);
+    const { event, setEvent, email, setEmail, host, setHost, location, setLocation, website, setWebsite, handleBack, handleNext, business, setBusiness, phone, setPhone, setLauchingDate, lat, lng, setLat, setLng } = useContext(FormContext);
 
     // Lauch Date
     const handleChange: DatePickerProps['onChange'] = (date, dateString) => {
@@ -54,11 +51,9 @@ const Form1 = () => {
                 if (place && place.geometry && place.geometry.location) {
                     const { lat, lng } = place.geometry.location;
                     const coordinates = { latitude: lat(), longitude: lng() };
-                    console.log(coordinates.latitude);
-                    console.log(coordinates.longitude);
-
-                    setAddressLat(coordinates.latitude);
-                    setAddressLng(coordinates.longitude);
+                    setLocation(place.formatted_address)
+                    setLat(coordinates.latitude);
+                    setLng(coordinates.longitude);
                 }
             });
         });

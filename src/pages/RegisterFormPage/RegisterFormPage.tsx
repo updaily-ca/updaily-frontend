@@ -26,6 +26,8 @@ const RegisterFormPage = () => {
     const [email, setEmail] = useState("");
     const [host, setHost] = useState("");
     const [location, setLocation] = useState("");
+    const [lat, setLat] = useState(0);
+    const [lng, setLng] = useState(0);
     const [website, setWebsite] = useState("");
     // Form 1 - Business
     const [business, setBusiness] = useState("")
@@ -79,6 +81,10 @@ const RegisterFormPage = () => {
         e.preventDefault();
         // upload images to cloudinary
         await handleUpload(selectedImages, setImagesURL);
+        console.log(imagesURL)
+        console.log(location)
+        console.log(lat)
+        console.log(lng)
 
     }
 
@@ -102,7 +108,7 @@ const RegisterFormPage = () => {
             
             {/* Submission Form */}
             <FormContext.Provider value={
-                {event, setEvent, email, setEmail, host, setHost, location,setLocation, website, setWebsite, handleBack, handleNext, pwd, setPwd, matchPwd, setMatchPwd, currentPage, accessibility1, setAccessibility1, accessibility2, setAccessibility2,accessibility3, setAccessibility3, desc, setDesc, admissionType, setAdmissionType, admission, setAdmission, eventType, setEventType, dateRange, setDateRange, timeRange, setTimeRange, selectedImages, setSelectedImages, launchingDate, setLauchingDate, phone, setPhone, business, setBusiness, businessType, setBusinessType, priceRange, setPriceRange, selectedMenu, setSelectedMenu, subtype, setSubtype, cuisine, setCuisine}
+                {event, setEvent, email, setEmail, host, setHost, location,setLocation, website, setWebsite, handleBack, handleNext, pwd, setPwd, matchPwd, setMatchPwd, currentPage, accessibility1, setAccessibility1, accessibility2, setAccessibility2,accessibility3, setAccessibility3, desc, setDesc, admissionType, setAdmissionType, admission, setAdmission, eventType, setEventType, dateRange, setDateRange, timeRange, setTimeRange, selectedImages, setSelectedImages, launchingDate, setLauchingDate, phone, setPhone, business, setBusiness, businessType, setBusinessType, priceRange, setPriceRange, selectedMenu, setSelectedMenu, subtype, setSubtype, cuisine, setCuisine, lat, setLat, lng, setLng}
             }  
             >
                 {/* General Form */}
