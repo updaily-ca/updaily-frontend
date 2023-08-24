@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDocumentTitle, useToggleClass } from '../../utils/functions';
 import BusinessFilter from "../../components/ExploreFilters/Business/BusinessFilter";
 import EventFilter from "../../components/ExploreFilters/Event/EventFilter";
@@ -9,8 +9,9 @@ import { gHandleSearch, gOnSearchError, gOnSearchSuccess } from "../../utils/goo
 
 import { businessType, eventType } from "../../utils/FormData";
 
-import { useQuery } from "@apollo/client";
+import { useQuery, useLazyQuery } from "@apollo/client";
 import { getFeaturedBusiness } from '../../graphql/queries';
+import { getBusinessDetail } from "../../graphql/queries";
 
 import "./ExplorePage.scss";
 
@@ -83,9 +84,18 @@ const ExplorePage = () => {
         lng: number;
         // Other properties of the location object, if any
     }
-
-    const handleMarkerClick = (id: number): void => {
-        console.log(id);
+    // Marker and detail card
+    const [businessDetail, setBusinessDetail]:any = useState({});
+    const [id, setId] = useState(0);
+    const [GetBusinessDetail,{loading, data: businessData}] = useLazyQuery(getBusinessDetail, {
+        variables: {
+            id: id
+        }
+    });
+    const handleMarkerClick =async (id:number) => {
+        setId(id);
+        await GetBusinessDetail();
+        setBusinessDetail(businessData?.business);
     }
     return (
         <div id="p-explorepage">
@@ -140,7 +150,7 @@ const ExplorePage = () => {
                 </div>}
 
                 <div className="e-cc-searchcards">
-                    <SearchCards isBusinessMode={isFilterBusiness} />
+                    <SearchCards businessDetail={businessDetail} isBusinessMode={isFilterBusiness} />
                 </div>
             </div>
         </div>

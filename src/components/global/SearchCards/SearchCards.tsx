@@ -8,16 +8,16 @@ import EventSearchCards from './Event/EventSearchCards';
 import BusinessSearchCards from './Business/BusinessSearchCards';
 
 interface SearchCardsProps {
-    isBusinessMode: boolean;
+    isBusinessMode: boolean,
+    businessDetail?: {name: string, location: string, photos: string[], description: string}
 }
 
-const SearchCards: React.FC<SearchCardsProps> = ({ isBusinessMode }) => {
+const SearchCards: React.FC<SearchCardsProps> = ({ isBusinessMode, businessDetail}) => {
 
     return (
 
         <div className="c-search"> {/* component - search */}
-
-            {isBusinessMode ? <BusinessSearchCards images={{ arrow, photo }} /> : <EventSearchCards images={{ arrow, photo }} />
+            {isBusinessMode ? <BusinessSearchCards businessDetail={businessDetail} images={{ arrow, photo }} /> : <EventSearchCards images={{ arrow, photo }} />
             }
 
         </div>

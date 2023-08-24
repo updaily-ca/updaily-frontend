@@ -14,11 +14,13 @@ export const getFeaturedBusiness = gql `
 export const getBusinessDetail = gql `
     query GetBusinessDetail($id: ID!) {
         business(id: $id) {
-            
+            name
+            address
+            photos
+            description
         }
     }
 `
-
 export const getFeaturedEvent = gql `
     query GetFeaturedEvent{
         events{
@@ -26,7 +28,6 @@ export const getFeaturedEvent = gql `
         }
     }
 `
-
 export const addBusiness = gql`
     mutation AddBusiness(
         $name: String,
