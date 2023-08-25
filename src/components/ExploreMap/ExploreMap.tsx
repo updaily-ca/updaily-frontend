@@ -1,34 +1,119 @@
-export {};
+import { useEffect, useRef, useState } from "react";
+import useGoogleMaps from '../../App';
+import { useQuery } from "@apollo/client";
+import { debounce } from "../../utils/google";
+import { getFeaturedBusiness } from '../../graphql/queries';
+import './ExploreMap.scss';
 
-// import { useEffect } from 'react';
-// import { Loader } from '@googlemaps/js-api-loader';
-// import { gInitMap } from '../../utils/gMap';
+declare global {
+    interface Window {
+        google: any;
+    }
+}
+
+interface Location {
+    id: number;
+    name: string;
+    lat: number;
+    lng: number;
+}
+
+const ExploreMap = ({ userLat, userLng, setUserLat, setUserLng, locations, handleMarkerClick }: any) => {
+    const googleMaps = useGoogleMaps();
+    const mapRef = useRef<HTMLDivElement | null>(null);
+    const map = useRef<google.maps.Map | null>(null);
+
+    const { loading, error, data } = useQuery(getFeaturedBusiness);
+
+    const [userLocationAvailable, setUserLocationAvailable] = useState<boolean>(false);
+
+    useEffect(() => {
+        if ('geolocation' in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    setUserLat(latitude);
+                    setUserLng(longitude);
+                    setUserLocationAvailable(true);
+                },
+                (error) => {
+                    console.error('Error getting GPS coordinates:', error.message);
+                }
+            );
+        } else {
+            console.error('Geolocation is not available in this browser.');
+        }
+    }, []);
+
+    useEffect(() => {
+
+        locations?.forEach((location: Location, index: number) => {
+            const marker = new window.google.maps.Marker({
+                position: { lat: location.lat, lng: location.lng },
+                map: map.current,
+                title: `Location ${index + 1}`,
+            });
+
+            marker.data = location;
+
+            marker.addListener("click", () => {
+                handleMarkerClick(marker.data.id);
+                // console.log(marker.data.id);
+            });
+        });
+
+        if (userLocationAvailable && googleMaps && userLat !== null && userLng !== null) {
+            if (!map.current) {
+                const mapOptions = {
+                    center: { lat: userLat, lng: userLng },
+                    zoom: 8,
+                    styles: [
+                        {
+                            featureType: "poi",
+                            stylers: [{ visibility: "off" }],
+                        },
+                    ],
+                };
+                map.current = new window.google.maps.Map(mapRef.current, mapOptions);
+            }
 
 
-// const ExploreMap = ({ userLat, userLng, locations, handleMarkerClick }: any) => {
-    
-    
 
-//     useEffect(() => {
-//         const loader = new Loader({
-//             apiKey: token,
-//             version: 'weekly',
-//         });
+            let shouldPerformRequest = false;
 
-//         loader.load().then(() => {
-//             gInitMap(userLat, userLng, true, locations, handleMarkerClick); // Pass the locations array to gInitMap
-//         });
+            const boundsChangedHandler = debounce(() => {
+                if (shouldPerformRequest && map.current) {
+                    const bounds = map.current.getBounds();
+                    if (bounds) {
+                        const northeast = bounds.getNorthEast();
+                        const southwest = bounds.getSouthWest();
+                        console.log('Bounds Changed - Northeast Corner - Latitude:', northeast.lat(), 'Longitude:', northeast.lng());
+                        console.log('Bounds Changed - Southwest Corner - Latitude:', southwest.lat(), 'Longitude:', southwest.lng());
+                    }
+                    shouldPerformRequest = false;
+                }
+            }, 500);
 
-//         return () => {
-//             // Clean up if needed
-//         };
-//     }, [token, userLat, userLng, locations]); // Include locations in the dependency array
+            if (map.current) {
+                map.current.addListener("bounds_changed", () => {
+                    shouldPerformRequest = true;
+                    boundsChangedHandler();
+                });
 
-//     return (
-//         <div>
-//             <div id="map" style={{ height: '400px', width: '100%' }} />
-//         </div>
-//     );
-// };
+                map.current.addListener("idle", () => {
+                    boundsChangedHandler();
+                });
+            }
+        }
+    }, [userLocationAvailable, googleMaps, userLat, userLng, locations, handleMarkerClick]);
 
-// export default ExploreMap;
+
+    return (
+        <div className="p-devpage">
+            {userLocationAvailable && <div ref={mapRef} style={{ width: "100%", height: "400px" }} />}
+        </div>
+    );
+};
+
+export default ExploreMap;

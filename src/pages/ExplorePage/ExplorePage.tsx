@@ -11,9 +11,9 @@ import { businessType, eventType } from "../../utils/FormData";
 import { useQuery, useLazyQuery } from "@apollo/client";
 import { getFeaturedBusiness } from '../../graphql/queries';
 import { getBusinessDetail } from "../../graphql/queries";
+import ExploreMap from "../../components/ExploreMap/ExploreMap";
 
 import "./ExplorePage.scss";
-import Explore2Map from "../../components/ExploreMap/ExploreMap2";
 
 const ExplorePage = () => {
     useDocumentTitle("Explore Page");
@@ -146,7 +146,7 @@ const ExplorePage = () => {
             </aside>
             <div className="map-container">
 
-                {userLocationAvailable ? <Explore2Map
+                {userLocationAvailable ? <ExploreMap
 
                     userLat={userLat} userLng={userLng} setUserLat={setUserLat} setUserLng={setUserLng} locations={locations} handleMarkerClick={handleMarkerClick}
 
