@@ -48,6 +48,21 @@ const Explore2Map = ({ userLat, userLng, setUserLat, setUserLng, locations, hand
 
     useEffect(() => {
 
+        locations?.forEach((location: Location, index: number) => {
+            const marker = new window.google.maps.Marker({
+                position: { lat: location.lat, lng: location.lng },
+                map: map.current,
+                title: `Location ${index + 1}`,
+            });
+
+            marker.data = location;
+
+            marker.addListener("click", () => {
+                handleMarkerClick(marker.data.id);
+                // console.log(marker.data.id);
+            });
+        });
+
         if (userLocationAvailable && googleMaps && userLat !== null && userLng !== null) {
             if (!map.current) {
                 const mapOptions = {
@@ -91,23 +106,7 @@ const Explore2Map = ({ userLat, userLng, setUserLat, setUserLng, locations, hand
                 });
             }
         }
-    }, [userLocationAvailable, googleMaps, userLat, userLng, handleMarkerClick]);
-
-
-    locations?.forEach((location: Location, index: number) => {
-        const marker = new window.google.maps.Marker({
-            position: { lat: location.lat, lng: location.lng },
-            map: map.current,
-            title: `Location ${index + 1}`,
-        });
-
-        marker.data = location;
-
-        marker.addListener("click", () => {
-            handleMarkerClick(marker.data.id);
-            console.log(marker.data.id);
-        });
-    });
+    }, [userLocationAvailable, googleMaps, userLat, userLng, locations, handleMarkerClick]);
 
 
     return (

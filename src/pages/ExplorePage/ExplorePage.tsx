@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDocumentTitle, useToggleClass } from '../../utils/functions';
 import BusinessFilter from "../../components/ExploreFilters/Business/BusinessFilter";
 import EventFilter from "../../components/ExploreFilters/Event/EventFilter";
@@ -91,14 +91,19 @@ const ExplorePage = () => {
             id: id
         }
     });
-    const handleMarkerClick = async (id: number) => {
+    const handleMarkerClick = (id: number) => {
         setId(id);
-        await GetBusinessDetail();
-        setBusinessDetail(businessData?.business);
-        // console.log('heeeeeeeeeeee hi');
-        // console.log('oh ya', id);
-        // console.log(businessData?.business);
+        GetBusinessDetail();
     }
+
+    useEffect(() => {
+        if (businessData?.business) {
+            setBusinessDetail(businessData.business);
+        }
+    }, [businessData]);
+
+    // had to use this for marker click because of a weird error
+
     return (
         <div id="p-explorepage">
 
