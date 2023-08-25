@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
-import { gInitMap } from '../../utils/google';
+import { gInitMap } from '../../utils/gMap';
 
 
 const ExploreMap = ({ userLat, userLng, locations, handleMarkerClick }: any) => {
