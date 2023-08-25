@@ -10,17 +10,13 @@ import Footer from "./components/global/Footer/Footer";
 // Pages
 import HomePage from "./pages/HomePage/HomePage";
 import Register from "./pages/Register/Register";
-// import ExplorePage from "./pages/ExplorePage/ExplorePage";
+import RegisterFormPage from "./pages/RegisterFormPage/RegisterFormPage";
 import DetailPage from "./pages/DetailPage/DetailPage";
+import DevPage from "./pages/DevPage/DevPage";
 
 // Apollo Client
 import client from "./graphql/apolloClient";
 import { ApolloProvider } from "@apollo/client";
-import DevPage from "./pages/DevPage/DevPage";
-
-interface LoadGoogleMapsAPIOptions {
-  apiKey: string;
-}
 
 // Google Maps Context
 const GoogleMapsContext = React.createContext<any>(null);
@@ -31,12 +27,12 @@ function GoogleMapsProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const apiKey = process.env.REACT_APP_API_KEY_1;
     if (apiKey) {
-      const options: LoadGoogleMapsAPIOptions = {
+      const options = {
         apiKey: apiKey,
       };
 
-      loadGoogleMapsAPI(options).then((gMaps) => {
-        setGoogleMaps(gMaps);
+      loadGoogleMapsAPI(options).then((googleMaps) => {
+        setGoogleMaps(googleMaps); // Storing the Google Maps object
       });
     } else {
       console.error("Google Maps API key is missing. Please provide a valid API key.");
@@ -67,8 +63,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/register" element={<Register />} />
             <Route path="/devpage" element={<DevPage />} />
-            {/* <Route path="/register/:type" element={<RegisterFormPage />} /> */}
-            {/* <Route path="/explore" element={<ExplorePage />} /> */}
+            <Route path="/register/:type" element={<RegisterFormPage />} />
             <Route path="/detail" element={<DetailPage />} />
           </Routes>
 
