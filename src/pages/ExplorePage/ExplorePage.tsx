@@ -40,8 +40,6 @@ const ExplorePage = () => {
 
 
     const [userLocationAvailable, setUserLocationAvailable] = useState<boolean>(false);
-    // const [userLat, setUserLat] = useState(0);
-    // const [userLng, setUserLng] = useState(0);
 
     const [userLat, setUserLat] = useState<number | null>(null);
     const [userLng, setUserLng] = useState<number | null>(null);
@@ -57,7 +55,7 @@ const ExplorePage = () => {
 
                 setUserLocationAvailable(true);
 
-                console.log('coordinates set.');
+                // console.log('coordinates set.');
             },
             (error) => {
                 console.error('Error getting GPS coordinates:', error.message);
@@ -70,7 +68,7 @@ const ExplorePage = () => {
 
     const { data } = useQuery(getFeaturedBusiness);
 
-    console.log(data?.businesses?.slice(0, 200))
+    // console.log(data?.businesses?.slice(0, 200))
 
     interface Business {
         lat: number;
@@ -79,7 +77,7 @@ const ExplorePage = () => {
 
     const locations = data?.businesses?.slice(0, 4)
 
-    console.log(locations);
+    // console.log(locations);
 
     interface Location {
         lat: number;
@@ -97,7 +95,9 @@ const ExplorePage = () => {
         setId(id);
         await GetBusinessDetail();
         setBusinessDetail(businessData?.business);
-        console.log('heeeeeeeeeeee hi');
+        // console.log('heeeeeeeeeeee hi');
+        // console.log('oh ya', id);
+        // console.log(businessData?.business);
     }
     return (
         <div id="p-explorepage">
