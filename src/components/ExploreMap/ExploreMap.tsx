@@ -1,30 +1,34 @@
-import { useEffect } from 'react';
-import { Loader } from '@googlemaps/js-api-loader';
-import { gInitMap } from '../../utils/gMap';
+export {};
+
+// import { useEffect } from 'react';
+// import { Loader } from '@googlemaps/js-api-loader';
+// import { gInitMap } from '../../utils/gMap';
 
 
-const ExploreMap = ({ userLat, userLng, locations, handleMarkerClick }: any) => {
-    const token = process.env.REACT_APP_API_KEY_1 || 'error';
-    useEffect(() => {
-        const loader = new Loader({
-            apiKey: token,
-            version: 'weekly',
-        });
+// const ExploreMap = ({ userLat, userLng, locations, handleMarkerClick }: any) => {
+    
+    
 
-        loader.load().then(() => {
-            gInitMap(userLat, userLng, true, locations, handleMarkerClick); // Pass the locations array to gInitMap
-        });
+//     useEffect(() => {
+//         const loader = new Loader({
+//             apiKey: token,
+//             version: 'weekly',
+//         });
 
-        return () => {
-            // Clean up if needed
-        };
-    }, [token, userLat, userLng, locations]); // Include locations in the dependency array
+//         loader.load().then(() => {
+//             gInitMap(userLat, userLng, true, locations, handleMarkerClick); // Pass the locations array to gInitMap
+//         });
 
-    return (
-        <div>
-            <div id="map" style={{ height: '400px', width: '100%' }} />
-        </div>
-    );
-};
+//         return () => {
+//             // Clean up if needed
+//         };
+//     }, [token, userLat, userLng, locations]); // Include locations in the dependency array
 
-export default ExploreMap;
+//     return (
+//         <div>
+//             <div id="map" style={{ height: '400px', width: '100%' }} />
+//         </div>
+//     );
+// };
+
+// export default ExploreMap;

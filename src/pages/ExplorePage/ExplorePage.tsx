@@ -4,7 +4,7 @@ import BusinessFilter from "../../components/ExploreFilters/Business/BusinessFil
 import EventFilter from "../../components/ExploreFilters/Event/EventFilter";
 import FilterButton from "../../components/global/FilterButton/FilterButton";
 import SearchCards from "../../components/global/SearchCards/SearchCards";
-import ExploreMap from "../../components/ExploreMap/ExploreMap";
+// import ExploreMap from "../../components/ExploreMap/ExploreMap";
 import { gHandleSearch, gOnSearchError, gOnSearchSuccess } from "../../utils/google";
 
 import { businessType, eventType } from "../../utils/FormData";
@@ -14,6 +14,7 @@ import { getFeaturedBusiness } from '../../graphql/queries';
 import { getBusinessDetail } from "../../graphql/queries";
 
 import "./ExplorePage.scss";
+import Explore2Map from "../../components/ExploreMap/ExploreMap2";
 
 const ExplorePage = () => {
     useDocumentTitle("Explore Page");
@@ -40,8 +41,11 @@ const ExplorePage = () => {
 
 
     const [userLocationAvailable, setUserLocationAvailable] = useState<boolean>(false);
-    const [userLat, setUserLat] = useState(0);
-    const [userLng, setUserLng] = useState(0);
+    // const [userLat, setUserLat] = useState(0);
+    // const [userLng, setUserLng] = useState(0);
+
+    const [userLat, setUserLat] = useState<number | null>(null);
+    const [userLng, setUserLng] = useState<number | null>(null);
 
     if ('geolocation' in navigator) {
         // Request the user's current position
@@ -85,17 +89,18 @@ const ExplorePage = () => {
         // Other properties of the location object, if any
     }
     // Marker and detail card
-    const [businessDetail, setBusinessDetail]:any = useState({});
+    const [businessDetail, setBusinessDetail]: any = useState({});
     const [id, setId] = useState(0);
-    const [GetBusinessDetail,{loading, data: businessData}] = useLazyQuery(getBusinessDetail, {
+    const [GetBusinessDetail, { loading, data: businessData }] = useLazyQuery(getBusinessDetail, {
         variables: {
             id: id
         }
     });
-    const handleMarkerClick =async (id:number) => {
+    const handleMarkerClick = async (id: number) => {
         setId(id);
         await GetBusinessDetail();
         setBusinessDetail(businessData?.business);
+        console.log('heeeeeeeeeeee hi');
     }
     return (
         <div id="p-explorepage">
@@ -139,7 +144,13 @@ const ExplorePage = () => {
             </aside>
             <div className="map-container">
 
-                {userLocationAvailable ? <ExploreMap userLat={userLat} userLng={userLng} locations={locations} handleMarkerClick={handleMarkerClick}
+                {/* {userLocationAvailable ? <ExploreMap userLat={userLat} userLng={userLng} locations={locations} handleMarkerClick={handleMarkerClick} */}
+
+                {userLocationAvailable ? <Explore2Map
+
+                    userLat={userLat} userLng={userLng} setUserLat={setUserLat} setUserLng={setUserLng} locations={locations} handleMarkerClick={handleMarkerClick}
+
+
                 /> : <div>
                     <h3>Error</h3>
 

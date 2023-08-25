@@ -13,6 +13,7 @@ import Register from "./pages/Register/Register";
 import RegisterFormPage from "./pages/RegisterFormPage/RegisterFormPage";
 import DetailPage from "./pages/DetailPage/DetailPage";
 import DevPage from "./pages/DevPage/DevPage";
+import ExplorePage from "./pages/ExplorePage/ExplorePage";
 
 // Apollo Client
 import client from "./graphql/apolloClient";
@@ -32,7 +33,7 @@ function GoogleMapsProvider({ children }: { children: React.ReactNode }) {
       };
 
       loadGoogleMapsAPI(options).then((googleMaps) => {
-        setGoogleMaps(googleMaps); // Storing the Google Maps object
+        setGoogleMaps(googleMaps);
       });
     } else {
       console.error("Google Maps API key is missing. Please provide a valid API key.");
@@ -64,6 +65,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/devpage" element={<DevPage />} />
             <Route path="/register/:type" element={<RegisterFormPage />} />
+            <Route path="/explore" element={<ExplorePage />} />
             <Route path="/detail" element={<DetailPage />} />
           </Routes>
 
