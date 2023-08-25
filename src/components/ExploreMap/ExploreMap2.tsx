@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useGoogleMaps from '../../App';
 import { useQuery } from "@apollo/client";
 import { debounce } from "../../utils/google";
@@ -21,7 +21,7 @@ interface Location {
 const Explore2Map = ({ userLat, userLng, setUserLat, setUserLng, locations, handleMarkerClick }: any) => {
     const googleMaps = useGoogleMaps();
     const mapRef = useRef<HTMLDivElement | null>(null);
-    const map = useRef<google.maps.Map | null>(null); // Store a reference to the map instance
+    const map = useRef<google.maps.Map | null>(null);
 
     const { loading, error, data } = useQuery(getFeaturedBusiness);
 
@@ -29,7 +29,6 @@ const Explore2Map = ({ userLat, userLng, setUserLat, setUserLng, locations, hand
 
     useEffect(() => {
         if ('geolocation' in navigator) {
-            // Request the user's current position
             navigator.geolocation.getCurrentPosition(
                 (position) => {
                     const latitude = position.coords.latitude;
@@ -49,7 +48,6 @@ const Explore2Map = ({ userLat, userLng, setUserLat, setUserLng, locations, hand
 
     useEffect(() => {
         if (userLocationAvailable && googleMaps && userLat !== null && userLng !== null) {
-            // Initialize the map only once when the component mounts
             if (!map.current) {
                 const mapOptions = {
                     center: { lat: userLat, lng: userLng },
@@ -62,31 +60,8 @@ const Explore2Map = ({ userLat, userLng, setUserLat, setUserLng, locations, hand
                     ],
                 };
                 map.current = new window.google.maps.Map(mapRef.current, mapOptions);
-
-                const userMarker = new window.google.maps.Marker({
-                    position: { lat: userLat, lng: userLng },
-                    map: map.current,
-                    title: "Your location",
-                });
-
-                // const infoWindowContent = `
-                //     <div>
-                //         <h3>HAPPY BODY</h3>
-                //         <p>oi</p> 
-                //     </div>
-                // `;
-
-                // const infoWindow = new window.google.maps.InfoWindow({
-                //     content: infoWindowContent,
-                // });
-
-                // userMarker.addListener("click", () => {
-                //     infoWindow.setContent(infoWindowContent);
-                //     infoWindow.open(map.current, userMarker);
-                // });
             }
 
-            // Add markers to the existing map instance
             locations.forEach((location: Location, index: number) => {
                 const marker = new window.google.maps.Marker({
                     position: { lat: location.lat, lng: location.lng },
@@ -101,7 +76,31 @@ const Explore2Map = ({ userLat, userLng, setUserLat, setUserLng, locations, hand
                 });
             });
 
-            // Rest of your boundsChangedHandler logic
+            let shouldPerformRequest = false;
+
+            const boundsChangedHandler = debounce(() => {
+                if (shouldPerformRequest && map.current) {
+                    const bounds = map.current.getBounds();
+                    if (bounds) {
+                        const northeast = bounds.getNorthEast();
+                        const southwest = bounds.getSouthWest();
+                        console.log('Bounds Changed - Northeast Corner - Latitude:', northeast.lat(), 'Longitude:', northeast.lng());
+                        console.log('Bounds Changed - Southwest Corner - Latitude:', southwest.lat(), 'Longitude:', southwest.lng());
+                    }
+                    shouldPerformRequest = false;
+                }
+            }, 500);
+
+            if (map.current) {
+                map.current.addListener("bounds_changed", () => {
+                    shouldPerformRequest = true;
+                    boundsChangedHandler();
+                });
+
+                map.current.addListener("idle", () => {
+                    boundsChangedHandler();
+                });
+            }
         }
     }, [userLocationAvailable, googleMaps, userLat, userLng, locations, handleMarkerClick]);
 
