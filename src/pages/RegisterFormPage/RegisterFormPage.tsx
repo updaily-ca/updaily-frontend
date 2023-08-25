@@ -1,6 +1,9 @@
 import "./RegisterFormPage.scss";
 import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
+// GraphQL Queries
+import { useMutation } from "@apollo/client";
+import { addBusiness } from "../../graphql/queries";
 // Library
 import {Line} from "rc-progress";
 // Import Forms
@@ -16,6 +19,7 @@ import { handleUpload } from "../../utils/functions";
 // Firebase authentication
 import { auth } from "../../utils/firebase";
 import {createUserWithEmailAndPassword} from "firebase/auth";
+import { isLabeledStatement } from "typescript";
 
 
 const RegisterFormPage = () => {
@@ -58,6 +62,7 @@ const RegisterFormPage = () => {
     const [accessibility3,setAccessibility3] = useState(true);
     // Form 4 - Business
     const [selectedMenu, setSelectedMenu] = useState([]);
+    const [menuUrls, setMenuUrls] = useState<string[]>([]);
     // Form 5 - Event
     const [pwd, setPwd] = useState("");
     const [matchPwd, setMatchPwd] = useState("");
@@ -82,6 +87,8 @@ const RegisterFormPage = () => {
             navigate(-1);
         }
     }
+    // GraphQL to add new business
+    const [addNewBusiness, {data, loading, error}] = useMutation(addBusiness);
     // handle business submit
     const handleBusinessSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -100,6 +107,35 @@ const RegisterFormPage = () => {
             })
         // upload images to cloudinary
         await handleUpload(selectedImages, setImagesURL);
+        // upload menu image to cloudinary
+        await handleUpload(selectedMenu, setMenuUrls);
+        // Send request to graphql server
+        addNewBusiness({
+            variables: {
+                name: business,
+                email: email,
+                phone: phone,
+                lat: lat,
+                lng:lng,
+                address: location,
+                launch: launchingDate,
+                website: website,
+                photos: imagesURL,
+                type: businessType,
+                subtype: subtype,
+                cuisine: cuisine,
+                openingHours: timeRange,
+                priceRange: priceRange,
+                description: desc,
+                menu: menuUrls,
+                user_id: userId
+
+            }
+        }).then((response) => {
+            console.log(response)
+        }).catch(error =>{
+            console.log(error)
+        })
         
 
     }
