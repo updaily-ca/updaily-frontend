@@ -88,8 +88,8 @@ const Explore2Map = ({ userLat, userLng, setUserLat, setUserLng, locations, hand
                     if (bounds) {
                         const northeast = bounds.getNorthEast();
                         const southwest = bounds.getSouthWest();
-                        // console.log('Bounds Changed - Northeast Corner - Latitude:', northeast.lat(), 'Longitude:', northeast.lng());
-                        // console.log('Bounds Changed - Southwest Corner - Latitude:', southwest.lat(), 'Longitude:', southwest.lng());
+                        console.log('Bounds Changed - Northeast Corner - Latitude:', northeast.lat(), 'Longitude:', northeast.lng());
+                        console.log('Bounds Changed - Southwest Corner - Latitude:', southwest.lat(), 'Longitude:', southwest.lng());
                     }
                     shouldPerformRequest = false;
                 }
