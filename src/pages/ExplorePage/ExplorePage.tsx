@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDocumentTitle, useToggleClass } from '../../utils/functions';
 import BusinessFilter from "../../components/ExploreFilters/Business/BusinessFilter";
 import EventFilter from "../../components/ExploreFilters/Event/EventFilter";
 import FilterButton from "../../components/global/FilterButton/FilterButton";
 import SearchCards from "../../components/global/SearchCards/SearchCards";
-// import ExploreMap from "../../components/ExploreMap/ExploreMap";
 import { gHandleSearch, gOnSearchError, gOnSearchSuccess } from "../../utils/google";
 
 import { businessType, eventType } from "../../utils/FormData";
@@ -76,7 +75,6 @@ const ExplorePage = () => {
     interface Business {
         lat: number;
         lng: number;
-        // Other properties of the business object
     }
 
     const locations = data?.businesses?.slice(0, 4)
@@ -86,9 +84,8 @@ const ExplorePage = () => {
     interface Location {
         lat: number;
         lng: number;
-        // Other properties of the location object, if any
     }
-    // Marker and detail card
+
     const [businessDetail, setBusinessDetail]: any = useState({});
     const [id, setId] = useState(0);
     const [GetBusinessDetail, { loading, data: businessData }] = useLazyQuery(getBusinessDetail, {
@@ -144,15 +141,13 @@ const ExplorePage = () => {
             </aside>
             <div className="map-container">
 
-                {/* {userLocationAvailable ? <ExploreMap userLat={userLat} userLng={userLng} locations={locations} handleMarkerClick={handleMarkerClick} */}
-
                 {userLocationAvailable ? <Explore2Map
 
                     userLat={userLat} userLng={userLng} setUserLat={setUserLat} setUserLng={setUserLng} locations={locations} handleMarkerClick={handleMarkerClick}
 
 
                 /> : <div>
-                    <h3>Error</h3>
+                    <h3>Loading</h3>
 
                     <p>
                         Retrieving location data. If this message continues to show, please check you have enabled location access with your browser.
