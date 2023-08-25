@@ -69,21 +69,21 @@ const Explore2Map = ({ userLat, userLng, setUserLat, setUserLng, locations, hand
                     title: "Your location",
                 });
 
-                const infoWindowContent = `
-                    <div>
-                        <h3>HAPPY BODY</h3>
-                        <p>oi</p> 
-                    </div>
-                `;
+                // const infoWindowContent = `
+                //     <div>
+                //         <h3>HAPPY BODY</h3>
+                //         <p>oi</p> 
+                //     </div>
+                // `;
 
-                const infoWindow = new window.google.maps.InfoWindow({
-                    content: infoWindowContent,
-                });
+                // const infoWindow = new window.google.maps.InfoWindow({
+                //     content: infoWindowContent,
+                // });
 
-                userMarker.addListener("click", () => {
-                    infoWindow.setContent(infoWindowContent);
-                    infoWindow.open(map.current, userMarker);
-                });
+                // userMarker.addListener("click", () => {
+                //     infoWindow.setContent(infoWindowContent);
+                //     infoWindow.open(map.current, userMarker);
+                // });
             }
 
             // Add markers to the existing map instance

@@ -1,5 +1,5 @@
 import { Loader } from '@googlemaps/js-api-loader';
-import { debounce } from './google';
+// import { debounce } from './google';
 
 interface LoadGoogleMapsAPIOptions {
     apiKey: string;
@@ -13,11 +13,6 @@ export const loadGoogleMapsAPI = ({ apiKey }: LoadGoogleMapsAPIOptions) => {
     });
 
     return loader.load();
-
-
-
-
-
 
 };
 
