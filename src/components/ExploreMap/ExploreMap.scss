@@ -2,5 +2,9 @@
 @use '../../styles/mixins.scss' as *;
 
 .c-exploremap {
-    background-color: $shade-2;
+    height: 100dvh;
+
+    &__map {
+        height: 100dvh;
+    }
 }

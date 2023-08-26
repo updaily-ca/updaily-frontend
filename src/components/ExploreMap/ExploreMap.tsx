@@ -110,8 +110,8 @@ const ExploreMap = ({ userLat, userLng, setUserLat, setUserLng, locations, handl
 
 
     return (
-        <div className="p-devpage">
-            {userLocationAvailable && <div ref={mapRef} style={{ width: "100%", height: "400px" }} />}
+        <div className="c-exploremap">
+            {userLocationAvailable && <div ref={mapRef} className="c-exploremap__map" />}
         </div>
     );
 };
