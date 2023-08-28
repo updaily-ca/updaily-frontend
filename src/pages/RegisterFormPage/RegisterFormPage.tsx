@@ -28,8 +28,6 @@ const RegisterFormPage = () => {
 
     // Form Status
     const [errorMsg, setErrorMsg] = useState<string>("");
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [successMsg, setSuccessMsg] = useState<string>("");
     // States to keep track information of the form - event
     // Form 1 - Event
     const [event, setEvent] = useState("");
@@ -95,7 +93,7 @@ const RegisterFormPage = () => {
     const handleBusinessSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         // Check if all field exists before submitting
-        if(business && email && phone && lat && lng && location && launchingDate && website && type && subtype && cuisine && timeRange[0] && priceRange[0] && desc && menuUrls && userId ) {
+        if(business && email && phone && lat && lng && location && launchingDate && website && type  && timeRange[0] && priceRange[0] && desc && menuUrls) {
             // Create a new user with firebase
             await createUserWithEmailAndPassword(auth, email, pwd)
             .then((userCredential) => {
@@ -134,12 +132,16 @@ const RegisterFormPage = () => {
 
                 }
             }).then((response) => {
-                console.log(response)
+                console.log(response);
+                navigate("/confirmation");
             }).catch(error =>{
                 setErrorMsg("Unable to upload your business/event at the moment")
             })
         } else{
             setErrorMsg("Please fill out the required information");
+            setTimeout(() => {
+                setErrorMsg("");
+            }, 2000)
         }
     }
 

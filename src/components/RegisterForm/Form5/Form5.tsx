@@ -8,7 +8,7 @@ import { FormContext } from '../../../context/formContext';
 
 interface Form5Props {
     handleSubmit: (e: React.FormEvent)=> void,
-    errorMsg: string
+    errorMsg: string,
 }
 const Form5 = ({handleSubmit, errorMsg}: Form5Props) => {
     const {pwd, setPwd, matchPwd, setMatchPwd, handleBack} = useContext(FormContext);

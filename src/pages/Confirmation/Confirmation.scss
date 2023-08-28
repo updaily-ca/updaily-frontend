@@ -1,0 +1,39 @@
+@use "../../styles/colours.scss" as *;
+@use "../../styles/mixins.scss" as *;
+
+.confirmation {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+    justify-content: center;
+    align-items: start;
+    @include tablet {
+        padding: 0 15%;
+        height: 70vh;
+    }
+    @include desktop{
+        padding: 0 25%;
+    }
+    &__title {
+        font-weight: 500;
+        font-size: 1.3rem;
+        padding-bottom: 1.3rem;
+        @include tablet {
+            font-size: 1.7rem;
+        }
+    }
+    &__content{
+        color: $shade-1;
+        font-weight: lighter;
+        font-size: 0.9rem;
+        line-height: 1.5rem;
+        @include tablet{
+            font-size: 1.1rem;
+            line-height: 2rem;
+        }
+    }
+    &__highlight {
+        color: $coloured-bright;
+    }
+}
