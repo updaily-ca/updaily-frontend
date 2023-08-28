@@ -4,6 +4,10 @@
 .c-exploremap {
     height: 100dvh;
 
+    @include tablet {
+        height: 80dvh;
+    }
+
     &__map {
         height: 100dvh;
     }
