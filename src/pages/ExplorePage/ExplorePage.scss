@@ -36,19 +36,25 @@
     box-sizing: border-box;
 
     @include desktop {
-        width: 30%;
+        min-width: 20rem;
+        width: 20rem;
+        // max-width: 20rem;
+    }
+
+    @include highres {
+        width: 20rem;
     }
 
 }
 
 .map-container {
     display: flex;
-    min-width: 100dvh;
     flex-direction: column;
     box-sizing: border-box;
+    width: 100dvw;
 
-    @include tablet {
-        width: 70%;
+    @include desktop {
+        width: calc(100% - 20rem);
     }
 
     .e-cc-searchcards {

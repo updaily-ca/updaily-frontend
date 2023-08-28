@@ -151,7 +151,7 @@ const ExplorePage = () => {
                     userLat={userLat} userLng={userLng} setUserLat={setUserLat} setUserLng={setUserLng} locations={locations} handleMarkerClick={handleMarkerClick}
 
 
-                /> : <div>
+                /> : <div className="c-exploremap">
                     <h3>Loading</h3>
 
                     <p>
