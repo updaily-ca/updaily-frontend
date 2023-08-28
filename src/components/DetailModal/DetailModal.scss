@@ -1,0 +1,62 @@
+@use "../../styles/mixins.scss" as *;
+@use "../../styles/colours.scss" as *;
+
+.lightbox {
+    display: flex;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    background-color: orange;
+    opacity: 1;
+    z-index: 9;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    transition: opacity 450ms ease;
+    pointer-events: none;
+    opacity: 0;
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        z-index: 10;
+
+        &--image {
+            border: medium solid white;
+            width: 75vw;
+            border-radius: 0.25rem;
+        }
+
+        &--subsection {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        &--close {
+            width: 100%;
+            margin-top: 1rem;
+            right: 0;
+            margin-right: -0.25rem;
+            padding: 0.5rem;
+            height: 1rem;
+            width: 1rem;
+            background-color: red;
+            border-style: solid;
+            border: medium white solid;
+            border-radius: 0.25rem;
+            transition: all 0.125s ease-in-out;
+
+            &:hover {
+                background-color: green;
+            }
+        }
+    }
+
+    &--open {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+}

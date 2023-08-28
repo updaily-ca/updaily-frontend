@@ -15,6 +15,17 @@ import ExploreMap from "../../components/ExploreMap/ExploreMap";
 
 import "./ExplorePage.scss";
 
+// for the modal
+
+
+// const [currentImage, setCurrentImage] = useState('');
+
+import DetailModal from "../../components/DetailModal/DetailModal";
+
+
+
+// for the modal
+
 const ExplorePage = () => {
     useDocumentTitle("Explore Page");
 
@@ -104,6 +115,15 @@ const ExplorePage = () => {
 
     // had to use this for marker click because of a weird error
 
+
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+    const handleModalClick: any = () => {
+        // setCurrentImage();
+        setModalOpen((prev) => !prev);
+    };
+
+
     return (
         <div id="p-explorepage">
 
@@ -164,6 +184,12 @@ const ExplorePage = () => {
                     <SearchCards businessDetail={businessDetail} isBusinessMode={isFilterBusiness} />
                 </div>
             </div>
+
+            <DetailModal modalOpen={modalOpen}
+                // currentImage={currentImage} 
+                handleModalClick={handleModalClick} />
+
+
         </div>
     );
 };
