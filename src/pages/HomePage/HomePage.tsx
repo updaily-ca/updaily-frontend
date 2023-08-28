@@ -1,5 +1,7 @@
 import { performSearch, useDocumentTitle } from "../../utils/functions"
 import { useState } from "react"
+import { getFeaturedBusiness } from "../../graphql/queries"
+import { useQuery } from "@apollo/client"
 
 import SearchCards from "../../components/global/SearchCards/SearchCards"
 import FilterButton from "../../components/global/FilterButton/FilterButton"
@@ -15,6 +17,10 @@ const HomePage = () => {
     const toggleBusinessMode = (): void => {
         setIsFilterBusiness((prevState) => !prevState)
     }
+
+    const { data } = useQuery(getFeaturedBusiness);
+
+    const locations = data?.businesses?.slice(0, 100);
 
     const [searchTerm, setSearchTerm] = useState<string>("")
     const [prevSearchTerm, setPrevSearchTerm] = useState<string>("")
@@ -47,7 +53,7 @@ const HomePage = () => {
             <section className="h-cc-searchcards">
                 {/* home page - component container - search cards */}
                 <h1 className="h-cc-searchcards__title">New events to explore this week</h1>
-                <SearchCards isBusinessMode={isFilterBusiness} />
+                <SearchCards isBusinessMode={isFilterBusiness} locations={locations} />
             </section>
             <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
         </div>

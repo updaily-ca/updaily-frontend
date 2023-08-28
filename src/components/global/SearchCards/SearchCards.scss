@@ -1,13 +1,51 @@
 @use '../../../styles/colours.scss' as *;
 @use '../../../styles/global.scss' as *;
+@use '../../../styles/mixins.scss' as *;
+
 
 
 .c-search {
     display: flex;
-    flex-direction: row;
     overflow-x: auto;
+    flex-direction: row;
     padding: 1rem;
     gap: 1rem;
+
+
+    /* Define the scrollbar style */
+    &::-webkit-scrollbar {
+        width: 0.65rem;
+        height: 0.65rem;
+    }
+
+    /* Define the thumb style */
+    &::-webkit-scrollbar-thumb {
+        background: $coloured-bright;
+        border-radius: $px5;
+    }
+
+    /* Define the track style */
+    &::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    /* Define the button style */
+    &::-webkit-scrollbar-button {
+        background-color: $coloured-bright;
+        border-radius: $px5;
+    }
+
+    /* Define the button style when being hovered over */
+    & ::-webkit-scrollbar-button:hover {
+        background-color: $shade-2;
+    }
+
+
+
+    @include desktop {
+        // padding: 2rem;
+        padding-bottom: 1.5rem;
+    }
 }
 
 .search-card {
@@ -20,15 +58,16 @@
     border-radius: $px5;
 
 
-
-
-    /* From https://css.glass */
     background: rgba(255, 255, 255, 0.473);
     border-radius: 1rem;
     box-shadow: 0 $px5 2rem rgba(0, 0, 0, 0.1);
     backdrop-filter: blur($px5);
     -webkit-backdrop-filter: blur($px5);
     border: thin solid rgba(255, 255, 255, 0.3);
+
+    @include desktop {
+        max-width: 20%;
+    }
 
     &--event {
         // background-color: red;

@@ -6,10 +6,14 @@
     width: 100%;
 
     @include tablet {
-        height: 80dvh;
+        height: calc(100dvh - 5rem);
     }
 
     &__map {
         height: 100dvh;
+
+        @include tablet {
+            height: calc(100dvh - 5rem);
+        }
     }
 }

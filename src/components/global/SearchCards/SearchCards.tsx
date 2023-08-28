@@ -9,15 +9,16 @@ import BusinessSearchCards from './Business/BusinessSearchCards';
 
 interface SearchCardsProps {
     isBusinessMode: boolean,
-    businessDetail?: {name: string, location: string, photos: string[], description: string}
+    businessDetail?: { name: string, location: string, photos: string[], description: string },
+    locations: any,
 }
 
-const SearchCards: React.FC<SearchCardsProps> = ({ isBusinessMode, businessDetail}) => {
+const SearchCards: React.FC<SearchCardsProps> = ({ isBusinessMode, businessDetail, locations }) => {
 
     return (
 
         <div className="c-search"> {/* component - search */}
-            {isBusinessMode ? <BusinessSearchCards businessDetail={businessDetail} images={{ arrow, photo }} /> : <EventSearchCards images={{ arrow, photo }} />
+            {isBusinessMode ? <BusinessSearchCards businessDetail={businessDetail} images={{ arrow, photo }} locations={locations} /> : <EventSearchCards images={{ arrow, photo }} />
             }
 
         </div>
