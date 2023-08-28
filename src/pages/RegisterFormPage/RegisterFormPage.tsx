@@ -19,8 +19,6 @@ import { handleUpload } from "../../utils/functions";
 // Firebase authentication
 import { auth } from "../../utils/firebase";
 import {createUserWithEmailAndPassword} from "firebase/auth";
-import { isLabeledStatement } from "typescript";
-
 
 const RegisterFormPage = () => {
     // type
@@ -37,6 +35,8 @@ const RegisterFormPage = () => {
     const [lat, setLat] = useState(0);
     const [lng, setLng] = useState(0);
     const [website, setWebsite] = useState("");
+    // Form Status
+    const [errorMsg, setErrorMsg] = useState<string>("");
     // Form 1 - Business
     const [business, setBusiness] = useState("")
     const [phone, setPhone] = useState("");
@@ -92,52 +92,53 @@ const RegisterFormPage = () => {
     // handle business submit
     const handleBusinessSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("submit clicked")
-        // Create a new user with firebase
-        await createUserWithEmailAndPassword(auth, email, pwd)
+        // Check if all field exists before submitting
+        if(business && email && phone && lat && lng && location && launchingDate && website && type && subtype && cuisine && timeRange[0] && priceRange[0] && desc && menuUrls && userId ) {
+            // Create a new user with firebase
+            await createUserWithEmailAndPassword(auth, email, pwd)
             .then((userCredential) => {
                 const uid: string = userCredential.user.uid;
                 setUserId(uid);
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode);
-                console.log(errorMessage);
+                error ? setErrorMsg(error.toString()) : setErrorMsg("Unable to register your business/event at the moment")
+                return;
             })
-        // upload images to cloudinary
-        await handleUpload(selectedImages, setImagesURL);
-        // upload menu image to cloudinary
-        await handleUpload(selectedMenu, setMenuUrls);
-        // Send request to graphql server
-        addNewBusiness({
-            variables: {
-                name: business,
-                email: email,
-                phone: phone,
-                lat: lat,
-                lng:lng,
-                address: location,
-                launch: launchingDate,
-                website: website,
-                photos: imagesURL,
-                type: businessType,
-                subtype: subtype,
-                cuisine: cuisine,
-                openingHours: timeRange,
-                priceRange: priceRange,
-                description: desc,
-                menu: menuUrls,
-                user_id: userId
+            
+            // upload images to cloudinary
+            await handleUpload(selectedImages, setImagesURL);
+            // upload menu image to cloudinary
+            await handleUpload(selectedMenu, setMenuUrls);
+            // Send request to graphql server
+            addNewBusiness({
+                variables: {
+                    name: business,
+                    email: email,
+                    phone: phone,
+                    lat: lat,
+                    lng:lng,
+                    address: location,
+                    launch: launchingDate,
+                    website: website,
+                    photos: imagesURL,
+                    type: businessType,
+                    subtype: subtype,
+                    cuisine: cuisine,
+                    openinghours: timeRange,
+                    pricerange: priceRange,
+                    description: desc,
+                    menu: menuUrls,
+                    user_id: userId
 
-            }
-        }).then((response) => {
-            console.log(response)
-        }).catch(error =>{
-            console.log(error)
-        })
-        
-
+                }
+            }).then((response) => {
+                console.log(response)
+            }).catch(error =>{
+                setErrorMsg("Unable to upload your business/event at the moment")
+            })
+        } else{
+            setErrorMsg("Please fill out the required information");
+        }
     }
 
     // handle event submit
@@ -176,7 +177,7 @@ const RegisterFormPage = () => {
                 {currentPage === 4 && <Form4/> }
 
                 {/* Set Up Account Form */}
-                {currentPage === 5 && <Form5  handleSubmit={type==="Business" ? handleBusinessSubmit : handleEventSubmit}/> }
+                {currentPage === 5 && <Form5  handleSubmit={type==="Business" ? handleBusinessSubmit : handleEventSubmit} errorMsg={errorMsg}/> }
             </FormContext.Provider>
         </div>
     )
