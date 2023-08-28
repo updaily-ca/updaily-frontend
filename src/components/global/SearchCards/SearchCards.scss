@@ -1,5 +1,6 @@
 @use '../../../styles/colours.scss' as *;
 @use '../../../styles/global.scss' as *;
+@use '../../../styles/mixins.scss' as *;
 
 
 .c-search {
@@ -8,6 +9,10 @@
     overflow-x: auto;
     padding: 1rem;
     gap: 1rem;
+
+    @include desktop {
+        padding: 2rem;
+    }
 }
 
 .search-card {
@@ -29,6 +34,10 @@
     backdrop-filter: blur($px5);
     -webkit-backdrop-filter: blur($px5);
     border: thin solid rgba(255, 255, 255, 0.3);
+
+    @include desktop {
+        max-width: 20%;
+    }
 
     &--event {
         // background-color: red;
