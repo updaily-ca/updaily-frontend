@@ -26,6 +26,10 @@ const RegisterFormPage = () => {
     // useNavgite
     const navigate = useNavigate();
 
+    // Form Status
+    const [errorMsg, setErrorMsg] = useState<string>("");
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [successMsg, setSuccessMsg] = useState<string>("");
     // States to keep track information of the form - event
     // Form 1 - Event
     const [event, setEvent] = useState("");
@@ -35,8 +39,6 @@ const RegisterFormPage = () => {
     const [lat, setLat] = useState(0);
     const [lng, setLng] = useState(0);
     const [website, setWebsite] = useState("");
-    // Form Status
-    const [errorMsg, setErrorMsg] = useState<string>("");
     // Form 1 - Business
     const [business, setBusiness] = useState("")
     const [phone, setPhone] = useState("");
