@@ -31,8 +31,6 @@ const Form1 = () => {
         phone,
         setPhone,
         setLauchingDate,
-        lat,
-        lng,
         setLat,
         setLng,
     } = useContext(FormContext);

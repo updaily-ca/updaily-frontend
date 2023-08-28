@@ -12,6 +12,7 @@ import RegisterFormPage from "./pages/RegisterFormPage/RegisterFormPage";
 import DetailPage from "./pages/DetailPage/DetailPage";
 import DevPage from "./pages/DevPage/DevPage";
 import ExplorePage from "./pages/ExplorePage/ExplorePage";
+import Confirmation from "./pages/Confirmation/Confirmation";
 
 import client from "./graphql/apolloClient";
 import { ApolloProvider } from "@apollo/client";
@@ -59,6 +60,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/devpage" element={<DevPage />} />
             <Route path="/register/:type" element={<RegisterFormPage />} />
+            <Route path="/confirmation" element={<Confirmation />} />
             <Route path="/explore" element={<ExplorePage />} />
             <Route path="/detail" element={<DetailPage />} />
           </Routes>

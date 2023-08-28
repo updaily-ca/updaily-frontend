@@ -1,6 +1,9 @@
 import "./RegisterFormPage.scss";
 import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
+// GraphQL Queries
+import { useMutation } from "@apollo/client";
+import { addBusiness } from "../../graphql/queries";
 // Library
 import {Line} from "rc-progress";
 // Import Forms
@@ -17,13 +20,14 @@ import { handleUpload } from "../../utils/functions";
 import { auth } from "../../utils/firebase";
 import {createUserWithEmailAndPassword} from "firebase/auth";
 
-
 const RegisterFormPage = () => {
     // type
     const {type} = useParams();
     // useNavgite
     const navigate = useNavigate();
 
+    // Form Status
+    const [errorMsg, setErrorMsg] = useState<string>("");
     // States to keep track information of the form - event
     // Form 1 - Event
     const [event, setEvent] = useState("");
@@ -58,6 +62,7 @@ const RegisterFormPage = () => {
     const [accessibility3,setAccessibility3] = useState(true);
     // Form 4 - Business
     const [selectedMenu, setSelectedMenu] = useState([]);
+    const [menuUrls, setMenuUrls] = useState<string[]>([]);
     // Form 5 - Event
     const [pwd, setPwd] = useState("");
     const [matchPwd, setMatchPwd] = useState("");
@@ -82,26 +87,62 @@ const RegisterFormPage = () => {
             navigate(-1);
         }
     }
+    // GraphQL to add new business
+    const [addNewBusiness, {data, loading, error}] = useMutation(addBusiness);
     // handle business submit
     const handleBusinessSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("submit clicked")
-        // Create a new user with firebase
-        await createUserWithEmailAndPassword(auth, email, pwd)
+        // Check if all field exists before submitting
+        if(business && email && phone && lat && lng && location && launchingDate && website && type  && timeRange[0] && priceRange[0] && desc && menuUrls) {
+            // Create a new user with firebase
+            await createUserWithEmailAndPassword(auth, email, pwd)
             .then((userCredential) => {
                 const uid: string = userCredential.user.uid;
                 setUserId(uid);
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode);
-                console.log(errorMessage);
+                error ? setErrorMsg(error.toString()) : setErrorMsg("Unable to register your business/event at the moment")
+                return;
             })
-        // upload images to cloudinary
-        await handleUpload(selectedImages, setImagesURL);
-        
+            
+            // upload images to cloudinary
+            await handleUpload(selectedImages, setImagesURL);
+            // upload menu image to cloudinary
+            await handleUpload(selectedMenu, setMenuUrls);
+            // Send request to graphql server
+            addNewBusiness({
+                variables: {
+                    name: business,
+                    email: email,
+                    phone: phone,
+                    lat: lat,
+                    lng:lng,
+                    address: location,
+                    launch: launchingDate,
+                    website: website,
+                    photos: imagesURL,
+                    type: businessType,
+                    subtype: subtype,
+                    cuisine: cuisine,
+                    openinghours: timeRange,
+                    pricerange: priceRange,
+                    description: desc,
+                    menu: menuUrls,
+                    user_id: userId
 
+                }
+            }).then((response) => {
+                console.log(response);
+                navigate("/confirmation");
+            }).catch(error =>{
+                setErrorMsg("Unable to upload your business/event at the moment")
+            })
+        } else{
+            setErrorMsg("Please fill out the required information");
+            setTimeout(() => {
+                setErrorMsg("");
+            }, 2000)
+        }
     }
 
     // handle event submit
@@ -140,7 +181,7 @@ const RegisterFormPage = () => {
                 {currentPage === 4 && <Form4/> }
 
                 {/* Set Up Account Form */}
-                {currentPage === 5 && <Form5  handleSubmit={type==="Business" ? handleBusinessSubmit : handleEventSubmit}/> }
+                {currentPage === 5 && <Form5  handleSubmit={type==="Business" ? handleBusinessSubmit : handleEventSubmit} errorMsg={errorMsg}/> }
             </FormContext.Provider>
         </div>
     )

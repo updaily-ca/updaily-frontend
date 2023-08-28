@@ -4,6 +4,7 @@ import "./FormContainer.scss";
 import back_icon from "../../../asset/register/icons8-back-arrow-48.png";
 // Component
 import NextButton from "../../global/NextButton/NextButton";
+import Loader from "../Loader/Loader";
 // Context
 import { FormContext } from "../../../context/formContext";
 import { useContext } from "react";
@@ -13,7 +14,7 @@ interface FormContainerProps {
     handleNext?: () => void,
     handleBack?: () => void,
     children:ReactNode,
-    name: string
+    name: string,
 }
 
 const FormContainer = ({handleSubmit, handleNext, children, handleBack, name}: FormContainerProps) => {
