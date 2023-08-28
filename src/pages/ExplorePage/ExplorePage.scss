@@ -42,13 +42,17 @@
 }
 
 .map-container {
-    width: 70%;
-    height: 100dvh;
     display: flex;
+    min-width: 100dvh;
     flex-direction: column;
     box-sizing: border-box;
 
+    @include tablet {
+        width: 70%;
+    }
+
     .e-cc-searchcards {
-        margin-top: auto;
+        margin-top: -15rem;
+        z-index: -0;
     }
 }
