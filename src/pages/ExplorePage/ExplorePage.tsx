@@ -23,8 +23,16 @@ import DetailModal from "../../components/DetailModal/DetailModal"
 
 // for the modal
 
+interface LatLng {
+    lat: number
+    lng: number
+}
+
 const ExplorePage = () => {
     useDocumentTitle("Explore Page")
+
+    const [vpNorthEast, setVpNorthEast] = useState<LatLng>({ lat: 0, lng: 0 })
+    const [vpSouthWest, setVpSouthWest] = useState<LatLng>({ lat: 0, lng: 0 })
 
     const [address, setAddress] = useState<string>("")
     const [isFilterBusiness, setIsFilterBusiness] = useState<boolean>(false)
@@ -77,19 +85,19 @@ const ExplorePage = () => {
 
     // console.log(data?.businesses?.slice(0, 200))
 
-    interface Business {
-        lat: number
-        lng: number
-    }
+    // interface Business {
+    //     lat: number
+    //     lng: number
+    // }
 
     const businesses = businessesData?.businesses?.slice(0, 100)
 
     // console.log(businesses);
 
-    interface Location {
-        lat: number
-        lng: number
-    }
+    // interface Location {
+    //     lat: number
+    //     lng: number
+    // }
 
     const [businessDetail, setBusinessDetail]: any = useState({})
     const [id, setId] = useState(0)
@@ -155,7 +163,7 @@ const ExplorePage = () => {
             </aside>
             <div className="map-container">
                 {userLocationAvailable ? (
-                    <ExploreMap userLat={userLat} userLng={userLng} setUserLat={setUserLat} setUserLng={setUserLng} businesses={businesses} handleMarkerClick={handleMarkerClick} />
+                    <ExploreMap userLat={userLat} userLng={userLng} setUserLat={setUserLat} setUserLng={setUserLng} businesses={businesses} handleMarkerClick={handleMarkerClick} vpNorthEast={vpNorthEast} setVpNorthEast={setVpNorthEast} vpSouthWest={vpSouthWest} setVpSouthWest={setVpSouthWest} />
                 ) : (
                     <div className="c-exploremap">
                         <h3>Loading</h3>
@@ -165,7 +173,7 @@ const ExplorePage = () => {
                 )}
 
                 <div className="e-cc-searchcards">
-                    <SearchCards handleCardClick={handleCardClick} businessDetail={businessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} />
+                    <SearchCards handleCardClick={handleCardClick} businessDetail={businessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest} />
                 </div>
             </div>
             </div>

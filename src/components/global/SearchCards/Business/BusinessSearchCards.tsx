@@ -2,20 +2,36 @@ interface BusinessSearchCardProps {
     images: {
         arrow: string
         photo: string
-    }
-    businessDetail: any
-    // businessDetail: {
-    //     name?: string;
-    //     location?: string;
-    //     description?: string;
-    //     photos?: string[];
-    // };
+    },
+    businessDetail: any,
     businesses: any[],
+    vpNorthEast: LatLng,
+    vpSouthWest: LatLng,
     handleCardClick: (id: any) => void
 }
 
-const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, businessDetail, businesses, handleCardClick }) => {
+interface LatLng {
+    lat: number;
+    lng: number;
+}
+
+const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, businessDetail, businesses, vpNorthEast, vpSouthWest,handleCardClick }) => {
     const altPhoto = ""
+
+    const filteredBusinesses = businesses.filter(business => {
+        const businessLatLng: LatLng = {
+            lat: business.lat,
+            lng: business.lng,
+
+        };
+
+        return (
+            businessLatLng.lat >= vpSouthWest.lat &&
+            businessLatLng.lat <= vpNorthEast.lat &&
+            businessLatLng.lng >= vpSouthWest.lng &&
+            businessLatLng.lng <= vpNorthEast.lng
+        );
+    });
 
     return (
         <>
@@ -32,7 +48,7 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, busine
                 </article>
             ) : null}
 
-            {businesses.map((business) => (
+            {filteredBusinesses.map((business) => (
                 <article key={business.id} className="search-card">
                     <h2 className="search-card__title">{business?.name}</h2>
                     <div className="search-card__photo">
