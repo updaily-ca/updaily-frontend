@@ -10,8 +10,16 @@ import "./HomePage.scss"
 
 import searchIcon from "../../asset/home/search-icon.png"
 
+interface LatLng {
+    lat: number;
+    lng: number;
+}
+
 const HomePage = () => {
     useDocumentTitle("Home Page")
+
+    const [vpNorthEast, setVpNorthEast] = useState<LatLng>({ lat: 0, lng: 0 });
+    const [vpSouthWest, setVpSouthWest] = useState<LatLng>({ lat: 0, lng: 0 });
 
     const [isFilterBusiness, setIsFilterBusiness] = useState<boolean>(false)
     const toggleBusinessMode = (): void => {
@@ -53,7 +61,11 @@ const HomePage = () => {
             <section className="h-cc-searchcards">
                 {/* home page - component container - search cards */}
                 <h1 className="h-cc-searchcards__title">New events to explore this week</h1>
-                <SearchCards isBusinessMode={isFilterBusiness} businesses={businesses} />
+                <SearchCards
+
+                    vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest}
+
+                    isBusinessMode={isFilterBusiness} businesses={businesses} />
             </section>
             <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
         </div>

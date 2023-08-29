@@ -18,10 +18,24 @@ interface Location {
     lng: number
 }
 
-const ExploreMap = ({ userLat, userLng, setUserLat, setUserLng, businesses, handleMarkerClick }: any) => {
+interface LatLng {
+    lat: number
+    lng: number
+}
+
+interface Business {
+    id: number;
+    lat: number;
+    lng: number;
+}
+
+
+const ExploreMap = ({ userLat, userLng, setUserLat, setUserLng, businesses, handleMarkerClick, vpNorthEast, setVpNorthEast, vpSouthWest, setVpSouthWest }: any) => {
     const googleMaps = useGoogleMaps()
     const mapRef = useRef<HTMLDivElement | null>(null)
     const map = useRef<google.maps.Map | null>(null)
+
+    const markers: google.maps.Marker[] = [];
 
     const { loading, error, data } = useQuery(getFeaturedBusiness)
 
@@ -46,20 +60,41 @@ const ExploreMap = ({ userLat, userLng, setUserLat, setUserLng, businesses, hand
         }
     }, [])
 
+    const filteredBusinesses = businesses.filter((business: Business) => {
+        const businessLatLng: LatLng = {
+            lat: business.lat,
+            lng: business.lng,
+
+        };
+
+
+        return (
+            businessLatLng.lat >= vpSouthWest.lat &&
+            businessLatLng.lat <= vpNorthEast.lat &&
+            businessLatLng.lng >= vpSouthWest.lng &&
+            businessLatLng.lng <= vpNorthEast.lng
+        );
+    });
+
     useEffect(() => {
-        businesses?.forEach((location: Location, index: number) => {
-            const marker = new window.google.maps.Marker({
-                position: { lat: location.lat, lng: location.lng },
-                map: map.current,
-                title: `Location ${index + 1}`,
-            })
 
-            marker.data = location
+        filteredBusinesses?.forEach((location: Location, index: number) => {
 
-            marker.addListener("click", () => {
-                handleMarkerClick(marker.data.id)
-                // console.log(marker.data.id);
-            })
+            if (map.current) {
+                const marker = new window.google.maps.Marker({
+                    position: { lat: location.lat, lng: location.lng },
+                    map: map.current,
+                    title: `Location ${index + 1}`,
+                })
+
+                marker.data = location
+
+                marker.addListener("click", () => {
+                    handleMarkerClick(marker.data.id)
+                    // console.log(marker.data.id);
+                })
+
+            }
         })
 
         if (userLocationAvailable && googleMaps && userLat !== null && userLng !== null) {
@@ -85,8 +120,12 @@ const ExploreMap = ({ userLat, userLng, setUserLat, setUserLng, businesses, hand
                     if (bounds) {
                         const northeast = bounds.getNorthEast()
                         const southwest = bounds.getSouthWest()
-                        console.log("Bounds Changed - Northeast Corner - Latitude:", northeast.lat(), "Longitude:", northeast.lng())
-                        console.log("Bounds Changed - Southwest Corner - Latitude:", southwest.lat(), "Longitude:", southwest.lng())
+
+                        setVpNorthEast({ lat: northeast.lat(), lng: northeast.lng() })
+                        setVpSouthWest({ lat: southwest.lat(), lng: southwest.lng() })
+
+                        // console.log("Bounds Changed - Northeast Corner - Latitude:", northeast.lat(), "Longitude:", northeast.lng())
+                        // console.log("Bounds Changed - Southwest Corner - Latitude:", southwest.lat(), "Longitude:", southwest.lng())
                     }
                     shouldPerformRequest = false
                 }
