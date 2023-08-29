@@ -90,8 +90,8 @@ const ExploreMap = ({ userLat, userLng, setUserLat, setUserLng, businesses, hand
                         setVpNorthEast(northeast);
                         setVpSouthWest(southwest);
 
-                        console.log("Bounds Changed - Northeast Corner - Latitude:", northeast.lat(), "Longitude:", northeast.lng())
-                        console.log("Bounds Changed - Southwest Corner - Latitude:", southwest.lat(), "Longitude:", southwest.lng())
+                        // console.log("Bounds Changed - Northeast Corner - Latitude:", northeast.lat(), "Longitude:", northeast.lng())
+                        // console.log("Bounds Changed - Southwest Corner - Latitude:", southwest.lat(), "Longitude:", southwest.lng())
                     }
                     shouldPerformRequest = false
                 }

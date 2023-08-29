@@ -132,7 +132,7 @@ const ExplorePage = () => {
         console.log(vpNorthEast.lng);
         console.log(vpSouthWest.lat);
         console.log(vpSouthWest.lng);
-    }, [vpNorthEast]);
+    }, [vpNorthEast, vpSouthWest]);
 
 
     return (
