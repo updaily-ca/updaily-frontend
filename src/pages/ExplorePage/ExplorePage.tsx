@@ -128,11 +128,13 @@ const ExplorePage = () => {
 
 
     useEffect(() => {
+        console.log("Start")
         console.log(vpNorthEast.lat);
         console.log(vpNorthEast.lng);
         console.log(vpSouthWest.lat);
         console.log(vpSouthWest.lng);
-    }, [vpNorthEast]);
+        console.log("End")
+    }, [vpNorthEast,vpSouthWest]);
 
 
     return (
