@@ -18,7 +18,7 @@ interface Location {
     lng: number
 }
 
-const ExploreMap = ({ userLat, userLng, setUserLat, setUserLng, locations, handleMarkerClick }: any) => {
+const ExploreMap = ({ userLat, userLng, setUserLat, setUserLng, businesses, handleMarkerClick }: any) => {
     const googleMaps = useGoogleMaps()
     const mapRef = useRef<HTMLDivElement | null>(null)
     const map = useRef<google.maps.Map | null>(null)
@@ -47,7 +47,7 @@ const ExploreMap = ({ userLat, userLng, setUserLat, setUserLng, locations, handl
     }, [])
 
     useEffect(() => {
-        locations?.forEach((location: Location, index: number) => {
+        businesses?.forEach((location: Location, index: number) => {
             const marker = new window.google.maps.Marker({
                 position: { lat: location.lat, lng: location.lng },
                 map: map.current,
@@ -103,7 +103,7 @@ const ExploreMap = ({ userLat, userLng, setUserLat, setUserLng, locations, handl
                 })
             }
         }
-    }, [userLocationAvailable, googleMaps, userLat, userLng, locations, handleMarkerClick])
+    }, [userLocationAvailable, googleMaps, userLat, userLng, businesses, handleMarkerClick])
 
     return <div className="c-exploremap">{userLocationAvailable && <div ref={mapRef} className="c-exploremap__map" />}</div>
 }
