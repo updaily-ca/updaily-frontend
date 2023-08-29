@@ -20,7 +20,7 @@ const HomePage = () => {
 
     const { data } = useQuery(getFeaturedBusiness);
 
-    const locations = data?.businesses?.slice(0, 100);
+    const businesses = data?.businesses?.slice(0, 4);
 
     const [searchTerm, setSearchTerm] = useState<string>("")
     const [prevSearchTerm, setPrevSearchTerm] = useState<string>("")
@@ -53,7 +53,7 @@ const HomePage = () => {
             <section className="h-cc-searchcards">
                 {/* home page - component container - search cards */}
                 <h1 className="h-cc-searchcards__title">New events to explore this week</h1>
-                <SearchCards isBusinessMode={isFilterBusiness} locations={locations} />
+                <SearchCards isBusinessMode={isFilterBusiness} businesses={businesses} />
             </section>
             <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
         </div>

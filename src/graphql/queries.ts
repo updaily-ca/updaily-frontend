@@ -21,6 +21,20 @@ export const getBusinessDetail = gql `
         }
     }
 `
+
+export const getBusinesses = gql `
+    query getBusinesses{
+        businesses{
+            id
+            photos
+            address
+            name
+            lat
+            lng
+        }
+    }
+`
+
 export const getFeaturedEvent = gql `
     query GetFeaturedEvent{
         events{

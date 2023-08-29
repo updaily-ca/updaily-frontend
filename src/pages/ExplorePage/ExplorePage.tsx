@@ -9,7 +9,7 @@ import { gHandleSearch, gOnSearchError, gOnSearchSuccess } from "../../utils/goo
 import { businessType, eventType } from "../../utils/FormData"
 
 import { useQuery, useLazyQuery } from "@apollo/client"
-import { getFeaturedBusiness } from "../../graphql/queries"
+import { getBusinesses, getFeaturedBusiness } from "../../graphql/queries"
 import { getBusinessDetail } from "../../graphql/queries"
 import ExploreMap from "../../components/ExploreMap/ExploreMap"
 
@@ -73,6 +73,7 @@ const ExplorePage = () => {
     }
 
     const { data } = useQuery(getFeaturedBusiness)
+    const { data: businessesData } = useQuery(getBusinesses)
 
     // console.log(data?.businesses?.slice(0, 200))
 
@@ -81,9 +82,9 @@ const ExplorePage = () => {
         lng: number
     }
 
-    const locations = data?.businesses?.slice(0, 100)
+    const businesses = businessesData?.businesses?.slice(0, 100)
 
-    // console.log(locations);
+    // console.log(businesses);
 
     interface Location {
         lat: number
@@ -136,7 +137,7 @@ const ExplorePage = () => {
             </aside>
             <div className="map-container">
                 {userLocationAvailable ? (
-                    <ExploreMap userLat={userLat} userLng={userLng} setUserLat={setUserLat} setUserLng={setUserLng} locations={locations} handleMarkerClick={handleMarkerClick} />
+                    <ExploreMap userLat={userLat} userLng={userLng} setUserLat={setUserLat} setUserLng={setUserLng} businesses={businesses} handleMarkerClick={handleMarkerClick} />
                 ) : (
                     <div className="c-exploremap">
                         <h3>Loading</h3>
@@ -146,7 +147,7 @@ const ExplorePage = () => {
                 )}
 
                 <div className="e-cc-searchcards">
-                    <SearchCards businessDetail={businessDetail} isBusinessMode={isFilterBusiness} locations={locations} />
+                    <SearchCards businessDetail={businessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} />
                 </div>
             </div>
             {/* 

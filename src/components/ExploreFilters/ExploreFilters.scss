@@ -12,6 +12,7 @@
     left: 0;
     position: absolute;
     background-color: $bright;
+
     padding: 1rem;
 
 
@@ -19,7 +20,16 @@
     pointer-events: none;
     opacity: 0;
 
+    z-index: 0;
+
+    left: -2rem;
+
+    @include tablet {
+        width: 50%;
+    }
+
     @include desktop {
+        width: 100%;
         position: unset;
         opacity: 1;
         padding: 0;
@@ -30,9 +40,9 @@
 
     &.active {
         opacity: 1;
+        z-index: 2;
+        left: 0;
     }
-
-
 
     &__search-input,
     .group-filter__input {
