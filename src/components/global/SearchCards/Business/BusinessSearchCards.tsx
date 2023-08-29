@@ -35,14 +35,12 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, busine
 
             {locations.map((location) => (
                 <article key={location.id} className="search-card">
-                    <h2 className="search-card__title">{location.name}</h2>
+                    <h2 className="search-card__title">{location?.name}</h2>
                     <div className="search-card__photo">
-                        <img src={location.id} alt={altPhoto} className="search-card__photo--image" />{" "}
+                        <img src={location.photos[0]} alt={altPhoto} className="search-card__photo--image" />{" "}
                     </div>
-                    <p className="search-card__location">{location.id}</p>
-                    <p className="search-card__description">{location.id}
-                        {location.name}</p>
-                    location
+                    <p className="search-card__location">{location?.location}</p>
+                    <p className="search-card__description">{location?.description}</p>
                 </article>
             ))}
         </>
