@@ -9,7 +9,7 @@ import { gHandleSearch, gOnSearchError, gOnSearchSuccess } from "../../utils/goo
 import { businessType, eventType } from "../../utils/FormData"
 
 import { useQuery, useLazyQuery } from "@apollo/client"
-import { getBusinesses, getFeaturedBusiness } from "../../graphql/queries"
+import { getBusinesses, getFeaturedBusiness, getBusinessDetail2 } from "../../graphql/queries"
 import { getBusinessDetail } from "../../graphql/queries"
 import ExploreMap from "../../components/ExploreMap/ExploreMap"
 
@@ -109,8 +109,20 @@ const ExplorePage = () => {
         }
     }, [businessData])
 
-    // had to use this for marker click because of a weird error
-
+    // Modal to show business/event detail
+    const [cardId, setCardId] = useState(0);
+    const [GetBusinessDetail2, { loading: loading2, data: businessData2 }] = useLazyQuery(getBusinessDetail2, {
+        variables: {
+            id: cardId,
+        },
+    })
+    const handleCardClick = (id: number) => {
+        setCardId(id);
+        GetBusinessDetail2();
+        console.log({businessData2});
+        
+    }
+    const [modalInfo, setModalInfo] = useState({});
     const [modalOpen, setModalOpen] = useState<boolean>(false)
 
     const handleModalClick: any = () => {
@@ -147,13 +159,11 @@ const ExplorePage = () => {
                 )}
 
                 <div className="e-cc-searchcards">
-                    <SearchCards businessDetail={businessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} />
+                    <SearchCards handleCardClick={handleCardClick} businessDetail={businessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} />
                 </div>
             </div>
-            {/* 
-            <DetailModal modalOpen={modalOpen}
-                // currentImage={currentImage} 
-                handleModalClick={handleModalClick} /> */}
+            {/* Pop Up Modal */}
+            <DetailModal modalOpen={modalOpen} setModalOpen={setModalOpen} /> 
         </div>
     )
 }

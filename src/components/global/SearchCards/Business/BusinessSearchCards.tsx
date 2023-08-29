@@ -10,13 +10,12 @@ interface BusinessSearchCardProps {
     //     description?: string;
     //     photos?: string[];
     // };
-    businesses: any[]
+    businesses: any[],
+    handleCardClick: (id: any) => void
 }
 
-const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, businessDetail, businesses }) => {
+const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, businessDetail, businesses, handleCardClick }) => {
     const altPhoto = ""
-
-    console.log(businesses)
 
     return (
         <>
@@ -29,7 +28,7 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, busine
                     <p className="search-card__location">{businessDetail?.location}</p>
                     <p className="search-card__description">{businessDetail?.description}</p>
 
-                    <img src={images.arrow} alt="right-arrow" className="search-card__arrow" />
+                    
                 </article>
             ) : null}
 
@@ -41,6 +40,7 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, busine
                     </div>
                     <p className="search-card__location">{business?.location}</p>
                     <p className="search-card__description">{business?.description}</p>
+                    <img onClick={()=>handleCardClick(business.id)} src={images.arrow} alt="right-arrow" className="search-card__arrow" />
                 </article>
             ))}
         </>

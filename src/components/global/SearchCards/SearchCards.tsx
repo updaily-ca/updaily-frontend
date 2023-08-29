@@ -11,14 +11,15 @@ interface SearchCardsProps {
     isBusinessMode: boolean,
     businessDetail?: { name: string, location: string, photos: string[], description: string },
     businesses: any,
+    handleCardClick: (id:any) => void
 }
 
-const SearchCards: React.FC<SearchCardsProps> = ({ isBusinessMode, businessDetail, businesses }) => {
+const SearchCards: React.FC<SearchCardsProps> = ({ isBusinessMode, businessDetail, businesses, handleCardClick }) => {
 
     return (
 
         <div className="c-search"> {/* component - search */}
-            {isBusinessMode ? <BusinessSearchCards businessDetail={businessDetail} images={{ arrow, photo }} businesses={businesses} /> : <EventSearchCards images={{ arrow, photo }} />
+            {isBusinessMode ? <BusinessSearchCards handleCardClick={handleCardClick} businessDetail={businessDetail} images={{ arrow, photo }} businesses={businesses} /> : <EventSearchCards images={{ arrow, photo }} />
             }
 
         </div>

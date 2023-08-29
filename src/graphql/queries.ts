@@ -21,6 +21,27 @@ export const getBusinessDetail = gql `
         }
     }
 `
+export const getBusinessDetail2 = gql`
+    query GetBusinessDetail($id: ID!) {
+        business(id: $id) {
+            name
+            email
+            phone
+            launch
+            website
+            photos
+            type
+            subtype
+            cuisine
+            openinghours
+            pricerange
+            description
+            menu
+            user_id
+            address
+        }
+    }
+`
 
 export const getBusinesses = gql `
     query getBusinesses{
