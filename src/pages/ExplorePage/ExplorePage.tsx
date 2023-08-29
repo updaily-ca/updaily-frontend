@@ -73,7 +73,7 @@ const ExplorePage = () => {
     }
 
     const { data } = useQuery(getFeaturedBusiness)
-    const { data2 } = useQuery(getBusinesses)
+    const { data: businessesData } = useQuery(getBusinesses)
 
     // console.log(data?.businesses?.slice(0, 200))
 
@@ -82,7 +82,7 @@ const ExplorePage = () => {
         lng: number
     }
 
-    const businesses = data2?.businesses?.slice(0, 100)
+    const businesses = businessesData?.businesses?.slice(0, 100)
 
     // console.log(businesses);
 
