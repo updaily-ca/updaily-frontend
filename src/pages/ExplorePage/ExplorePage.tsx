@@ -81,9 +81,9 @@ const ExplorePage = () => {
         lng: number
     }
 
-    const locations = data?.businesses?.slice(0, 100)
+    const businesses = data?.businesses?.slice(0, 100)
 
-    // console.log(locations);
+    // console.log(businesses);
 
     interface Location {
         lat: number
@@ -136,7 +136,7 @@ const ExplorePage = () => {
             </aside>
             <div className="map-container">
                 {userLocationAvailable ? (
-                    <ExploreMap userLat={userLat} userLng={userLng} setUserLat={setUserLat} setUserLng={setUserLng} locations={locations} handleMarkerClick={handleMarkerClick} />
+                    <ExploreMap userLat={userLat} userLng={userLng} setUserLat={setUserLat} setUserLng={setUserLng} businesses={businesses} handleMarkerClick={handleMarkerClick} />
                 ) : (
                     <div className="c-exploremap">
                         <h3>Loading</h3>
@@ -146,7 +146,7 @@ const ExplorePage = () => {
                 )}
 
                 <div className="e-cc-searchcards">
-                    <SearchCards businessDetail={businessDetail} isBusinessMode={isFilterBusiness} locations={locations} />
+                    <SearchCards businessDetail={businessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} />
                 </div>
             </div>
             {/* 

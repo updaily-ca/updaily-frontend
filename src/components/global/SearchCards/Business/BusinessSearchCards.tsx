@@ -10,13 +10,13 @@ interface BusinessSearchCardProps {
     //     description?: string;
     //     photos?: string[];
     // };
-    locations: any[]
+    businesses: any[]
 }
 
-const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, businessDetail, locations }) => {
+const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, businessDetail, businesses }) => {
     const altPhoto = ""
 
-    console.log(locations)
+    console.log(businesses)
 
     return (
         <>
@@ -33,14 +33,14 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, busine
                 </article>
             ) : null}
 
-            {locations.map((location) => (
-                <article key={location.id} className="search-card">
-                    <h2 className="search-card__title">{location?.name}</h2>
+            {businesses.map((business) => (
+                <article key={business.id} className="search-card">
+                    <h2 className="search-card__title">{business?.name}</h2>
                     <div className="search-card__photo">
-                        <img src={location.photos[0]} alt={altPhoto} className="search-card__photo--image" />{" "}
+                        <img src={business.photos[0]} alt={altPhoto} className="search-card__photo--image" />{" "}
                     </div>
-                    <p className="search-card__location">{location?.location}</p>
-                    <p className="search-card__description">{location?.description}</p>
+                    <p className="search-card__location">{business?.location}</p>
+                    <p className="search-card__description">{business?.description}</p>
                 </article>
             ))}
         </>
