@@ -24,15 +24,15 @@ import DetailModal from "../../components/DetailModal/DetailModal"
 // for the modal
 
 interface LatLng {
-    lat: number;
-    lng: number;
+    lat: number
+    lng: number
 }
 
 const ExplorePage = () => {
     useDocumentTitle("Explore Page")
 
-    const [vpNorthEast, setVpNorthEast] = useState<LatLng>({ lat: 0, lng: 0 });
-    const [vpSouthWest, setVpSouthWest] = useState<LatLng>({ lat: 0, lng: 0 });
+    const [vpNorthEast, setVpNorthEast] = useState<LatLng>({ lat: 0, lng: 0 })
+    const [vpSouthWest, setVpSouthWest] = useState<LatLng>({ lat: 0, lng: 0 })
 
     const [address, setAddress] = useState<string>("")
     const [isFilterBusiness, setIsFilterBusiness] = useState<boolean>(false)
@@ -126,14 +126,12 @@ const ExplorePage = () => {
         setModalOpen((prev) => !prev)
     }
 
-
     useEffect(() => {
-        console.log(vpNorthEast.lat);
-        console.log(vpNorthEast.lng);
-        console.log(vpSouthWest.lat);
-        console.log(vpSouthWest.lng);
-    }, [vpNorthEast, vpSouthWest]);
-
+        console.log(vpNorthEast.lat)
+        console.log(vpNorthEast.lng)
+        console.log(vpSouthWest.lat)
+        console.log(vpSouthWest.lng)
+    }, [vpNorthEast, vpSouthWest])
 
     return (
         <div id="p-explorepage">
@@ -154,9 +152,7 @@ const ExplorePage = () => {
             </aside>
             <div className="map-container">
                 {userLocationAvailable ? (
-                    <ExploreMap userLat={userLat} userLng={userLng} setUserLat={setUserLat} setUserLng={setUserLng} businesses={businesses} handleMarkerClick={handleMarkerClick}
-                        vpNorthEast={vpNorthEast} setVpNorthEast={setVpNorthEast} vpSouthWest={vpSouthWest} setVpSouthWest={setVpSouthWest}
-                    />
+                    <ExploreMap userLat={userLat} userLng={userLng} setUserLat={setUserLat} setUserLng={setUserLng} businesses={businesses} handleMarkerClick={handleMarkerClick} vpNorthEast={vpNorthEast} setVpNorthEast={setVpNorthEast} vpSouthWest={vpSouthWest} setVpSouthWest={setVpSouthWest} />
                 ) : (
                     <div className="c-exploremap">
                         <h3>Loading</h3>
@@ -166,11 +162,7 @@ const ExplorePage = () => {
                 )}
 
                 <div className="e-cc-searchcards">
-                    <SearchCards businessDetail={businessDetail} isBusinessMode={isFilterBusiness} businesses={businesses}
-
-                        vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest}
-
-                    />
+                    <SearchCards businessDetail={businessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest} />
                 </div>
             </div>
             {/* 
