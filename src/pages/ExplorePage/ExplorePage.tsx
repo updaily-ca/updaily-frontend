@@ -117,12 +117,16 @@ const ExplorePage = () => {
         },
     })
     const handleCardClick = async (id: number) => {
+        console.log(id)
         setCardId(id);
         await GetBusinessDetail2();
         setModalOpen(true);
-        console.log({businessData2});
+        console.log(businessData2);
         
     }
+    useEffect(() => {
+        console.log(businessData2)
+    }, [businessData2])
     const [modalInfo, setModalInfo] = useState({});
     const [modalOpen, setModalOpen] = useState<boolean>(false)
 
@@ -166,7 +170,7 @@ const ExplorePage = () => {
             </div>
             </div>
             {/* Pop Up Modal */}
-            {modalOpen && <DetailModal setModalOpen={setModalOpen} business={businessData2} /> }
+            {modalOpen && !loading2 && <DetailModal setModalOpen={setModalOpen} business={businessData2} /> }
         </div>
         
     )
