@@ -1,17 +1,9 @@
-import { useEffect } from "react"
-
 interface BusinessSearchCardProps {
     images: {
         arrow: string
         photo: string
     }
     businessDetail: any
-    // businessDetail: {
-    //     name?: string;
-    //     location?: string;
-    //     description?: string;
-    //     photos?: string[];
-    // };
     businesses: any[]
     vpNorthEast: LatLng;
     vpSouthWest: LatLng;
@@ -24,8 +16,6 @@ interface LatLng {
 
 const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, businessDetail, businesses, vpNorthEast, vpSouthWest }) => {
     const altPhoto = ""
-
-
 
     const filteredBusinesses = businesses.filter(business => {
         const businessLatLng: LatLng = {
@@ -41,7 +31,6 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, busine
             businessLatLng.lng <= vpNorthEast.lng
         );
     });
-
 
     return (
         <>

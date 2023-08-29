@@ -126,13 +126,6 @@ const ExplorePage = () => {
         setModalOpen((prev) => !prev)
     }
 
-    useEffect(() => {
-        console.log(vpNorthEast.lat)
-        console.log(vpNorthEast.lng)
-        console.log(vpSouthWest.lat)
-        console.log(vpSouthWest.lng)
-    }, [vpNorthEast, vpSouthWest])
-
     return (
         <div id="p-explorepage">
             <aside className="filter-container">
