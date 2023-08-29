@@ -9,7 +9,7 @@ import { gHandleSearch, gOnSearchError, gOnSearchSuccess } from "../../utils/goo
 import { businessType, eventType } from "../../utils/FormData"
 
 import { useQuery, useLazyQuery } from "@apollo/client"
-import { getFeaturedBusiness } from "../../graphql/queries"
+import { getBusinesses, getFeaturedBusiness } from "../../graphql/queries"
 import { getBusinessDetail } from "../../graphql/queries"
 import ExploreMap from "../../components/ExploreMap/ExploreMap"
 
@@ -73,6 +73,7 @@ const ExplorePage = () => {
     }
 
     const { data } = useQuery(getFeaturedBusiness)
+    const { data2 } = useQuery(getBusinesses)
 
     // console.log(data?.businesses?.slice(0, 200))
 
@@ -81,7 +82,7 @@ const ExplorePage = () => {
         lng: number
     }
 
-    const businesses = data?.businesses?.slice(0, 100)
+    const businesses = data2?.businesses?.slice(0, 100)
 
     // console.log(businesses);
 
