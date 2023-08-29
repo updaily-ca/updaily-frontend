@@ -18,7 +18,8 @@ interface Location {
     lng: number
 }
 
-const ExploreMap = ({ userLat, userLng, setUserLat, setUserLng, businesses, handleMarkerClick }: any) => {
+
+const ExploreMap = ({ userLat, userLng, setUserLat, setUserLng, businesses, handleMarkerClick, setVpNorthEast, setVpSouthWest }: any) => {
     const googleMaps = useGoogleMaps()
     const mapRef = useRef<HTMLDivElement | null>(null)
     const map = useRef<google.maps.Map | null>(null)
@@ -85,6 +86,10 @@ const ExploreMap = ({ userLat, userLng, setUserLat, setUserLng, businesses, hand
                     if (bounds) {
                         const northeast = bounds.getNorthEast()
                         const southwest = bounds.getSouthWest()
+
+                        setVpNorthEast(northeast);
+                        setVpSouthWest(southwest);
+
                         console.log("Bounds Changed - Northeast Corner - Latitude:", northeast.lat(), "Longitude:", northeast.lng())
                         console.log("Bounds Changed - Southwest Corner - Latitude:", southwest.lat(), "Longitude:", southwest.lng())
                     }

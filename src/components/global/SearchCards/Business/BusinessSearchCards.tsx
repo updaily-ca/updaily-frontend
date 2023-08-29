@@ -1,3 +1,5 @@
+import { useEffect } from "react"
+
 interface BusinessSearchCardProps {
     images: {
         arrow: string
@@ -11,12 +13,17 @@ interface BusinessSearchCardProps {
     //     photos?: string[];
     // };
     businesses: any[]
+    vpNorthEast: LatLng;
+    vpSouthWest: LatLng;
 }
 
-const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, businessDetail, businesses }) => {
-    const altPhoto = ""
+interface LatLng {
+    lat: number;
+    lng: number;
+}
 
-    console.log(businesses)
+const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, businessDetail, businesses, vpNorthEast, vpSouthWest }) => {
+    const altPhoto = ""
 
     return (
         <>
