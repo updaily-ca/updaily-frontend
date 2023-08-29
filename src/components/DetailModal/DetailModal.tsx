@@ -1,24 +1,18 @@
-import {Modal} from "antd";
+import "./DetailModal.scss";
 
-interface DetailModal {
-    modalOpen: boolean,
-    setModalOpen: (value: boolean) => void
+interface DetailModalProp {
+    business: any
+    setModalOpen: (value: boolean) => void;
 }
-const DetailModal = ({modalOpen, setModalOpen}: DetailModal) => {
+
+const DetailModal = ({business, setModalOpen}: DetailModalProp) => {
     return (
-        <>
-            <Modal
-                title="Vertically centered modal dialog"
-                centered
-                open={modalOpen}
-                onOk={() => setModalOpen(false)}
-                onCancel={() => setModalOpen(false)}
-            >
-                <p>some contents...</p>
-                <p>some contents...</p>
-                <p>some contents...</p>
-            </Modal>
-        </>
+        <div className="modal">
+            <div className="modal__content">
+                Hello World
+                <button onClick={()=> setModalOpen(false)}>Close</button>
+            </div>
+        </div>
     );
 };
 

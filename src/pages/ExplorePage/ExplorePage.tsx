@@ -116,9 +116,10 @@ const ExplorePage = () => {
             id: cardId,
         },
     })
-    const handleCardClick = (id: number) => {
+    const handleCardClick = async (id: number) => {
         setCardId(id);
-        GetBusinessDetail2();
+        await GetBusinessDetail2();
+        setModalOpen(true);
         console.log({businessData2});
         
     }
@@ -131,7 +132,8 @@ const ExplorePage = () => {
     }
 
     return (
-        <div id="p-explorepage">
+        <div className="explorepage-container">
+            <div id="p-explorepage">
             <aside className="filter-container">
                 <div className="filters">
                     <div className="filters__header">
@@ -162,9 +164,11 @@ const ExplorePage = () => {
                     <SearchCards handleCardClick={handleCardClick} businessDetail={businessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} />
                 </div>
             </div>
+            </div>
             {/* Pop Up Modal */}
-            <DetailModal modalOpen={modalOpen} setModalOpen={setModalOpen} /> 
+            {modalOpen && <DetailModal setModalOpen={setModalOpen} business={businessData2} /> }
         </div>
+        
     )
 }
 
