@@ -12,12 +12,15 @@
     left: 0;
     position: absolute;
     background-color: $bright;
+
     padding: 1rem;
 
 
     transition: all 0.25s ease-in-out;
     pointer-events: none;
     opacity: 0;
+
+    z-index: 0;
 
     @include desktop {
         position: unset;
@@ -30,6 +33,7 @@
 
     &.active {
         opacity: 1;
+        z-index: 2;
     }
 
 

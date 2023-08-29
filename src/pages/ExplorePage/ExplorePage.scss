@@ -59,8 +59,12 @@
 
     .e-cc-searchcards {
         width: 100%;
-        margin: -24rem auto 0 auto;
+        margin: -31.75rem auto 0 auto;
         box-sizing: border-box;
         z-index: -0;
+
+        @include tablet {
+            margin: -24rem auto 0 auto;
+        }
     }
 }
