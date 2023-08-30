@@ -15,13 +15,7 @@ import ExploreMap from "../../components/ExploreMap/ExploreMap"
 
 import "./ExplorePage.scss"
 
-// for the modal
-
-// const [currentImage, setCurrentImage] = useState('');
-
 import DetailModal from "../../components/DetailModal/DetailModal"
-
-// for the modal
 
 interface LatLng {
     lat: number
@@ -69,8 +63,6 @@ const ExplorePage = () => {
                 setUserLng(longitude)
 
                 setUserLocationAvailable(true)
-
-                // console.log('coordinates set.');
             },
             (error) => {
                 console.error("Error getting GPS coordinates:", error.message)
@@ -82,23 +74,7 @@ const ExplorePage = () => {
 
     const { data } = useQuery(getFeaturedBusiness)
     const { data: businessesData } = useQuery(getBusinesses)
-
-    // console.log(data?.businesses?.slice(0, 200))
-
-    // interface Business {
-    //     lat: number
-    //     lng: number
-    // }
-
     const businesses = businessesData?.businesses?.slice(0, 100)
-
-    // console.log(businesses);
-
-    // interface Location {
-    //     lat: number
-    //     lng: number
-    // }
-
     const [businessDetail, setBusinessDetail]: any = useState({})
     const [id, setId] = useState(0)
     const [GetBusinessDetail, { loading, data: businessData }] = useLazyQuery(getBusinessDetail, {
@@ -118,24 +94,22 @@ const ExplorePage = () => {
     }, [businessData])
 
     // Modal to show business/event detail
-    const [cardId, setCardId] = useState(0);
+    const [cardId, setCardId] = useState(0)
     const [GetBusinessDetail2, { loading: loading2, data: businessData2 }] = useLazyQuery(getBusinessDetail2, {
         variables: {
             id: cardId,
         },
     })
+
     const handleCardClick = async (id: number) => {
-        console.log(id)
-        setCardId(id);
-        await GetBusinessDetail2();
-        setModalOpen(true);
-        console.log(businessData2);
-        
+        setCardId(id)
+        await GetBusinessDetail2()
+        setModalOpen(true)
     }
     useEffect(() => {
         console.log(businessData2)
     }, [businessData2])
-    const [modalInfo, setModalInfo] = useState({});
+    const [modalInfo, setModalInfo] = useState({})
     const [modalOpen, setModalOpen] = useState<boolean>(false)
 
     const handleModalClick: any = () => {
@@ -178,9 +152,8 @@ const ExplorePage = () => {
                 </div>
             </div>
             {/* Pop Up Modal */}
-            {modalOpen && !loading2 && <DetailModal setModalOpen={setModalOpen} business={businessData2} /> }
+            {modalOpen && !loading2 && <DetailModal handleModalClick={handleModalClick} modalOpen={modalOpen} setModalOpen={setModalOpen} business={businessData2} />}
         </div>
-        
     )
 }
 
