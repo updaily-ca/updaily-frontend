@@ -93,12 +93,12 @@ const RegisterFormPage = () => {
     const handleBusinessSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            if (!business || !email || !phone || !lat || !lng || !location || !launchingDate || !website || !type || !timeRange[0] || !priceRange[0] || !desc || !menuUrls) {
+            if (!business || !email || !phone || !lat || !lng || !location || !launchingDate || !website || !type || !timeRange[0] || !priceRange[0] || !desc) {
                 setErrorMsg("Please fill out the required information");
                 setTimeout(() => {
                     setErrorMsg("");
                 }, 2000);
-                return;
+                throw error;
             }
             // Create a new user with Firebase
             const userCredential = await createUserWithEmailAndPassword(auth, email, pwd);
@@ -106,8 +106,8 @@ const RegisterFormPage = () => {
             setUserId(uid);
 
             // Upload images to Cloudinary
-            await handleUpload(selectedImages, setImagesURL);
-            await handleUpload(selectedMenu, setMenuUrls);
+            const urls1 = await handleUpload(selectedImages);
+            const urls2 = await handleUpload(selectedMenu);
 
             // Send request to GraphQL server
             const response = await addNewBusiness({
@@ -120,14 +120,14 @@ const RegisterFormPage = () => {
                     address: location,
                     launch: launchingDate,
                     website: website,
-                    photos: imagesURL,
+                    photos: urls1,
                     type: businessType,
                     subtype: subtype,
                     cuisine: cuisine,
                     openinghours: timeRange,
                     pricerange: priceRange,
                     description: desc,
-                    menu: menuUrls,
+                    menu: urls2,
                     user_id: userId
                 }
             });
@@ -138,57 +138,6 @@ const RegisterFormPage = () => {
             const errorMsg = error.message || "An error occurred while submitting your business/event";
             setErrorMsg(errorMsg);
         }
-        // Check if all field exists before submitting
-        // if(business && email && phone && lat && lng && location && launchingDate && website && type  && timeRange[0] && priceRange[0] && desc && menuUrls) {
-        //     // Create a new user with firebase
-        //     await createUserWithEmailAndPassword(auth, email, pwd)
-        //     .then((userCredential) => {
-        //         const uid: string = userCredential.user.uid;
-        //         setUserId(uid);
-        //     })
-        //     .catch((error) => {
-        //         error ? setErrorMsg(error.toString()) : setErrorMsg("Unable to register your business/event at the moment")
-        //         return;
-        //     })
-            
-        //     // upload images to cloudinary
-        //     await handleUpload(selectedImages, setImagesURL);
-        //     // upload menu image to cloudinary
-        //     await handleUpload(selectedMenu, setMenuUrls);
-        //     // Send request to graphql server
-        //     addNewBusiness({
-        //         variables: {
-                    // name: business,
-                    // email: email,
-                    // phone: phone,
-                    // lat: lat,
-                    // lng:lng,
-                    // address: location,
-                    // launch: launchingDate,
-                    // website: website,
-                    // photos: imagesURL,
-                    // type: businessType,
-                    // subtype: subtype,
-                    // cuisine: cuisine,
-                    // openinghours: timeRange,
-                    // pricerange: priceRange,
-                    // description: desc,
-                    // menu: menuUrls,
-                    // user_id: userId
-
-        //         }
-        //     }).then((response) => {
-        //         console.log(response);
-        //         navigate("/confirmation");
-        //     }).catch(error =>{
-        //         setErrorMsg("Unable to upload your business/event at the moment")
-        //     })
-        // } else{
-        //     setErrorMsg("Please fill out the required information");
-        //     setTimeout(() => {
-        //         setErrorMsg("");
-        //     }, 2000)
-        // }
     }
 
     // handle event submit
