@@ -13,7 +13,7 @@ const DetailModal = ({business, setModalOpen}: DetailModalProp) => {
             <div className="modal__content">
                 <img onClick={()=>setModalOpen(false)} className="modal__close-btn" src={close_btn} alt="close btn"/>
                 <img className="modal__img" src={photos[0]} alt={business.name}/>
-                <p>{business?.business.name}</p>
+                <p>{name}</p>
             </div>
         </div>
     );

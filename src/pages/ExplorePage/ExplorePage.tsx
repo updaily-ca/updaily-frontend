@@ -146,36 +146,36 @@ const ExplorePage = () => {
     return (
         <div className="explorepage-container">
             <div id="p-explorepage">
-            <aside className="filter-container">
-                <div className="filters">
-                    <div className="filters__header">
-                        <div onClick={toggleFilterButton} className="filters__title">
-                            Filters
+                <aside className="filter-container">
+                    <div className="filters">
+                        <div className="filters__header">
+                            <div onClick={toggleFilterButton} className="filters__title">
+                                Filters
+                            </div>
+                            <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
                         </div>
-                        <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
+                        {isFilterBusiness ? (
+                            <BusinessFilter address={address} setAddress={setAddress} isFilterButtonClicked={isFilterButtonClicked} gHandleSearchSubmit={handleSearchSubmit} gOnSearchError={gOnSearchError} gOnSearchSuccess={gOnSearchSuccess} activeFilterStates={activeFilterStates} setActiveFilterStates={setActiveFilterStates} />
+                        ) : (
+                            <EventFilter address={address} setAddress={setAddress} isFilterButtonClicked={isFilterButtonClicked} gHandleSearchSubmit={handleSearchSubmit} gOnSearchError={gOnSearchError} gOnSearchSuccess={gOnSearchSuccess} activeFilterStates={activeFilterStates} setActiveFilterStates={setActiveFilterStates} />
+                        )}
                     </div>
-                    {isFilterBusiness ? (
-                        <BusinessFilter address={address} setAddress={setAddress} isFilterButtonClicked={isFilterButtonClicked} gHandleSearchSubmit={handleSearchSubmit} gOnSearchError={gOnSearchError} gOnSearchSuccess={gOnSearchSuccess} activeFilterStates={activeFilterStates} setActiveFilterStates={setActiveFilterStates} />
+                </aside>
+                <div className="map-container">
+                    {userLocationAvailable ? (
+                        <ExploreMap userLat={userLat} userLng={userLng} setUserLat={setUserLat} setUserLng={setUserLng} businesses={businesses} handleMarkerClick={handleMarkerClick} vpNorthEast={vpNorthEast} setVpNorthEast={setVpNorthEast} vpSouthWest={vpSouthWest} setVpSouthWest={setVpSouthWest} />
                     ) : (
-                        <EventFilter address={address} setAddress={setAddress} isFilterButtonClicked={isFilterButtonClicked} gHandleSearchSubmit={handleSearchSubmit} gOnSearchError={gOnSearchError} gOnSearchSuccess={gOnSearchSuccess} activeFilterStates={activeFilterStates} setActiveFilterStates={setActiveFilterStates} />
+                        <div className="c-exploremap">
+                            <h3>Loading</h3>
+
+                            <p>Retrieving location data. If this message continues to show, please check you have enabled location access with your browser.</p>
+                        </div>
                     )}
-                </div>
-            </aside>
-            <div className="map-container">
-                {userLocationAvailable ? (
-                    <ExploreMap userLat={userLat} userLng={userLng} setUserLat={setUserLat} setUserLng={setUserLng} businesses={businesses} handleMarkerClick={handleMarkerClick} vpNorthEast={vpNorthEast} setVpNorthEast={setVpNorthEast} vpSouthWest={vpSouthWest} setVpSouthWest={setVpSouthWest} />
-                ) : (
-                    <div className="c-exploremap">
-                        <h3>Loading</h3>
 
-                        <p>Retrieving location data. If this message continues to show, please check you have enabled location access with your browser.</p>
+                    <div className="e-cc-searchcards">
+                        <SearchCards handleCardClick={handleCardClick} businessDetail={businessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest} />
                     </div>
-                )}
-
-                <div className="e-cc-searchcards">
-                    <SearchCards handleCardClick={handleCardClick} businessDetail={businessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest} />
                 </div>
-            </div>
             </div>
             {/* Pop Up Modal */}
             {modalOpen && !loading2 && <DetailModal setModalOpen={setModalOpen} business={businessData2} /> }
