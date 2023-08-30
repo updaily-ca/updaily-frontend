@@ -13,23 +13,22 @@
     background-color: rgba(0, 0, 0, 0.7);
     opacity: 0;
     transition: opacity 0.1s ease-in-out;
-
+    overflow-y: auto;
     &--open {
         opacity: 1;
     }
 
     &__content {
-        height: 80vh;
+        max-height: 80vh;
         width: 80vw;
         background-color: white;
-        padding: 2rem 1rem;
-        border-radius: 0.5rem;
-
+        padding: 1rem 1rem;
+        border-radius: 0.2rem;
+        overflow-y: auto;
         @include tablet {
             min-height: 50vh;
             max-height: 85vh;
             width: 85vw;
-
         }
 
         @include desktop {
@@ -37,18 +36,103 @@
             height: 70vh;
         }
     }
-
-    &__img {
-        width: 100%;
-        border-radius: 0.5rem;
-
+    &__img-container{
+        display: none;
+        @include tablet{
+            display: flex;
+            gap: 0.5rem;
+            height: 320px;
+        }  
+    }
+    &__img-container2{
         @include tablet {
-            width: 50%;
+            flex-grow:1;
         }
     }
-
+    &__img-container3{
+        @include tablet {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        @include desktop{
+            width: 30%;
+        }
+    }
+    &__carousel-img {
+        width: 100%;
+        border-radius: 0.2rem;
+        height: 200px;
+        object-fit: cover;
+    }
+    &__img {
+        width: 100%;
+        border-radius: 0.3rem;
+        object-fit: cover;
+    }
+    &__img1 {
+        @include tablet {
+            height: 320px;
+        }
+    }
+    &__img2 {
+        @include tablet {
+            height: 156px;
+        }
+    }
     &__close-btn {
         width: 2rem;
         display: block;
+    }
+}
+@media screen and (min-width: 768px) {
+    .hide {
+        display: none;
+    }
+}
+.business {
+    &__info {
+        margin: 1rem 0;
+    }
+    &__title {
+        font-size: 1.3rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+    &__container {
+        display: flex;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+    &__icon {
+        width: 20px;
+        height: 20px;
+    }
+    &__info2 {
+        font-weight: 400;
+        font-size: 0.9rem;
+        margin-top: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+        padding: 0.6rem;
+        border: solid 1px black;
+        border-radius: 0.3rem;
+    }
+    &__menu-btn {
+        width: fit-content;
+        padding: 0.2rem 1.7rem;
+        color: white;
+        background-color: black;
+        border-radius: 1.5rem;
+        border: none;
+    }
+    &__desc {
+        font-size: 0.8rem;
+        font-weight: 400;
+        line-height: 1.3rem;
+        margin-top: 1rem;
     }
 }
