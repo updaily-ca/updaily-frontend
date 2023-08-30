@@ -1,6 +1,9 @@
 import "./RegisterFormPage.scss";
 import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
+// GraphQL Queries
+import { useMutation } from "@apollo/client";
+import { addBusiness } from "../../graphql/queries";
 // Library
 import {Line} from "rc-progress";
 // Import Forms
@@ -13,6 +16,9 @@ import Form5 from "../../components/RegisterForm/Form5/Form5";
 import { FormContext } from "../../context/formContext";
 // Upload to cloudinary function
 import { handleUpload } from "../../utils/functions";
+// Firebase authentication
+import { auth } from "../../utils/firebase";
+import {createUserWithEmailAndPassword} from "firebase/auth";
 
 const RegisterFormPage = () => {
     // type
@@ -20,12 +26,16 @@ const RegisterFormPage = () => {
     // useNavgite
     const navigate = useNavigate();
 
+    // Form Status
+    const [errorMsg, setErrorMsg] = useState<string>("");
     // States to keep track information of the form - event
     // Form 1 - Event
     const [event, setEvent] = useState("");
     const [email, setEmail] = useState("");
     const [host, setHost] = useState("");
     const [location, setLocation] = useState("");
+    const [lat, setLat] = useState(0);
+    const [lng, setLng] = useState(0);
     const [website, setWebsite] = useState("");
     // Form 1 - Business
     const [business, setBusiness] = useState("")
@@ -52,6 +62,7 @@ const RegisterFormPage = () => {
     const [accessibility3,setAccessibility3] = useState(true);
     // Form 4 - Business
     const [selectedMenu, setSelectedMenu] = useState([]);
+    const [menuUrls, setMenuUrls] = useState<string[]>([]);
     // Form 5 - Event
     const [pwd, setPwd] = useState("");
     const [matchPwd, setMatchPwd] = useState("");
@@ -59,6 +70,8 @@ const RegisterFormPage = () => {
     // State to keep track of current page
     const [currentPage, setCurrentPage] = useState(1);
     
+    // User ID
+    const [userId, setUserId] = useState<string>("");
     // Handle next
     const handleNext = (): void => {
         setCurrentPage(currentPage+1);
@@ -74,12 +87,62 @@ const RegisterFormPage = () => {
             navigate(-1);
         }
     }
+    // GraphQL to add new business
+    const [addNewBusiness, {data, loading, error}] = useMutation(addBusiness);
     // handle business submit
     const handleBusinessSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // upload images to cloudinary
-        await handleUpload(selectedImages, setImagesURL);
+        // Check if all field exists before submitting
+        if(business && email && phone && lat && lng && location && launchingDate && website && type  && timeRange[0] && priceRange[0] && desc && menuUrls) {
+            // Create a new user with firebase
+            await createUserWithEmailAndPassword(auth, email, pwd)
+            .then((userCredential) => {
+                const uid: string = userCredential.user.uid;
+                setUserId(uid);
+            })
+            .catch((error) => {
+                error ? setErrorMsg(error.toString()) : setErrorMsg("Unable to register your business/event at the moment")
+                return;
+            })
+            
+            // upload images to cloudinary
+            await handleUpload(selectedImages, setImagesURL);
+            // upload menu image to cloudinary
+            await handleUpload(selectedMenu, setMenuUrls);
+            // Send request to graphql server
+            addNewBusiness({
+                variables: {
+                    name: business,
+                    email: email,
+                    phone: phone,
+                    lat: lat,
+                    lng:lng,
+                    address: location,
+                    launch: launchingDate,
+                    website: website,
+                    photos: imagesURL,
+                    type: businessType,
+                    subtype: subtype,
+                    cuisine: cuisine,
+                    openinghours: timeRange,
+                    pricerange: priceRange,
+                    description: desc,
+                    menu: menuUrls,
+                    user_id: userId
 
+                }
+            }).then((response) => {
+                console.log(response);
+                navigate("/confirmation");
+            }).catch(error =>{
+                setErrorMsg("Unable to upload your business/event at the moment")
+            })
+        } else{
+            setErrorMsg("Please fill out the required information");
+            setTimeout(() => {
+                setErrorMsg("");
+            }, 2000)
+        }
     }
 
     // handle event submit
@@ -102,7 +165,7 @@ const RegisterFormPage = () => {
             
             {/* Submission Form */}
             <FormContext.Provider value={
-                {event, setEvent, email, setEmail, host, setHost, location,setLocation, website, setWebsite, handleBack, handleNext, pwd, setPwd, matchPwd, setMatchPwd, currentPage, accessibility1, setAccessibility1, accessibility2, setAccessibility2,accessibility3, setAccessibility3, desc, setDesc, admissionType, setAdmissionType, admission, setAdmission, eventType, setEventType, dateRange, setDateRange, timeRange, setTimeRange, selectedImages, setSelectedImages, launchingDate, setLauchingDate, phone, setPhone, business, setBusiness, businessType, setBusinessType, priceRange, setPriceRange, selectedMenu, setSelectedMenu, subtype, setSubtype, cuisine, setCuisine}
+                {event, setEvent, email, setEmail, host, setHost, location,setLocation, website, setWebsite, handleBack, handleNext, pwd, setPwd, matchPwd, setMatchPwd, currentPage, accessibility1, setAccessibility1, accessibility2, setAccessibility2,accessibility3, setAccessibility3, desc, setDesc, admissionType, setAdmissionType, admission, setAdmission, eventType, setEventType, dateRange, setDateRange, timeRange, setTimeRange, selectedImages, setSelectedImages, launchingDate, setLauchingDate, phone, setPhone, business, setBusiness, businessType, setBusinessType, priceRange, setPriceRange, selectedMenu, setSelectedMenu, subtype, setSubtype, cuisine, setCuisine, lat, setLat, lng, setLng}
             }  
             >
                 {/* General Form */}
@@ -118,7 +181,7 @@ const RegisterFormPage = () => {
                 {currentPage === 4 && <Form4/> }
 
                 {/* Set Up Account Form */}
-                {currentPage === 5 && <Form5  handleSubmit={type==="Business" ? handleBusinessSubmit : handleEventSubmit}/> }
+                {currentPage === 5 && <Form5  handleSubmit={type==="Business" ? handleBusinessSubmit : handleEventSubmit} errorMsg={errorMsg}/> }
             </FormContext.Provider>
         </div>
     )

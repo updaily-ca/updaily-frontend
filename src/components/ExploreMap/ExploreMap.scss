@@ -2,5 +2,18 @@
 @use '../../styles/mixins.scss' as *;
 
 .c-exploremap {
-    background-color: $shade-2;
+    height: 100dvh;
+    width: 100%;
+
+    @include tablet {
+        height: calc(100dvh - 5rem);
+    }
+
+    &__map {
+        height: 100dvh;
+
+        @include tablet {
+            height: calc(100dvh - 5rem);
+        }
+    }
 }

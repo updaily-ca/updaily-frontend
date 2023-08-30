@@ -7,12 +7,12 @@
     height: 100dvh;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     margin-top: 1rem;
 
     left: 0;
     position: absolute;
     background-color: $bright;
+
     padding: 1rem;
 
 
@@ -20,17 +20,29 @@
     pointer-events: none;
     opacity: 0;
 
+    z-index: 0;
+
+    left: -2rem;
+
+    @include tablet {
+        width: 50%;
+    }
+
     @include desktop {
+        width: 100%;
         position: unset;
         opacity: 1;
+        padding: 0;
         pointer-events: all;
+
+        // min-width: 20rem;
     }
 
     &.active {
         opacity: 1;
+        z-index: 2;
+        left: 0;
     }
-
-
 
     &__search-input,
     .group-filter__input {
@@ -81,8 +93,7 @@
     &__input {
         height: 2rem;
         line-height: 2rem;
-        // font-size: $px18;
-        font-size: 1rem;
+        font-size: 0.8rem;
         border: thin solid $search-border;
         border-radius: $px5;
         text-align: center;

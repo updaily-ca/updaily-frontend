@@ -1,5 +1,7 @@
 import { performSearch, useDocumentTitle } from "../../utils/functions"
 import { useState } from "react"
+import { getFeaturedBusiness } from "../../graphql/queries"
+import { useQuery } from "@apollo/client"
 
 import SearchCards from "../../components/global/SearchCards/SearchCards"
 import FilterButton from "../../components/global/FilterButton/FilterButton"
@@ -8,13 +10,25 @@ import "./HomePage.scss"
 
 import searchIcon from "../../asset/home/search-icon.png"
 
+interface LatLng {
+    lat: number;
+    lng: number;
+}
+
 const HomePage = () => {
     useDocumentTitle("Home Page")
+
+    const [vpNorthEast, setVpNorthEast] = useState<LatLng>({ lat: 0, lng: 0 });
+    const [vpSouthWest, setVpSouthWest] = useState<LatLng>({ lat: 0, lng: 0 });
 
     const [isFilterBusiness, setIsFilterBusiness] = useState<boolean>(false)
     const toggleBusinessMode = (): void => {
         setIsFilterBusiness((prevState) => !prevState)
     }
+
+    const { data } = useQuery(getFeaturedBusiness);
+
+    const businesses = data?.businesses?.slice(0, 4);
 
     const [searchTerm, setSearchTerm] = useState<string>("")
     const [prevSearchTerm, setPrevSearchTerm] = useState<string>("")
@@ -47,7 +61,11 @@ const HomePage = () => {
             <section className="h-cc-searchcards">
                 {/* home page - component container - search cards */}
                 <h1 className="h-cc-searchcards__title">New events to explore this week</h1>
-                <SearchCards isBusinessMode={isFilterBusiness} />
+                <SearchCards
+
+                    vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest}
+
+                    isBusinessMode={isFilterBusiness} businesses={businesses} />
             </section>
             <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
         </div>

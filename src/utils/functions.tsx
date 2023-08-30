@@ -71,7 +71,7 @@ export const handleUpload = async (images: File[], setURL:(urls: string[])=> voi
         );
 
         const data = await response.json();
-        uploadUrls.push(data.secureurl);
+        uploadUrls.push(data.secure_url);
     }
     setURL(uploadUrls);
 }
