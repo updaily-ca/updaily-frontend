@@ -8,12 +8,12 @@ import EventSearchCards from './Event/EventSearchCards';
 import BusinessSearchCards from './Business/BusinessSearchCards';
 
 interface SearchCardsProps {
+    searchTerm: string;
     isBusinessMode: boolean,
     businessDetail?: { name: string, location: string, photos: string[], description: string },
     businesses: any,
     vpNorthEast: LatLng;
     vpSouthWest: LatLng;
-    searchTerm: string;
 }
 
 interface LatLng {
@@ -27,11 +27,7 @@ const SearchCards: React.FC<SearchCardsProps> = ({ searchTerm, isBusinessMode, b
 
         <div className="c-search"> {/* component - search */}
             {isBusinessMode ? <BusinessSearchCards
-                searchTerm={searchTerm}
-
-                businessDetail={businessDetail} images={{ arrow, photo }} businesses={businesses}
-
-                vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest}
+                searchTerm={searchTerm} businessDetail={businessDetail} images={{ arrow, photo }} businesses={businesses} vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest}
 
             /> : <EventSearchCards images={{ arrow, photo }} />
             }

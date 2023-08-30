@@ -136,12 +136,6 @@ const ExplorePage = () => {
 
             <aside className="filter-container">
 
-                <input type="text"
-                    placeholder="Search for businesses..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)} />
-
-
                 <div className="filters">
                     <div className="filters__header">
                         <div onClick={toggleFilterButton} className="filters__title">
@@ -151,11 +145,7 @@ const ExplorePage = () => {
                         <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
                     </div>
                     {isFilterBusiness ? (
-                        <BusinessFilter
-
-                            // searchTerm={searchTerm} setSearchTerm={setSearchTerm}
-
-                            address={address} setAddress={setAddress} isFilterButtonClicked={isFilterButtonClicked} gHandleSearchSubmit={handleSearchSubmit} gOnSearchError={gOnSearchError} gOnSearchSuccess={gOnSearchSuccess} activeFilterStates={activeFilterStates} setActiveFilterStates={setActiveFilterStates} />
+                        <BusinessFilter searchTerm={searchTerm} setSearchTerm={setSearchTerm} address={address} setAddress={setAddress} isFilterButtonClicked={isFilterButtonClicked} gHandleSearchSubmit={handleSearchSubmit} gOnSearchError={gOnSearchError} gOnSearchSuccess={gOnSearchSuccess} activeFilterStates={activeFilterStates} setActiveFilterStates={setActiveFilterStates} />
                     ) : (
                         <EventFilter address={address} setAddress={setAddress} isFilterButtonClicked={isFilterButtonClicked} gHandleSearchSubmit={handleSearchSubmit} gOnSearchError={gOnSearchError} gOnSearchSuccess={gOnSearchSuccess} activeFilterStates={activeFilterStates} setActiveFilterStates={setActiveFilterStates} />
                     )}
@@ -176,9 +166,7 @@ const ExplorePage = () => {
 
                 <div className="e-cc-searchcards">
                     <SearchCards
-
                         searchTerm={searchTerm}
-
                         businessDetail={businessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest} />
                 </div>
             </div>
