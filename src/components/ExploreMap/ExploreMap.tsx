@@ -27,9 +27,11 @@ interface Business {
     id: number;
     lat: number;
     lng: number;
+    name: string;
 }
 
-const ExploreMap = ({ userLat, userLng, setUserLat, setUserLng, businesses, handleMarkerClick, vpNorthEast, setVpNorthEast, vpSouthWest, setVpSouthWest }: any) => {
+const ExploreMap = ({ searchTerm, setSearchTerm, userLat, userLng, setUserLat, setUserLng, businesses, handleMarkerClick, vpNorthEast, setVpNorthEast, vpSouthWest, setVpSouthWest }: any) => {
+
     const googleMaps = useGoogleMaps();
     const mapRef = useRef<HTMLDivElement | null>(null);
     const map = useRef<google.maps.Map | null>(null);
@@ -60,13 +62,14 @@ const ExploreMap = ({ userLat, userLng, setUserLat, setUserLng, businesses, hand
         }
     }, []);
 
-    const filteredBusinesses = businesses.filter((business: Business) => {
+    const filteredBusinesses = businesses?.filter((business: Business) => {
         const businessLatLng: LatLng = {
             lat: business.lat,
             lng: business.lng,
         };
 
         return (
+            business.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
             businessLatLng.lat >= vpSouthWest.lat &&
             businessLatLng.lat <= vpNorthEast.lat &&
             businessLatLng.lng >= vpSouthWest.lng &&
@@ -143,7 +146,10 @@ const ExploreMap = ({ userLat, userLng, setUserLat, setUserLng, businesses, hand
         }
     }, [filteredBusinesses, handleMarkerClick, googleMaps, userLat, userLng, userLocationAvailable, vpNorthEast, vpSouthWest]);
 
-    return <div className="c-exploremap">{userLocationAvailable && <div ref={mapRef} className="c-exploremap__map" />}</div>;
+    return <div className="c-exploremap">
+
+
+        {userLocationAvailable && <div ref={mapRef} className="c-exploremap__map" />}</div>;
 };
 
 export default ExploreMap;

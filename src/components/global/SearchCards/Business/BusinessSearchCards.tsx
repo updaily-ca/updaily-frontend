@@ -1,4 +1,5 @@
 interface BusinessSearchCardProps {
+    searchTerm: string;
     images: {
         arrow: string
         photo: string
@@ -14,7 +15,7 @@ interface LatLng {
     lng: number;
 }
 
-const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, businessDetail, businesses, vpNorthEast, vpSouthWest }) => {
+const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, images, businessDetail, businesses, vpNorthEast, vpSouthWest }) => {
     const altPhoto = ""
 
     const filteredBusinesses = businesses.filter(business => {
@@ -25,6 +26,7 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, busine
         };
 
         return (
+            business.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
             businessLatLng.lat >= vpSouthWest.lat &&
             businessLatLng.lat <= vpNorthEast.lat &&
             businessLatLng.lng >= vpSouthWest.lng &&

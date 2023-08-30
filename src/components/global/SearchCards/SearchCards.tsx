@@ -13,6 +13,7 @@ interface SearchCardsProps {
     businesses: any,
     vpNorthEast: LatLng;
     vpSouthWest: LatLng;
+    searchTerm: string;
 }
 
 interface LatLng {
@@ -20,13 +21,15 @@ interface LatLng {
     lng: number;
 }
 
-const SearchCards: React.FC<SearchCardsProps> = ({ isBusinessMode, businessDetail, businesses, vpNorthEast, vpSouthWest }) => {
+const SearchCards: React.FC<SearchCardsProps> = ({ searchTerm, isBusinessMode, businessDetail, businesses, vpNorthEast, vpSouthWest }) => {
 
     return (
 
         <div className="c-search"> {/* component - search */}
-            {isBusinessMode ? <BusinessSearchCards businessDetail={businessDetail} images={{ arrow, photo }} businesses={businesses}
+            {isBusinessMode ? <BusinessSearchCards
+                searchTerm={searchTerm}
 
+                businessDetail={businessDetail} images={{ arrow, photo }} businesses={businesses}
 
                 vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest}
 

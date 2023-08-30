@@ -63,6 +63,8 @@ const HomePage = () => {
                 <h1 className="h-cc-searchcards__title">New events to explore this week</h1>
                 <SearchCards
 
+                    searchTerm={searchTerm}
+
                     vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest}
 
                     isBusinessMode={isFilterBusiness} businesses={businesses} />
