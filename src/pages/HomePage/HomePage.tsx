@@ -45,7 +45,7 @@ const HomePage = () => {
 
     const handleCardClick = (id: any) => {
         console.log(id);
-    } 
+    }
 
     return (
         <div id="p-home-page">
@@ -66,17 +66,11 @@ const HomePage = () => {
                 {/* home page - component container - search cards */}
                 <h1 className="h-cc-searchcards__title">New events to explore this week</h1>
                 <SearchCards
-<<<<<<< HEAD
 
                     searchTerm={searchTerm}
-
-                    vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest}
-
-=======
                     handleCardClick={handleCardClick}
-                    vpNorthEast={vpNorthEast} 
+                    vpNorthEast={vpNorthEast}
                     vpSouthWest={vpSouthWest}
->>>>>>> develop
                     isBusinessMode={isFilterBusiness} businesses={businesses} />
             </section>
             <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />

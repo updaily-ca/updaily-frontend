@@ -55,11 +55,8 @@ export const toggleFilter = (id: string, activeFilterStates: Record<string, bool
 };
 
 // Upload images to cloudinary
-<<<<<<< HEAD
-export const handleUpload = async (images: File[], setURL: (urls: string[]) => void) => {
-=======
+// export const handleUpload = async (images: File[], setURL: (urls: string[]) => void) => {
 export const handleUpload = async (images: File[]): Promise<string[]> => {
->>>>>>> develop
     const uploadUrls: string[] = [];
 
     for (const image of images) {
