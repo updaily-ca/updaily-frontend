@@ -24,6 +24,7 @@ interface LatLng {
 }
 
 interface Business {
+    type: any;
     id: number;
     lat: number;
     lng: number;
@@ -69,8 +70,8 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
         };
 
         return (
-            business.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-            business.name.toLowerCase().includes(filterTerm.toLowerCase()) &&
+            business.name?.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            business.type?.toLowerCase().includes(filterTerm.toLowerCase()) &&
             businessLatLng.lat >= vpSouthWest.lat &&
             businessLatLng.lat <= vpNorthEast.lat &&
             businessLatLng.lng >= vpSouthWest.lng &&
