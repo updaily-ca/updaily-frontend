@@ -25,9 +25,8 @@ interface LatLng {
 const ExplorePage = () => {
     useDocumentTitle("Explore Page")
 
-
-    const [searchTerm, setSearchTerm]: any = useState('');
-
+    const [searchTerm, setSearchTerm]: any = useState("")
+    const [filterTerm, setFilterTerm]: any = useState("")
 
     const [vpNorthEast, setVpNorthEast] = useState<LatLng>({ lat: 0, lng: 0 })
     const [vpSouthWest, setVpSouthWest] = useState<LatLng>({ lat: 0, lng: 0 })
@@ -35,18 +34,7 @@ const ExplorePage = () => {
     const [address, setAddress] = useState<string>("")
     const [isFilterBusiness, setIsFilterBusiness] = useState<boolean>(false)
 
-    const toggleBusinessMode = () => {
-        setIsFilterBusiness((prevState) => !prevState)
-    }
-
     const [isFilterButtonClicked, toggleFilterButton] = useToggleClass(false)
-
-    const handleSearchSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        if (address) {
-            gHandleSearch(address, gOnSearchSuccess, gOnSearchError)
-        }
-    }
 
     const initialFilterState = Array.from({ length: businessType.length }, () => false)
 
@@ -56,6 +44,29 @@ const ExplorePage = () => {
 
     const [userLat, setUserLat] = useState<number | null>(null)
     const [userLng, setUserLng] = useState<number | null>(null)
+
+    const [cardId, setCardId] = useState(0)
+
+    const [modalInfo, setModalInfo] = useState({})
+    const [modalOpen, setModalOpen] = useState<boolean>(false)
+
+    const [businessDetail, setBusinessDetail]: any = useState({})
+    const [id, setId] = useState(0)
+
+    const { data } = useQuery(getFeaturedBusiness)
+    const { data: businessesData } = useQuery(getBusinesses)
+    const businesses = businessesData?.businesses?.slice(0, 100)
+
+    const toggleBusinessMode = () => {
+        setIsFilterBusiness((prevState) => !prevState)
+    }
+
+    const handleSearchSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+        if (address) {
+            gHandleSearch(address, gOnSearchSuccess, gOnSearchError)
+        }
+    }
 
     if ("geolocation" in navigator) {
         // Request the user's current position
@@ -76,11 +87,6 @@ const ExplorePage = () => {
         console.error("Geolocation is not available in this browser.")
     }
 
-    const { data } = useQuery(getFeaturedBusiness)
-    const { data: businessesData } = useQuery(getBusinesses)
-    const businesses = businessesData?.businesses?.slice(0, 100)
-    const [businessDetail, setBusinessDetail]: any = useState({})
-    const [id, setId] = useState(0)
     const [GetBusinessDetail, { loading, data: businessData }] = useLazyQuery(getBusinessDetail, {
         variables: {
             id: id,
@@ -97,8 +103,6 @@ const ExplorePage = () => {
         }
     }, [businessData])
 
-    // Modal to show business/event detail
-    const [cardId, setCardId] = useState(0)
     const [GetBusinessDetail2, { loading: loading2, data: businessData2 }] = useLazyQuery(getBusinessDetail2, {
         variables: {
             id: cardId,
@@ -113,21 +117,15 @@ const ExplorePage = () => {
     useEffect(() => {
         console.log(businessData2)
     }, [businessData2])
-    const [modalInfo, setModalInfo] = useState({})
-    const [modalOpen, setModalOpen] = useState<boolean>(false)
 
     const handleModalClick: any = () => {
-        // setCurrentImage();
         setModalOpen((prev) => !prev)
     }
 
     return (
-
         <div className="explorepage-container">
             <div id="p-explorepage">
-
                 <aside className="filter-container">
-
                     <div className="filters">
                         <div className="filters__header">
                             <div onClick={toggleFilterButton} className="filters__title">
@@ -137,7 +135,7 @@ const ExplorePage = () => {
                             <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
                         </div>
                         {isFilterBusiness ? (
-                            <BusinessFilter searchTerm={searchTerm} setSearchTerm={setSearchTerm} address={address} setAddress={setAddress} isFilterButtonClicked={isFilterButtonClicked} gHandleSearchSubmit={handleSearchSubmit} gOnSearchError={gOnSearchError} gOnSearchSuccess={gOnSearchSuccess} activeFilterStates={activeFilterStates} setActiveFilterStates={setActiveFilterStates} />
+                            <BusinessFilter businessType={businessType} searchTerm={searchTerm} setSearchTerm={setSearchTerm} filterTerm={filterTerm} setFilterTerm={setFilterTerm} address={address} setAddress={setAddress} isFilterButtonClicked={isFilterButtonClicked} gHandleSearchSubmit={handleSearchSubmit} gOnSearchError={gOnSearchError} gOnSearchSuccess={gOnSearchSuccess} activeFilterStates={activeFilterStates} setActiveFilterStates={setActiveFilterStates} />
                         ) : (
                             <EventFilter address={address} setAddress={setAddress} isFilterButtonClicked={isFilterButtonClicked} gHandleSearchSubmit={handleSearchSubmit} gOnSearchError={gOnSearchError} gOnSearchSuccess={gOnSearchSuccess} activeFilterStates={activeFilterStates} setActiveFilterStates={setActiveFilterStates} />
                         )}
@@ -145,9 +143,8 @@ const ExplorePage = () => {
                 </aside>
                 <div className="map-container">
                     {userLocationAvailable ? (
-                        <ExploreMap
-                            searchTerm={searchTerm} setSearchTerm={setSearchTerm}
-                            userLat={userLat} userLng={userLng} setUserLat={setUserLat} setUserLng={setUserLng} businesses={businesses} handleMarkerClick={handleMarkerClick} vpNorthEast={vpNorthEast} setVpNorthEast={setVpNorthEast} vpSouthWest={vpSouthWest} setVpSouthWest={setVpSouthWest} />
+                        <ExploreMap searchTerm={searchTerm} setSearchTerm={setSearchTerm} filterTerm={filterTerm} userLat={userLat} userLng={userLng} setUserLat={setUserLat} setUserLng={setUserLng} businesses={businesses} handleMarkerClick={handleMarkerClick} vpNorthEast={vpNorthEast} setVpNorthEast={setVpNorthEast} vpSouthWest={vpSouthWest} setVpSouthWest={setVpSouthWest} />
+
                     ) : (
                         <div className="c-exploremap">
                             <h3>Loading</h3>
@@ -157,9 +154,7 @@ const ExplorePage = () => {
                     )}
 
                     <div className="e-cc-searchcards">
-                        <SearchCards
-                            searchTerm={searchTerm}
-                            handleCardClick={handleCardClick} businessDetail={businessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest} />
+                        <SearchCards searchTerm={searchTerm} handleCardClick={handleCardClick} businessDetail={businessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest} />
                     </div>
                 </div>
             </div>
