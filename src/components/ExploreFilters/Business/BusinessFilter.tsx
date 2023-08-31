@@ -5,6 +5,8 @@ import "./BusinessFilter.scss";
 interface BusinessFilterProps {
     searchTerm: string;
     setSearchTerm: any;
+    filterTerm: string;
+    setFilterTerm: any;
     isFilterButtonClicked: boolean;
     address: string;
     setAddress: (newAddress: string) => void;
@@ -13,11 +15,15 @@ interface BusinessFilterProps {
     gOnSearchSuccess: any; // Update this
     activeFilterStates: any;
     setActiveFilterStates: any;
+    businessType: string[];
 }
 
 const BusinessFilter: React.FC<BusinessFilterProps> = ({
+    businessType, // Add this line
     searchTerm,
     setSearchTerm,
+    filterTerm,
+    setFilterTerm,
     isFilterButtonClicked,
     address,
     setAddress,
@@ -26,6 +32,14 @@ const BusinessFilter: React.FC<BusinessFilterProps> = ({
     activeFilterStates,
     setActiveFilterStates,
 }) => {
+
+
+
+    const handleFilterClick = (type: any) => {
+        toggleFilter(type, activeFilterStates, setActiveFilterStates);
+        setFilterTerm(activeFilterStates[type] ? '' : type);
+    };
+
 
     return (
         <div className={`c-businessfilter ${isFilterButtonClicked ? "active" : ""}`}>
@@ -63,7 +77,7 @@ const BusinessFilter: React.FC<BusinessFilterProps> = ({
                     .sort((a, b) => a.localeCompare(b))
                     .map((businessType, index) => (
                         <div
-                            onClick={() => toggleFilter(businessType, activeFilterStates, setActiveFilterStates)}
+                            onClick={() => handleFilterClick(businessType)}
                             key={businessType}
                             className={`uc filter-card__btn ${activeFilterStates[businessType] ? "active" : ""}`}
                         >

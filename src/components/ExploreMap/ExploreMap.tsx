@@ -30,7 +30,7 @@ interface Business {
     name: string;
 }
 
-const ExploreMap = ({ searchTerm, setSearchTerm, userLat, userLng, setUserLat, setUserLng, businesses, handleMarkerClick, vpNorthEast, setVpNorthEast, vpSouthWest, setVpSouthWest }: any) => {
+const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, setUserLat, setUserLng, businesses, handleMarkerClick, vpNorthEast, setVpNorthEast, vpSouthWest, setVpSouthWest }: any) => {
 
     const googleMaps = useGoogleMaps();
     const mapRef = useRef<HTMLDivElement | null>(null);
@@ -70,6 +70,7 @@ const ExploreMap = ({ searchTerm, setSearchTerm, userLat, userLng, setUserLat, s
 
         return (
             business.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            business.name.toLowerCase().includes(filterTerm.toLowerCase()) &&
             businessLatLng.lat >= vpSouthWest.lat &&
             businessLatLng.lat <= vpNorthEast.lat &&
             businessLatLng.lng >= vpSouthWest.lng &&
