@@ -52,6 +52,7 @@ export const getBusinesses = gql `
             name
             lat
             lng
+            type
         }
     }
 `

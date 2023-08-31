@@ -123,30 +123,44 @@ const ExplorePage = () => {
     }
 
 
-    useEffect(() => {
-        console.log("Start")
-        console.log(vpNorthEast.lat);
-        console.log(vpNorthEast.lng);
-        console.log(vpSouthWest.lat);
-        console.log(vpSouthWest.lng);
-        console.log("End")
-    }, [vpNorthEast,vpSouthWest]);
+    // useEffect(() => {
+    //     console.log("Start")
+    //     console.log(vpNorthEast.lat);
+    //     console.log(vpNorthEast.lng);
+    //     console.log(vpSouthWest.lat);
+    //     console.log(vpSouthWest.lng);
+    //     console.log("End")
+    // }, [vpNorthEast, vpSouthWest]);
 
     // Filtering
-    const [filteredBusiness, setFilteredBusiness] = useState([]);
+    const [filteredBusinesses, setFilteredBusinesses] = useState([]);
     useEffect(() => {
-        if(searchTerm || filterTerm) {
-            console.log(searchTerm);
+        if (searchTerm || filterTerm) {
+            // console.log(searchTerm);
             console.log(filterTerm);
+
             const newBusinesses = businesses?.filter((business: any) => {
                 return (
                     business.name?.toLowerCase().includes(searchTerm.toLowerCase()) &&
                     business.type?.toLowerCase() === filterTerm.toLowerCase()
+
+                    // business.name?.toLowerCase().includes(searchTerm.toLowerCase()) &&
+                    // business.type?.toLowerCase().includes(filterTerm.toLowerCase()) &&
+                    // businessLatLng.lat >= vpSouthWest.lat &&
+                    // businessLatLng.lat <= vpNorthEast.lat &&
+                    // businessLatLng.lng >= vpSouthWest.lng &&
+                    // businessLatLng.lng <= vpNorthEast.lng
+
                 )
             })
-            console.log(newBusinesses);
-            setFilteredBusiness(newBusinesses);
+            // console.log(newBusinesses);
+            setFilteredBusinesses(newBusinesses);
+
+        } else {
+            // If no filtering is applied, display all businesses
+            setFilteredBusinesses(businesses);
         }
+
     }, [filterTerm, searchTerm])
     return (
         <div className="explorepage-container">
@@ -169,7 +183,7 @@ const ExplorePage = () => {
                 </aside>
                 <div className="map-container">
                     {userLocationAvailable ? (
-                        <ExploreMap searchTerm={searchTerm} setSearchTerm={setSearchTerm} filterTerm={filterTerm} userLat={userLat} userLng={userLng} setUserLat={setUserLat} setUserLng={setUserLng} businesses={businesses} handleMarkerClick={handleMarkerClick} vpNorthEast={vpNorthEast} setVpNorthEast={setVpNorthEast} vpSouthWest={vpSouthWest} setVpSouthWest={setVpSouthWest} />
+                        <ExploreMap filteredBusinesses={filteredBusinesses} businessType={businessType} searchTerm={searchTerm} setSearchTerm={setSearchTerm} filterTerm={filterTerm} userLat={userLat} userLng={userLng} setUserLat={setUserLat} setUserLng={setUserLng} businesses={businesses} handleMarkerClick={handleMarkerClick} vpNorthEast={vpNorthEast} setVpNorthEast={setVpNorthEast} vpSouthWest={vpSouthWest} setVpSouthWest={setVpSouthWest} />
 
                     ) : (
                         <div className="c-exploremap">

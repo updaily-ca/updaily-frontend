@@ -16,6 +16,7 @@ interface Location {
     name: string;
     lat: number;
     lng: number;
+    type: string;
 }
 
 interface LatLng {
@@ -31,7 +32,7 @@ interface Business {
     name: string;
 }
 
-const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, setUserLat, setUserLng, businesses, handleMarkerClick, vpNorthEast, setVpNorthEast, vpSouthWest, setVpSouthWest }: any) => {
+const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, setUserLat, setUserLng, filteredBusinesses, businesses, handleMarkerClick, vpNorthEast, setVpNorthEast, vpSouthWest, setVpSouthWest }: any) => {
     const googleMaps = useGoogleMaps();
     const mapRef = useRef<HTMLDivElement | null>(null);
     const map = useRef<google.maps.Map | null>(null);
@@ -86,24 +87,32 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
         prevMarkersRef.current = [];
 
         // Create new markers based on filtered businesses
-        
-            businesses?.forEach((location: Location, index: number) => {
-                if (map.current) {
-                    const marker = new window.google.maps.Marker({
-                        position: { lat: location.lat, lng: location.lng },
-                        map: map.current,
-                        title: `Location ${index + 1}`,
-                    });
-    
-                    marker.addListener("click", () => {
-                        handleMarkerClick(location.id);
-                    });
-    
-                    // Store the marker in the prevMarkersRef
-                    prevMarkersRef.current.push(marker);
-                }
-            });
-        
+
+
+        // businesses?.forEach((location: Location, index: number) => {
+        //     console.log(location.type);
+        // });
+
+
+        filteredBusinesses?.forEach((location: Location, index: number) => {
+            if (map.current) {
+
+
+                const marker = new window.google.maps.Marker({
+                    position: { lat: location.lat, lng: location.lng },
+                    map: map.current,
+                    title: `Location ${index + 1}`,
+                });
+
+                marker.addListener("click", () => {
+                    handleMarkerClick(location.id);
+                });
+
+                // Store the marker in the prevMarkersRef
+                prevMarkersRef.current.push(marker);
+            }
+        });
+
 
         if (userLocationAvailable && googleMaps && userLat !== null && userLng !== null) {
             if (!map.current) {

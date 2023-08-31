@@ -35,6 +35,7 @@ const SearchCards: React.FC<SearchCardsProps> = ({ searchTerm, isBusinessMode, b
             {isBusinessMode ? <BusinessSearchCards
                 searchTerm={searchTerm}
                 handleCardClick={handleCardClick}
+                // filteredBusinesses={filteredBusinesses}
                 businessDetail={businessDetail}
                 images={{ arrow, photo }}
                 businesses={businesses}
