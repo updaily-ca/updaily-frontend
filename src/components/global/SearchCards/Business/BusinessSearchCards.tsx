@@ -1,20 +1,14 @@
-import { useEffect } from "react"
-
 interface BusinessSearchCardProps {
+    searchTerm: string;
     images: {
         arrow: string
         photo: string
-    }
-    businessDetail: any
-    // businessDetail: {
-    //     name?: string;
-    //     location?: string;
-    //     description?: string;
-    //     photos?: string[];
-    // };
-    businesses: any[]
-    vpNorthEast: LatLng;
-    vpSouthWest: LatLng;
+    },
+    businessDetail: any,
+    businesses: any[],
+    vpNorthEast: LatLng,
+    vpSouthWest: LatLng,
+    handleCardClick: (id: any) => void
 }
 
 interface LatLng {
@@ -22,8 +16,25 @@ interface LatLng {
     lng: number;
 }
 
-const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, businessDetail, businesses, vpNorthEast, vpSouthWest }) => {
+const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, images, businessDetail, businesses, vpNorthEast, vpSouthWest, handleCardClick }) => {
+
     const altPhoto = ""
+
+    const filteredBusinesses = businesses.filter(business => {
+        const businessLatLng: LatLng = {
+            lat: business.lat,
+            lng: business.lng,
+
+        };
+
+        return (
+            business.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            businessLatLng.lat >= vpSouthWest.lat &&
+            businessLatLng.lat <= vpNorthEast.lat &&
+            businessLatLng.lng >= vpSouthWest.lng &&
+            businessLatLng.lng <= vpNorthEast.lng
+        );
+    });
 
     return (
         <>
@@ -36,11 +47,11 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, busine
                     <p className="search-card__location">{businessDetail?.location}</p>
                     <p className="search-card__description">{businessDetail?.description}</p>
 
-                    <img src={images.arrow} alt="right-arrow" className="search-card__arrow" />
+
                 </article>
             ) : null}
 
-            {businesses.map((business) => (
+            {filteredBusinesses.map((business) => (
                 <article key={business.id} className="search-card">
                     <h2 className="search-card__title">{business?.name}</h2>
                     <div className="search-card__photo">
@@ -48,6 +59,7 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, busine
                     </div>
                     <p className="search-card__location">{business?.location}</p>
                     <p className="search-card__description">{business?.description}</p>
+                    <img onClick={() => handleCardClick(business.id)} src={images.arrow} alt="right-arrow" className="search-card__arrow" />
                 </article>
             ))}
         </>
