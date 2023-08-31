@@ -55,19 +55,23 @@ export const toggleFilter = (id: string, activeFilterStates: Record<string, bool
 };
 
 // Upload images to cloudinary
+<<<<<<< HEAD
+export const handleUpload = async (images: File[], setURL: (urls: string[]) => void) => {
+=======
 export const handleUpload = async (images: File[]): Promise<string[]> => {
+>>>>>>> develop
     const uploadUrls: string[] = [];
 
-    for(const image of images) {
+    for (const image of images) {
         const formData = new FormData();
-        formData.append("file",image);
+        formData.append("file", image);
         formData.append("upload_preset", "UpDaily");
 
         const response = await fetch(
             `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
             {
-            method: 'POST',
-            body: formData,
+                method: 'POST',
+                body: formData,
             }
         );
 

@@ -3,6 +3,8 @@ import { toggleFilter } from "../../../utils/functions";
 import "./BusinessFilter.scss";
 
 interface BusinessFilterProps {
+    searchTerm: string;
+    setSearchTerm: any;
     isFilterButtonClicked: boolean;
     address: string;
     setAddress: (newAddress: string) => void;
@@ -14,6 +16,8 @@ interface BusinessFilterProps {
 }
 
 const BusinessFilter: React.FC<BusinessFilterProps> = ({
+    searchTerm,
+    setSearchTerm,
     isFilterButtonClicked,
     address,
     setAddress,
@@ -27,12 +31,13 @@ const BusinessFilter: React.FC<BusinessFilterProps> = ({
         <div className={`c-businessfilter ${isFilterButtonClicked ? "active" : ""}`}>
             <div className="filter-card">
                 <label className="filter-card__subtitle">Search by location</label>
+
                 <input
                     type="text"
                     className="filter-card__input filter-card__input--search"
                     placeholder=""
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                     onSubmit={gHandleSearchSubmit}
                     onKeyDown={(e) => {
                         if (e.key === "Enter") {
