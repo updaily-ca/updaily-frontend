@@ -3,11 +3,12 @@ interface BusinessSearchCardProps {
     images: {
         arrow: string
         photo: string
-    }
-    businessDetail: any
-    businesses: any[]
-    vpNorthEast: LatLng;
-    vpSouthWest: LatLng;
+    },
+    businessDetail: any,
+    businesses: any[],
+    vpNorthEast: LatLng,
+    vpSouthWest: LatLng,
+    handleCardClick: (id: any) => void
 }
 
 interface LatLng {
@@ -15,7 +16,11 @@ interface LatLng {
     lng: number;
 }
 
+<<<<<<< HEAD
 const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, images, businessDetail, businesses, vpNorthEast, vpSouthWest }) => {
+=======
+const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ images, businessDetail, businesses, vpNorthEast, vpSouthWest,handleCardClick }) => {
+>>>>>>> develop
     const altPhoto = ""
 
     const filteredBusinesses = businesses.filter(business => {
@@ -45,7 +50,7 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, im
                     <p className="search-card__location">{businessDetail?.location}</p>
                     <p className="search-card__description">{businessDetail?.description}</p>
 
-                    <img src={images.arrow} alt="right-arrow" className="search-card__arrow" />
+                    
                 </article>
             ) : null}
 
@@ -57,6 +62,7 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, im
                     </div>
                     <p className="search-card__location">{business?.location}</p>
                     <p className="search-card__description">{business?.description}</p>
+                    <img onClick={()=>handleCardClick(business.id)} src={images.arrow} alt="right-arrow" className="search-card__arrow" />
                 </article>
             ))}
         </>
