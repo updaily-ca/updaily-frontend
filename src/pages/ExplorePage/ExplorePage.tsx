@@ -122,16 +122,6 @@ const ExplorePage = () => {
         setModalOpen((prev) => !prev)
     }
 
-
-    // useEffect(() => {
-    //     console.log("Start")
-    //     console.log(vpNorthEast.lat);
-    //     console.log(vpNorthEast.lng);
-    //     console.log(vpSouthWest.lat);
-    //     console.log(vpSouthWest.lng);
-    //     console.log("End")
-    // }, [vpNorthEast, vpSouthWest]);
-
     // Filtering
     const [filteredBusinesses, setFilteredBusinesses] = useState([]);
     useEffect(() => {
@@ -143,13 +133,6 @@ const ExplorePage = () => {
                 return (
                     business.name?.toLowerCase().includes(searchTerm.toLowerCase()) &&
                     business.type?.toLowerCase() === filterTerm.toLowerCase()
-
-                    // business.name?.toLowerCase().includes(searchTerm.toLowerCase()) &&
-                    // business.type?.toLowerCase().includes(filterTerm.toLowerCase()) &&
-                    // businessLatLng.lat >= vpSouthWest.lat &&
-                    // businessLatLng.lat <= vpNorthEast.lat &&
-                    // businessLatLng.lng >= vpSouthWest.lng &&
-                    // businessLatLng.lng <= vpNorthEast.lng
 
                 )
             })
