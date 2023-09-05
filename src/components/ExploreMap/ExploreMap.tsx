@@ -185,7 +185,7 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
         // Update the map center if userLat or userLng changes
         const newCenter = new window.google.maps.LatLng(newLat, newLng);
         map.current?.setCenter(newCenter);
-        map.current?.setZoom(16);
+        map.current?.setZoom(14);
     }
 
     useEffect(() => {

@@ -41,9 +41,6 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, im
     return (
         <>
 
-
-
-
             {businessDetail?.name ? (
                 <article
                     onClick={() => {
