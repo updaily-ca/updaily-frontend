@@ -18,6 +18,9 @@ interface LatLng {
 const HomePage = () => {
     useDocumentTitle("Home Page")
 
+    const [newLat, setNewLat]: any = useState(0);
+    const [newLng, setNewLng]: any = useState(0);
+
     const [vpNorthEast, setVpNorthEast] = useState<LatLng>({ lat: 0, lng: 0 });
     const [vpSouthWest, setVpSouthWest] = useState<LatLng>({ lat: 0, lng: 0 });
 
@@ -67,6 +70,8 @@ const HomePage = () => {
                 <h1 className="h-cc-searchcards__title">New events to explore this week</h1>
                 <SearchCards
 
+                    setNewLat={setNewLat}
+                    setNewLng={setNewLng}
                     searchTerm={searchTerm}
                     handleCardClick={handleCardClick}
                     vpNorthEast={vpNorthEast}
