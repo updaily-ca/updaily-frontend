@@ -118,7 +118,7 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
             if (!map.current) {
                 const mapOptions = {
                     center: { lat: userLat, lng: userLng },
-                    zoom: 8,
+                    zoom: 12,
                     styles: [
                         {
                             featureType: "poi",

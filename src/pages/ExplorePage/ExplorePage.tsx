@@ -53,7 +53,7 @@ const ExplorePage = () => {
     const [businessDetail, setBusinessDetail]: any = useState({})
     const [id, setId] = useState(0)
 
-    const { data } = useQuery(getFeaturedBusiness)
+    // const { data } = useQuery(getFeaturedBusiness)
     const { data: businessesData } = useQuery(getBusinesses)
     const businesses = businessesData?.businesses?.slice(0, 100)
 
@@ -125,26 +125,60 @@ const ExplorePage = () => {
     // Filtering
     const [filteredBusinesses, setFilteredBusinesses] = useState([]);
     useEffect(() => {
-        if (searchTerm || filterTerm) {
-            // console.log(searchTerm);
-            console.log(filterTerm);
+        const newBusinesses = businesses?.filter((business: any) => {
+            const businessLatLng: LatLng = {
+                lat: business.lat,
+                lng: business.lng,
+            };
 
-            const newBusinesses = businesses?.filter((business: any) => {
+            // Check if both searchTerm and filterTerm are present
+            if (searchTerm && filterTerm) {
                 return (
                     business.name?.toLowerCase().includes(searchTerm.toLowerCase()) &&
-                    business.type?.toLowerCase() === filterTerm.toLowerCase()
+                    business.type?.toLowerCase() === filterTerm.toLowerCase() &&
+                    businessLatLng.lat >= vpSouthWest.lat &&
+                    businessLatLng.lat <= vpNorthEast.lat &&
+                    businessLatLng.lng >= vpSouthWest.lng &&
+                    businessLatLng.lng <= vpNorthEast.lng
+                );
+            }
 
-                )
-            })
-            // console.log(newBusinesses);
-            setFilteredBusinesses(newBusinesses);
+            // Check if only searchTerm is present
+            if (searchTerm) {
+                return (
+                    business.name?.toLowerCase().includes(searchTerm.toLowerCase()) &&
+                    businessLatLng.lat >= vpSouthWest.lat &&
+                    businessLatLng.lat <= vpNorthEast.lat &&
+                    businessLatLng.lng >= vpSouthWest.lng &&
+                    businessLatLng.lng <= vpNorthEast.lng
+                );
+            }
 
-        } else {
-            // If no filtering is applied, display all businesses
-            setFilteredBusinesses(businesses);
-        }
+            // Check if only filterTerm is present
+            if (filterTerm) {
+                return (
+                    business.type?.toLowerCase() === filterTerm.toLowerCase() &&
+                    businessLatLng.lat >= vpSouthWest.lat &&
+                    businessLatLng.lat <= vpNorthEast.lat &&
+                    businessLatLng.lng >= vpSouthWest.lng &&
+                    businessLatLng.lng <= vpNorthEast.lng
+                );
 
-    }, [filterTerm, searchTerm])
+            } else {
+                return (
+                    businessLatLng.lat >= vpSouthWest.lat &&
+                    businessLatLng.lat <= vpNorthEast.lat &&
+                    businessLatLng.lng >= vpSouthWest.lng &&
+                    businessLatLng.lng <= vpNorthEast.lng)
+            }
+        });
+
+        setFilteredBusinesses(newBusinesses || []);
+
+    }, [filterTerm, searchTerm, vpNorthEast, vpSouthWest]);
+
+
+
     return (
         <div className="explorepage-container">
             <div id="p-explorepage">
