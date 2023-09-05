@@ -131,51 +131,37 @@ const ExplorePage = () => {
                 lng: business.lng,
             };
 
-            // Check if both searchTerm and filterTerm are present
+            const nameMatch = business.name?.toLowerCase().includes(searchTerm.toLowerCase());
+            const typeMatch = business.type?.toLowerCase() === filterTerm.toLowerCase();
+            const latMatch = (
+                businessLatLng.lat >= vpSouthWest.lat &&
+                businessLatLng.lat <= vpNorthEast.lat
+            );
+            const lngMatch = (
+                businessLatLng.lng >= vpSouthWest.lng &&
+                businessLatLng.lng <= vpNorthEast.lng
+            );
+
             if (searchTerm && filterTerm) {
-                return (
-                    business.name?.toLowerCase().includes(searchTerm.toLowerCase()) &&
-                    business.type?.toLowerCase() === filterTerm.toLowerCase() &&
-                    businessLatLng.lat >= vpSouthWest.lat &&
-                    businessLatLng.lat <= vpNorthEast.lat &&
-                    businessLatLng.lng >= vpSouthWest.lng &&
-                    businessLatLng.lng <= vpNorthEast.lng
-                );
+                return nameMatch && typeMatch && latMatch && lngMatch;
             }
 
-            // Check if only searchTerm is present
             if (searchTerm) {
-                return (
-                    business.name?.toLowerCase().includes(searchTerm.toLowerCase()) &&
-                    businessLatLng.lat >= vpSouthWest.lat &&
-                    businessLatLng.lat <= vpNorthEast.lat &&
-                    businessLatLng.lng >= vpSouthWest.lng &&
-                    businessLatLng.lng <= vpNorthEast.lng
-                );
+                return nameMatch && latMatch && lngMatch;
             }
 
-            // Check if only filterTerm is present
             if (filterTerm) {
-                return (
-                    business.type?.toLowerCase() === filterTerm.toLowerCase() &&
-                    businessLatLng.lat >= vpSouthWest.lat &&
-                    businessLatLng.lat <= vpNorthEast.lat &&
-                    businessLatLng.lng >= vpSouthWest.lng &&
-                    businessLatLng.lng <= vpNorthEast.lng
-                );
-
-            } else {
-                return (
-                    businessLatLng.lat >= vpSouthWest.lat &&
-                    businessLatLng.lat <= vpNorthEast.lat &&
-                    businessLatLng.lng >= vpSouthWest.lng &&
-                    businessLatLng.lng <= vpNorthEast.lng)
+                return typeMatch && latMatch && lngMatch;
             }
+
+            return latMatch && lngMatch;
+
         });
 
         setFilteredBusinesses(newBusinesses || []);
 
     }, [filterTerm, searchTerm, vpNorthEast, vpSouthWest]);
+
 
 
 
