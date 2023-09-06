@@ -17,7 +17,7 @@ const Form5 = ({handleSubmit, errorMsg}: Form5Props) => {
             <div className="form-children">
                     {errorMsg && <p className="form__errMsg">{errorMsg}</p>}
                     <Input id="pwd" name="Password" value={pwd} handleChange={setPwd} />
-                    <Input id="confirmPwd" name="Confirm Password" value={matchPwd} handleChange={setMatchPwd} />
+                    <Input type="password" id="confirmPwd" name="Confirm Password" value={matchPwd} handleChange={setMatchPwd} />
             </div>
         </FormContainer>
     )
