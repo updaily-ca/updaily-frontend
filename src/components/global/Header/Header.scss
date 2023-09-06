@@ -161,4 +161,7 @@
         color: $coloured-bright;
     }
 
+    &__link--register.active {
+        color: $bright;
+    }
 }

@@ -19,7 +19,7 @@ interface BusinessFilterProps {
 }
 
 const BusinessFilter: React.FC<BusinessFilterProps> = ({
-    businessType, // Add this line
+    businessType,
     searchTerm,
     setSearchTerm,
     filterTerm,

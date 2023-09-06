@@ -18,6 +18,8 @@ export const getBusinessDetail = gql `
             address
             photos
             description
+            lat
+            lng
         }
     }
 `
@@ -52,6 +54,8 @@ export const getBusinesses = gql `
             name
             lat
             lng
+            launch
+            type
         }
     }
 `

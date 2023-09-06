@@ -45,6 +45,9 @@ const ExplorePage = () => {
     const [userLat, setUserLat] = useState<number | null>(null)
     const [userLng, setUserLng] = useState<number | null>(null)
 
+    const [newLat, setNewLat] = useState<number | null>(null)
+    const [newLng, setNewLng] = useState<number | null>(null)
+
     const [cardId, setCardId] = useState(0)
 
     const [modalInfo, setModalInfo] = useState({})
@@ -53,7 +56,7 @@ const ExplorePage = () => {
     const [businessDetail, setBusinessDetail]: any = useState({})
     const [id, setId] = useState(0)
 
-    const { data } = useQuery(getFeaturedBusiness)
+    // const { data } = useQuery(getFeaturedBusiness)
     const { data: businessesData } = useQuery(getBusinesses)
     const businesses = businessesData?.businesses?.slice(0, 100)
 
@@ -122,6 +125,46 @@ const ExplorePage = () => {
         setModalOpen((prev) => !prev)
     }
 
+    // Filtering
+    const [filteredBusinesses, setFilteredBusinesses] = useState([]);
+    useEffect(() => {
+        const newBusinesses = businesses?.filter((business: any) => {
+            const businessLatLng: LatLng = {
+                lat: business.lat,
+                lng: business.lng,
+            };
+
+            const nameMatch = business.name?.toLowerCase().includes(searchTerm.toLowerCase());
+            const typeMatch = business.type?.toLowerCase() === filterTerm.toLowerCase();
+            const latMatch = (
+                businessLatLng.lat >= vpSouthWest.lat &&
+                businessLatLng.lat <= vpNorthEast.lat
+            );
+            const lngMatch = (
+                businessLatLng.lng >= vpSouthWest.lng &&
+                businessLatLng.lng <= vpNorthEast.lng
+            );
+
+            if (searchTerm && filterTerm) {
+                return nameMatch && typeMatch && latMatch && lngMatch;
+            }
+
+            if (searchTerm) {
+                return nameMatch && latMatch && lngMatch;
+            }
+
+            if (filterTerm) {
+                return typeMatch && latMatch && lngMatch;
+            }
+
+            return latMatch && lngMatch;
+
+        });
+
+        setFilteredBusinesses(newBusinesses || []);
+
+    }, [filterTerm, searchTerm, vpNorthEast, vpSouthWest]);
+
     return (
         <div className="explorepage-container">
             <div id="p-explorepage">
@@ -143,7 +186,7 @@ const ExplorePage = () => {
                 </aside>
                 <div className="map-container">
                     {userLocationAvailable ? (
-                        <ExploreMap searchTerm={searchTerm} setSearchTerm={setSearchTerm} filterTerm={filterTerm} userLat={userLat} userLng={userLng} setUserLat={setUserLat} setUserLng={setUserLng} businesses={businesses} handleMarkerClick={handleMarkerClick} vpNorthEast={vpNorthEast} setVpNorthEast={setVpNorthEast} vpSouthWest={vpSouthWest} setVpSouthWest={setVpSouthWest} />
+                        <ExploreMap filteredBusinesses={filteredBusinesses} businessType={businessType} searchTerm={searchTerm} setSearchTerm={setSearchTerm} filterTerm={filterTerm} userLat={userLat} userLng={userLng} newLat={newLat} newLng={newLng} setUserLat={setUserLat} setUserLng={setUserLng} businesses={businesses} handleMarkerClick={handleMarkerClick} vpNorthEast={vpNorthEast} setVpNorthEast={setVpNorthEast} vpSouthWest={vpSouthWest} setVpSouthWest={setVpSouthWest} />
 
                     ) : (
                         <div className="c-exploremap">
@@ -154,7 +197,7 @@ const ExplorePage = () => {
                     )}
 
                     <div className="e-cc-searchcards">
-                        <SearchCards searchTerm={searchTerm} handleCardClick={handleCardClick} businessDetail={businessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest} />
+                        <SearchCards searchTerm={searchTerm} handleCardClick={handleCardClick} businessDetail={businessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest} setNewLat={setNewLat} setNewLng={setNewLng} />
                     </div>
                 </div>
             </div>
