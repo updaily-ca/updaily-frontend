@@ -3,7 +3,7 @@ export const eventType: string[] = [
 ]
 
 export const businessType: string[] = [
-    "Entertainment","Food and drink", "Nature", "Art and culture", "Technology", "Sports", "Hiking & Camping", "Others"
+    "Entertainment", "Food and drink", "Nature", "Art and culture", "Technology", "Sports", "Hiking & Camping", "Others"
 ]
 
 export const restuarantSubCategories: string[] = [

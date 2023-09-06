@@ -18,6 +18,9 @@ interface LatLng {
 const HomePage = () => {
     useDocumentTitle("Home Page")
 
+    const [newLat, setNewLat]: any = useState(0);
+    const [newLng, setNewLng]: any = useState(0);
+
     const [vpNorthEast, setVpNorthEast] = useState<LatLng>({ lat: 0, lng: 0 });
     const [vpSouthWest, setVpSouthWest] = useState<LatLng>({ lat: 0, lng: 0 });
 
@@ -43,6 +46,10 @@ const HomePage = () => {
         performSearch(searchTerm, prevSearchTerm, setPrevSearchTerm)
     }
 
+    const handleCardClick = (id: any) => {
+        console.log(id);
+    }
+
     return (
         <div id="p-home-page">
             {/* page - home page */}
@@ -63,8 +70,12 @@ const HomePage = () => {
                 <h1 className="h-cc-searchcards__title">New events to explore this week</h1>
                 <SearchCards
 
-                    vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest}
-
+                    setNewLat={setNewLat}
+                    setNewLng={setNewLng}
+                    searchTerm={searchTerm}
+                    handleCardClick={handleCardClick}
+                    vpNorthEast={vpNorthEast}
+                    vpSouthWest={vpSouthWest}
                     isBusinessMode={isFilterBusiness} businesses={businesses} />
             </section>
             <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />

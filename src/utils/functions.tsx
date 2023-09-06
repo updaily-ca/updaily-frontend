@@ -1,3 +1,4 @@
+import { upload } from "@testing-library/user-event/dist/upload";
 import { useEffect, useState } from "react"
 
 export const useDocumentTitle = (title: string): void => {
@@ -54,24 +55,25 @@ export const toggleFilter = (id: string, activeFilterStates: Record<string, bool
 };
 
 // Upload images to cloudinary
-export const handleUpload = async (images: File[], setURL:(urls: string[])=> void) => {
+// export const handleUpload = async (images: File[], setURL: (urls: string[]) => void) => {
+export const handleUpload = async (images: File[]): Promise<string[]> => {
     const uploadUrls: string[] = [];
 
-    for(const image of images) {
+    for (const image of images) {
         const formData = new FormData();
-        formData.append("file",image);
+        formData.append("file", image);
         formData.append("upload_preset", "UpDaily");
 
         const response = await fetch(
             `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
             {
-            method: 'POST',
-            body: formData,
+                method: 'POST',
+                body: formData,
             }
         );
 
         const data = await response.json();
         uploadUrls.push(data.secure_url);
     }
-    setURL(uploadUrls);
+    return uploadUrls
 }
