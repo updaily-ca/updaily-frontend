@@ -154,25 +154,48 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
 
             let shouldPerformRequest = false;
 
-            const milesToMeters = 1609.34; // 1 mile is approximately 1609.34 meters
 
             const boundsChangedHandler = debounce(() => {
-                // if (window.google && window.google.maps) {
-
                 if (shouldPerformRequest && map.current) {
                     const bounds = map.current.getBounds();
                     if (bounds) {
                         const northeast = bounds.getNorthEast();
                         const southwest = bounds.getSouthWest();
 
-                        setVpNorthEast({ lat: northeast.lat(), lng: northeast.lng() });
-                        setVpSouthWest({ lat: southwest.lat(), lng: southwest.lng() });
+                        // Convert 2 miles to degrees (approximately)
+                        const milesToDegrees = 2 / 69;
+
+                        // Expand the bounds by 2 miles in every direction
+                        const expandedNortheast = {
+                            lat: northeast.lat() + milesToDegrees,
+                            lng: northeast.lng() + milesToDegrees,
+                        };
+
+                        const expandedSouthwest = {
+                            lat: southwest.lat() - milesToDegrees,
+                            lng: southwest.lng() - milesToDegrees,
+                        };
+
+                        setVpNorthEast(expandedNortheast);
+                        setVpSouthWest(expandedSouthwest);
                     }
                     shouldPerformRequest = false;
-                    // }
-                };
+                }
             }, 500);
 
+            // const boundsChangedHandler = debounce(() => {
+            //     if (shouldPerformRequest && map.current) {
+            //         const bounds = map.current.getBounds();
+            //         if (bounds) {
+            //             const northeast = bounds.getNorthEast();
+            //             const southwest = bounds.getSouthWest();
+
+            //             setVpNorthEast({ lat: northeast.lat(), lng: northeast.lng() });
+            //             setVpSouthWest({ lat: southwest.lat(), lng: southwest.lng() });
+            //         }
+            //         shouldPerformRequest = false;
+            //     }
+            // }, 500);
 
             if (map.current) {
                 map.current.addListener("bounds_changed", () => {
@@ -185,21 +208,25 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
                 });
             }
         }
+
+        console.log('logging');
     }, [handleMarkerClick, googleMaps, userLat, userLng, newLat, newLng, userLocationAvailable, vpNorthEast, vpSouthWest]);
 
     const mapChange = () => {
+
         if (map.current) {
+
             // Update the map center if userLat or userLng changes
             const newCenter = new window.google.maps.LatLng(newLat, newLng);
             map.current?.setCenter(newCenter);
             map.current?.setZoom(14);
+
         }
     }
 
     useEffect(() => {
         mapChange();
     }, [newLat, newLng]);
-
 
 
     return <div className="c-exploremap">
