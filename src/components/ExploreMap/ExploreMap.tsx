@@ -154,6 +154,19 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
 
             let shouldPerformRequest = false;
 
+            // const boundsChangedHandler = debounce(() => {
+            //     if (shouldPerformRequest && map.current) {
+            //         const bounds = map.current.getBounds();
+            //         if (bounds) {
+            //             const northeast = bounds.getNorthEast();
+            //             const southwest = bounds.getSouthWest();
+
+            //             setVpNorthEast({ lat: northeast.lat(), lng: northeast.lng() });
+            //             setVpSouthWest({ lat: southwest.lat(), lng: southwest.lng() });
+            //         }
+            //         shouldPerformRequest = false;
+            //     }
+            // }, 500);
 
             const boundsChangedHandler = debounce(() => {
                 if (shouldPerformRequest && map.current) {
@@ -183,19 +196,7 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
                 }
             }, 500);
 
-            // const boundsChangedHandler = debounce(() => {
-            //     if (shouldPerformRequest && map.current) {
-            //         const bounds = map.current.getBounds();
-            //         if (bounds) {
-            //             const northeast = bounds.getNorthEast();
-            //             const southwest = bounds.getSouthWest();
 
-            //             setVpNorthEast({ lat: northeast.lat(), lng: northeast.lng() });
-            //             setVpSouthWest({ lat: southwest.lat(), lng: southwest.lng() });
-            //         }
-            //         shouldPerformRequest = false;
-            //     }
-            // }, 500);
 
             if (map.current) {
                 map.current.addListener("bounds_changed", () => {
@@ -210,7 +211,7 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
         }
 
         console.log('logging');
-    }, [handleMarkerClick, googleMaps, userLat, userLng, newLat, newLng, userLocationAvailable, vpNorthEast, vpSouthWest]);
+    }, [handleMarkerClick, userLat, userLng, newLat, newLng, userLocationAvailable, vpNorthEast, vpSouthWest]);
 
     const mapChange = () => {
 

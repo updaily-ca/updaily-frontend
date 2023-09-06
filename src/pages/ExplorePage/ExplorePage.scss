@@ -5,6 +5,7 @@
 .explorepage-container {
     position: relative;
 }
+
 #p-explorepage {
     display: flex;
     flex-direction: column;
@@ -67,14 +68,18 @@
         z-index: -0;
         transition: margin 0.25s cubic-bezier(0.98, 0.13, 0.88, 0.69);
 
-        @include tablet {
-            margin: -5rem auto 0 auto;
-        }
+        // @include tablet {
+        //     margin: -5rem auto 0 auto;
+        // }
 
-        &:hover {
-            @include tablet {
-                margin-top: -25rem;
-            }
+        // &:hover {
+        //     @include tablet {
+        //         margin-top: -25rem;
+        //     }
+        // }
+
+        @include tablet {
+            margin-top: -12.5rem;
         }
     }
 }
