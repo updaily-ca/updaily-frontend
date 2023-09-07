@@ -59,23 +59,33 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, im
             ) : null}
 
             {filteredBusinesses.map((business) => (
-                <article onClick={() => {
+                <div onClick={() => {
                     setNewLat(business?.lat);
                     setNewLng(business?.lng);
                 }}
 
                     key={business.id} className="search-card">
-                    <h2 className="search-card__title">{business?.name}</h2>
                     <div className="search-card__photo">
                         <img src={business.photos[0]} alt={altPhoto} className="search-card__photo--image" />{" "}
                     </div>
-                    <p className="search-card__location">{business?.location}</p>
-                    <p className="search-card__description">{business?.description}</p>
-                    <img onClick={() => handleCardClick(business.id)} src={images.arrow} alt="right-arrow" className="search-card__arrow" />
+                    <section className="search-card__side">
+                        <h2 className="search-card__title">{business?.name}</h2>
+                        <p className="search-card__location">{business?.location}</p>
 
-                    <div>{business.launch}</div>
+                        <div className="search-card__established">🚀 {new Date(business.launch * 1000).getFullYear()}</div>
 
-                </article>
+                        <p className="search-card__description">
+                            {business?.description
+                                ? business.description.split(' ').slice(0, 15).join(' ') + (business.description.split(' ').length > 15 ? ' ...' : '')
+                                : ''}
+                        </p>
+
+
+                        <img onClick={() => handleCardClick(business.id)} src={images.arrow} alt="right-arrow" className="search-card__arrow" />
+
+                    </section>
+
+                </div>
             ))}
         </>
     )

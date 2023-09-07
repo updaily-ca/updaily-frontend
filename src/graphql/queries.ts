@@ -51,6 +51,7 @@ export const getBusinesses = gql `
             id
             photos
             address
+            description
             name
             lat
             lng
