@@ -59,11 +59,11 @@ const BusinessFilter: React.FC<BusinessFilterProps> = ({
                         }
                     }} />
             </div>
-            <div className="filter-card">
+            {/* <div className="filter-card">
                 <label className="filter-card__subtitle">Price Range</label>
                 <input type="text" className="filter-card__input filter-card__input--price-min" />
                 <input type="text" className="filter-card__input filter-card__input--price-max" />
-            </div>
+            </div> */}
             <div className="filter-card">
                 <div className="filter-card__subtitle">Opening Times</div>
                 <div className="filter-card__btn">Morning</div>
