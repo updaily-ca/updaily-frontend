@@ -85,22 +85,33 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
 
                 const calculateMarkerColor = (launch: any) => {
                     const currentYear = new Date().getFullYear(); // Get the current year
+                    const launchDate = new Date(launch * 1000); // Convert the timestamp to a Date object
 
-                    // console.log(currentYear);
-
-                    if (launch < currentYear - 1) {
-                        return '#ff372d7f';
-                    } else if (launch === currentYear - 1) {
-                        return '#ff372dc3';
-                    } else if (launch === currentYear) {
-                        return '#FF382D';
+                    if (launchDate.getFullYear() < currentYear - 1) {
+                        return '#ff372d7f'; // Older than last year
+                    } else if (launchDate.getFullYear() === currentYear - 1) {
+                        return '#ff372dc3'; // Last year
+                    } else if (launchDate.getFullYear() === currentYear) {
+                        return '#FF382D'; // Current year
                     } else {
-                        return '#ff372d70';
+                        return '#ff372d70'; // Unknown or future year
                     }
                 };
 
 
+
+                const calculateMarkerYear = (launch: any) => {
+
+                    const launchDate = new Date(launch * 1000); // Convert the timestamp to a Date object
+
+                    return launchDate.getFullYear();
+                };
+
                 const markerColor = calculateMarkerColor(location.launch);
+                const markerYear = calculateMarkerYear(location.launch);
+                const truncatedYear = markerYear.toString().slice(-2);
+
+                console.log(markerYear);
 
                 // console.log(location.launch);
 
@@ -108,10 +119,14 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
                     position: { lat: location.lat, lng: location.lng },
                     map: map.current,
                     title: `Location ${index + 1}`,
-
+                    label: {
+                        text: truncatedYear.toString(),
+                        color: "black",
+                    },
 
                     icon: {
-                        path: window.google.maps.SymbolPath.FORWARD_OPEN_ARROW,
+                        // path: window.google.maps.SymbolPath.FORWARD_OPEN_ARROW,
+                        path: window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
                         fillColor: markerColor,
                         fillOpacity: 1,
                         strokeWeight: 0,

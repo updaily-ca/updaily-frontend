@@ -6,6 +6,7 @@ export const getFeaturedBusiness = gql `
         businesses{
             id
             name
+            launch
             lat
             lng
         }
