@@ -197,7 +197,7 @@ const ExplorePage = () => {
                     )}
 
                     <div className="e-cc-searchcards">
-                        <SearchCards searchTerm={searchTerm} handleCardClick={handleCardClick} businessDetail={businessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest} setNewLat={setNewLat} setNewLng={setNewLng} />
+                        <SearchCards searchTerm={searchTerm} handleCardClick={handleCardClick} businessDetail={businessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest} setNewLat={setNewLat} filteredBusinesses={filteredBusinesses} setNewLng={setNewLng} />
                     </div>
                 </div>
             </div>

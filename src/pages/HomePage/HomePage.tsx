@@ -50,6 +50,8 @@ const HomePage = () => {
         console.log(id);
     }
 
+    const filteredBusinesses = {};
+
     return (
         <div id="p-home-page">
             {/* page - home page */}
@@ -74,6 +76,7 @@ const HomePage = () => {
                     setNewLng={setNewLng}
                     searchTerm={searchTerm}
                     handleCardClick={handleCardClick}
+                    filteredBusinesses={filteredBusinesses}
                     vpNorthEast={vpNorthEast}
                     vpSouthWest={vpSouthWest}
                     isBusinessMode={isFilterBusiness} businesses={businesses} />

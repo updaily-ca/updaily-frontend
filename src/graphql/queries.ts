@@ -14,6 +14,7 @@ export const getFeaturedBusiness = gql `
 export const getBusinessDetail = gql `
     query GetBusinessDetail($id: ID!) {
         business(id: $id) {
+            launch
             name
             address
             photos

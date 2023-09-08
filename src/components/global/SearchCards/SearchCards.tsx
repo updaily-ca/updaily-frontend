@@ -22,6 +22,7 @@ interface SearchCardsProps {
     handleCardClick: (id: any) => void,
     setNewLat: (lat: number) => void;
     setNewLng: (lng: number) => void;
+    filteredBusinesses: any;
 }
 
 interface LatLng {
@@ -29,7 +30,7 @@ interface LatLng {
     lng: number;
 }
 
-const SearchCards: React.FC<SearchCardsProps> = ({ searchTerm, isBusinessMode, businessDetail, handleCardClick, businesses, vpNorthEast, vpSouthWest, setNewLat, setNewLng }) => {
+const SearchCards: React.FC<SearchCardsProps> = ({ searchTerm, isBusinessMode, businessDetail, handleCardClick, businesses, filteredBusinesses, vpNorthEast, vpSouthWest, setNewLat, setNewLng }) => {
 
     return (
 
@@ -41,6 +42,7 @@ const SearchCards: React.FC<SearchCardsProps> = ({ searchTerm, isBusinessMode, b
                 businessDetail={businessDetail}
                 images={{ arrow, photo }}
                 businesses={businesses}
+                filteredBusinesses={filteredBusinesses}
                 setNewLat={setNewLat} setNewLng={setNewLng}
                 vpNorthEast={vpNorthEast}
                 vpSouthWest={vpSouthWest}
