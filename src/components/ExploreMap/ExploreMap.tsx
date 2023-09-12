@@ -45,43 +45,30 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
 
     const { loading, error, data } = useQuery(getFeaturedBusiness);
 
+    // useEffect(() => {
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                setUserLat(latitude);
+                setUserLng(longitude);
+                setUserLocationAvailable(true);
+            },
+            (error) => {
+                console.error("Error getting GPS coordinates:", error.message);
+            }
+        );
+    } else {
+        console.error("Geolocation is not available in this browser.");
+    }
+    // }, []);
+
+
     useEffect(() => {
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-                    setUserLat(latitude);
-                    setUserLng(longitude);
-                    setUserLocationAvailable(true);
-                },
-                (error) => {
-                    console.error("Error getting GPS coordinates:", error.message);
-                }
-            );
-        } else {
-            console.error("Geolocation is not available in this browser.");
-        }
-    }, []);
-
-    useEffect(() => {
-        // Clear previous markers from the map and markers array
-        prevMarkersRef.current.forEach(marker => {
-            marker.setMap(null);
-        });
-        prevMarkersRef.current = [];
-
-        // Create new markers based on filtered businesses
-
-
-        // businesses?.forEach((location: Location, index: number) => {
-        //     console.log(location.type);
-        // });
-
 
         filteredBusinesses?.forEach((location: Location, index: number) => {
             if (map.current) {
-
 
                 const calculateMarkerColor = (launch: any) => {
                     const currentYear = new Date().getFullYear(); // Get the current year
@@ -98,8 +85,6 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
                     }
                 };
 
-
-
                 const calculateMarkerYear = (launch: any) => {
 
                     const launchDate = new Date(launch * 1000); // Convert the timestamp to a Date object
@@ -110,10 +95,6 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
                 const markerColor = calculateMarkerColor(location.launch);
                 const markerYear = calculateMarkerYear(location.launch);
                 const truncatedYear = markerYear.toString().slice(-2);
-
-                console.log(markerYear);
-
-                // console.log(location.launch);
 
                 const marker = new window.google.maps.Marker({
                     position: { lat: location.lat, lng: location.lng },
@@ -132,9 +113,10 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
                         strokeWeight: 0,
                         scale: 4,
                     },
-
-
                 });
+
+                // Add the new marker to the map
+                marker.setMap(map.current);
 
                 marker.addListener("click", () => {
                     handleMarkerClick(location.id);
@@ -144,6 +126,47 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
                 prevMarkersRef.current.push(marker);
             }
         });
+
+        // Clear previous markers from the map and markers array
+        prevMarkersRef.current.forEach((marker) => {
+            // if (marker.getLabel()?.text === '22') {
+            // Get the marker's position
+            const markerPosition = marker.getPosition();
+
+            // console.log('Marker position:', markerPosition);
+            // console.log(markerPosition?.lat());
+
+            // // Check if the markerPosition is not null or undefined and if it's outside the viewport bounds
+
+            if (marker.getLabel()?.text === '22') {
+                marker.setMap(null);
+                console.log('oh');
+                return
+            }
+
+            // if (
+            //     markerPosition &&
+            //     markerPosition.lat() <= vpSouthWest.lat &&
+            //     markerPosition.lat() >= vpNorthEast.lat &&
+            //     markerPosition.lng() <= vpSouthWest.lng &&
+            //     markerPosition.lng() >= vpNorthEast.lng
+
+            //     // markerPosition.lat() >= vpSouthWest.lat &&
+            //     // markerPosition.lat() <= vpNorthEast.lat &&
+            //     // markerPosition.lng() >= vpSouthWest.lng &&
+            //     // markerPosition.lng() <= vpNorthEast.lng
+            // ) {
+            //     marker.setMap(null); // Remove the marker
+            //     console.log('Removed marker outside the viewport');
+            // }
+        });
+
+        // Clear the entire array after the loop
+        prevMarkersRef.current = [];
+
+        // Create new markers based on filtered businesses
+
+
 
 
         if (userLocationAvailable && googleMaps && userLat !== null && userLng !== null) {
@@ -159,29 +182,9 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
                     ],
                 };
                 map.current = new window.google.maps.Map(mapRef.current, mapOptions);
-
-
-            } else {
-                // Update the map center if userLat or userLng changes
-                // const newCenter = new window.google.maps.LatLng(userLat, userLng);
-                // map.current.setCenter(newCenter);
             }
 
             let shouldPerformRequest = false;
-
-            // const boundsChangedHandler = debounce(() => {
-            //     if (shouldPerformRequest && map.current) {
-            //         const bounds = map.current.getBounds();
-            //         if (bounds) {
-            //             const northeast = bounds.getNorthEast();
-            //             const southwest = bounds.getSouthWest();
-
-            //             setVpNorthEast({ lat: northeast.lat(), lng: northeast.lng() });
-            //             setVpSouthWest({ lat: southwest.lat(), lng: southwest.lng() });
-            //         }
-            //         shouldPerformRequest = false;
-            //     }
-            // }, 500);
 
             const boundsChangedHandler = debounce(() => {
                 if (shouldPerformRequest && map.current) {
@@ -210,8 +213,6 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
                     shouldPerformRequest = false;
                 }
             }, 500);
-
-
 
             if (map.current) {
                 map.current.addListener("bounds_changed", () => {
