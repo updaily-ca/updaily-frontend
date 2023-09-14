@@ -138,11 +138,10 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
 
             // // Check if the markerPosition is not null or undefined and if it's outside the viewport bounds
 
-            if (marker.getLabel()?.text === '22') {
-                marker.setMap(null);
-                console.log('oh');
-                return
-            }
+            // if (marker.getLabel()?.text === '22') {
+            marker.setMap(null);
+            //     return
+            // }
 
             // if (
             //     markerPosition &&
@@ -163,8 +162,6 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
 
         // Clear the entire array after the loop
         prevMarkersRef.current = [];
-
-        // Create new markers based on filtered businesses
 
 
 
