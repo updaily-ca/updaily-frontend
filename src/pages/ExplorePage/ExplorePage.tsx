@@ -118,11 +118,9 @@ const ExplorePage = () => {
         await GetBusinessDetail2()
         setModalOpen(true)
     }
-    useEffect(() => {
-        console.log(businessData2)
-    }, [businessData2])
-
-
+    // useEffect(() => {
+    //     console.log(businessData2)
+    // }, [businessData2])
 
     const handleModalClick: any = () => {
         setModalOpen((prev) => !prev)
