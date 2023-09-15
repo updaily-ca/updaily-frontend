@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import useGoogleMaps from "../../App";
 import { useQuery } from "@apollo/client";
 import { debounce } from "../../utils/google";
+
+import { calculateMarkerColor, calculateMarkerYear } from "../../utils/gMap";
+
 import { getFeaturedBusiness } from "../../graphql/queries";
 import "./ExploreMap.scss";
 
@@ -72,32 +75,8 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
         // });
         // prevMarkersRef.current = [];
 
-
-
         filteredBusinesses?.forEach((location: Location, index: number) => {
             if (map.current) {
-
-                const calculateMarkerColor = (launch: any) => {
-                    const currentYear = new Date().getFullYear(); // Get the current year
-                    const launchDate = new Date(launch * 1000); // Convert the timestamp to a Date object
-
-                    if (launchDate.getFullYear() < currentYear - 1) {
-                        return '#ff372d7f'; // Older than last year
-                    } else if (launchDate.getFullYear() === currentYear - 1) {
-                        return '#ff372dc3'; // Last year
-                    } else if (launchDate.getFullYear() === currentYear) {
-                        return '#FF382D'; // Current year
-                    } else {
-                        return '#ff372d70'; // Unknown or future year
-                    }
-                };
-
-                const calculateMarkerYear = (launch: any) => {
-
-                    const launchDate = new Date(launch * 1000); // Convert the timestamp to a Date object
-
-                    return launchDate.getFullYear();
-                };
 
                 const markerColor = calculateMarkerColor(location.launch);
                 const markerYear = calculateMarkerYear(location.launch);
@@ -212,7 +191,6 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
 
 
     return <div className="c-exploremap">
-
 
         {userLocationAvailable && <div ref={mapRef} className="c-exploremap__map" />}</div>;
 };
