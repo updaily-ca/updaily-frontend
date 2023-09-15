@@ -72,6 +72,7 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
 
         // prevMarkersRef.current.forEach(marker => {
         //     marker.setMap(null);
+        //     // marker.setVisible(false)
         // });
         // prevMarkersRef.current = [];
 
