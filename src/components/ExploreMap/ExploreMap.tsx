@@ -36,7 +36,7 @@ interface Business {
     name: string;
 }
 
-const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, setUserLat, setUserLng, newLat, newLng, filteredBusinesses, businesses, handleMarkerClick, vpNorthEast, setVpNorthEast, vpSouthWest, setVpSouthWest }: any) => {
+const ExploreMap = ({ searchTerm, setSearchTerm, dateFilterTerm, filterTerm, userLat, userLng, setUserLat, setUserLng, newLat, newLng, filteredBusinesses, businesses, handleMarkerClick, vpNorthEast, setVpNorthEast, vpSouthWest, setVpSouthWest }: any) => {
     const googleMaps = useGoogleMaps();
     const mapRef = useRef<HTMLDivElement | null>(null);
     const map = useRef<google.maps.Map | null>(null);
@@ -67,15 +67,39 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
 
     useEffect(() => {
 
-        // markers.current.forEach((marker) => {
-        //     // marker.setMap(null);
+        markers.current.forEach((marker: any) => {
+            const currentYear = new Date().getFullYear();
+            const markerYear = calculateMarkerYear(marker.launch);
 
-        //     marker.setVisible(false)
-        //     console.log('hi');
-        // });
+            if (dateFilterTerm === 'Oldest') {
+                // If the marker's year is not the oldest, hide it
+                if (markerYear !== currentYear - 1) {
+                    marker.setVisible(false);
+                } else {
+                    marker.setVisible(true);
+                }
+            } else if (dateFilterTerm === 'Newest') {
+                // If the marker's year is not the newest, hide it
+                if (markerYear !== currentYear) {
+                    marker.setVisible(false);
+                } else {
+                    marker.setVisible(true);
+                }
+            } else if (dateFilterTerm === 'This Year') {
+                // If the marker's year is this year, show it; otherwise, hide it
+                if (markerYear === currentYear) {
+                    marker.setVisible(true);
+                } else {
+                    marker.setVisible(false);
+                }
+            } else if (dateFilterTerm === 'Any') {
+                // Show all markers for the "Any" filter
+                marker.setVisible(true);
+            }
 
-        console.log('bebop', markers.current);
-        console.log('bebop2', filteredBusinesses);
+            // this logic needs changing, otherwise on january, it may show no businesses. it needs to measure by months but the filtering method itself works and is slightly different from the technologies because it's not deleting the markers from the map.
+
+        });
 
         const markersToRemove: any = [];
 
@@ -137,6 +161,8 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
                             strokeWeight: 0,
                             scale: 4,
                         },
+
+                        launch: location.launch,
                     });
 
                     // Add the new marker to the map
@@ -209,7 +235,6 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
             }
         }
 
-        console.log('logging');
     }, [handleMarkerClick, userLat, userLng, newLat, newLng, userLocationAvailable, vpNorthEast, vpSouthWest]);
 
     const mapChange = () => {
