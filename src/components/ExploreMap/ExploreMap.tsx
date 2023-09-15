@@ -67,6 +67,13 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
 
     useEffect(() => {
 
+        // prevMarkersRef.current.forEach(marker => {
+        //     marker.setMap(null);
+        // });
+        // prevMarkersRef.current = [];
+
+
+
         filteredBusinesses?.forEach((location: Location, index: number) => {
             if (map.current) {
 
@@ -126,48 +133,6 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
                 prevMarkersRef.current.push(marker);
             }
         });
-
-        // Clear previous markers from the map and markers array
-        prevMarkersRef.current.forEach((marker) => {
-            // if (marker.getLabel()?.text === '22') {
-            // Get the marker's position
-            const markerPosition = marker.getPosition();
-
-            // console.log('Marker position:', markerPosition);
-            // console.log(markerPosition?.lat());
-
-            // // Check if the markerPosition is not null or undefined and if it's outside the viewport bounds
-
-            if (marker.getLabel()?.text === '22') {
-                marker.setMap(null);
-                console.log('oh');
-                return
-            }
-
-            // if (
-            //     markerPosition &&
-            //     markerPosition.lat() <= vpSouthWest.lat &&
-            //     markerPosition.lat() >= vpNorthEast.lat &&
-            //     markerPosition.lng() <= vpSouthWest.lng &&
-            //     markerPosition.lng() >= vpNorthEast.lng
-
-            //     // markerPosition.lat() >= vpSouthWest.lat &&
-            //     // markerPosition.lat() <= vpNorthEast.lat &&
-            //     // markerPosition.lng() >= vpSouthWest.lng &&
-            //     // markerPosition.lng() <= vpNorthEast.lng
-            // ) {
-            //     marker.setMap(null); // Remove the marker
-            //     console.log('Removed marker outside the viewport');
-            // }
-        });
-
-        // Clear the entire array after the loop
-        prevMarkersRef.current = [];
-
-        // Create new markers based on filtered businesses
-
-
-
 
         if (userLocationAvailable && googleMaps && userLat !== null && userLng !== null) {
             if (!map.current) {
