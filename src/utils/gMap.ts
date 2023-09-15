@@ -40,3 +40,39 @@ export const calculateMarkerYear = (launch: any) => {
     return launchDate.getFullYear();
 };
 
+export const filterMarkersByDate = (markers: any, dateFilterTerm: any) => {
+    markers.current.forEach((marker: any) => {
+        const currentYear = new Date().getFullYear();
+        const markerYear = calculateMarkerYear(marker.launch);
+
+        if (dateFilterTerm === 'Oldest') {
+            // If the marker's year is not the oldest, hide it
+            if (markerYear !== currentYear - 1) {
+                marker.setVisible(false);
+            } else {
+                marker.setVisible(true);
+            }
+        } else if (dateFilterTerm === 'Newest') {
+            // If the marker's year is not the newest, hide it
+            if (markerYear !== currentYear) {
+                marker.setVisible(false);
+            } else {
+                marker.setVisible(true);
+            }
+        } else if (dateFilterTerm === 'This Year') {
+            // If the marker's year is this year, show it; otherwise, hide it
+            if (markerYear === currentYear) {
+                marker.setVisible(true);
+            } else {
+                marker.setVisible(false);
+            }
+        } else if (dateFilterTerm === 'Any') {
+            // Show all markers for the "Any" filter
+            marker.setVisible(true);
+        }
+
+        // this logic needs changing, otherwise on january, it may show no businesses. it needs to measure by months but the filtering method itself works and is slightly different from the technologies because it's not deleting the markers from the map.
+
+    });
+}
+ 
