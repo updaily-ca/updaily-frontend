@@ -40,12 +40,9 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
     const googleMaps = useGoogleMaps();
     const mapRef = useRef<HTMLDivElement | null>(null);
     const map = useRef<google.maps.Map | null>(null);
-
-    // Mutable ref to store previous markers
-    const prevMarkersRef = useRef<google.maps.Marker[]>([]);
+    const markers = useRef<google.maps.Marker[]>([]);
 
     const [userLocationAvailable, setUserLocationAvailable] = useState<boolean>(false);
-
     const { loading, error, data } = useQuery(getFeaturedBusiness);
 
     // useEffect(() => {
@@ -70,11 +67,39 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
 
     useEffect(() => {
 
-        // prevMarkersRef.current.forEach(marker => {
-        //     marker.setMap(null);
-        //     // marker.setVisible(false)
+        // markers.current.forEach((marker) => {
+        //     // marker.setMap(null);
+
+        //     marker.setVisible(false)
+        //     console.log('hi');
         // });
-        // prevMarkersRef.current = [];
+
+        console.log('bebop', markers.current);
+        console.log('bebop2', filteredBusinesses);
+
+        const markersToRemove: any = [];
+
+
+        markers.current.forEach((existingMarker: any, index) => {
+            // Check if the marker exists in filteredBusinesses
+            const markerExistsInFilteredBusinesses = filteredBusinesses?.some((location: Location) => {
+                return (
+                    existingMarker.getPosition().lat() === location.lat &&
+                    existingMarker.getPosition().lng() === location.lng
+                );
+            });
+
+            // If the marker does not exist in filteredBusinesses, add its index to markersToRemove
+            if (!markerExistsInFilteredBusinesses) {
+                markersToRemove.push(index);
+            }
+        });
+
+        markersToRemove.reverse().forEach((indexToRemove: any) => {
+            markers.current[indexToRemove].setMap(null); // Remove the marker from the map
+            markers.current.splice(indexToRemove, 1); // Remove the marker from the array
+        });
+
 
         filteredBusinesses?.forEach((location: Location, index: number) => {
             if (map.current) {
@@ -83,34 +108,47 @@ const ExploreMap = ({ searchTerm, setSearchTerm, filterTerm, userLat, userLng, s
                 const markerYear = calculateMarkerYear(location.launch);
                 const truncatedYear = markerYear.toString().slice(-2);
 
-                const marker = new window.google.maps.Marker({
-                    position: { lat: location.lat, lng: location.lng },
-                    map: map.current,
-                    title: `Location ${index + 1}`,
-                    label: {
-                        text: truncatedYear.toString(),
-                        color: "black",
-                    },
 
-                    icon: {
-                        // path: window.google.maps.SymbolPath.FORWARD_OPEN_ARROW,
-                        path: window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                        fillColor: markerColor,
-                        fillOpacity: 1,
-                        strokeWeight: 0,
-                        scale: 4,
-                    },
+
+                const markerExists = markers.current.some((existingMarker: any) => {
+                    return (
+                        existingMarker.getPosition().lat() === location.lat &&
+                        existingMarker.getPosition().lng() === location.lng
+                        // existingMarker.getTitle() === `Location ${index + 1}`
+                    );
                 });
 
-                // Add the new marker to the map
-                marker.setMap(map.current);
+                if (!markerExists) {
 
-                marker.addListener("click", () => {
-                    handleMarkerClick(location.id);
-                });
+                    const marker = new window.google.maps.Marker({
+                        position: { lat: location.lat, lng: location.lng },
+                        map: map.current,
+                        title: `Location ${index + 1}`,
+                        label: {
+                            text: truncatedYear.toString(),
+                            color: "black",
+                        },
 
-                // Store the marker in the prevMarkersRef
-                prevMarkersRef.current.push(marker);
+                        icon: {
+                            // path: window.google.maps.SymbolPath.FORWARD_OPEN_ARROW,
+                            path: window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                            fillColor: markerColor,
+                            fillOpacity: 1,
+                            strokeWeight: 0,
+                            scale: 4,
+                        },
+                    });
+
+                    // Add the new marker to the map
+                    marker.setMap(map.current);
+
+                    marker.addListener("click", () => {
+                        handleMarkerClick(location.id);
+                    });
+
+                    markers.current.push(marker);
+
+                }
             }
         });
 

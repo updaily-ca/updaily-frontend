@@ -128,7 +128,7 @@ const ExplorePage = () => {
     // Filtering
     const [filteredBusinesses, setFilteredBusinesses] = useState([]);
     useEffect(() => {
-        const newBusinesses = businesses?.filter((business: any) => {
+        const newBusinesses = businesses?.filter((business: { lat: number, lng: number, name: string, type: string }) => {
             const businessLatLng: LatLng = {
                 lat: business.lat,
                 lng: business.lng,
