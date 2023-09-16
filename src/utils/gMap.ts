@@ -22,14 +22,15 @@ export const calculateMarkerColor = (launch: any) => {
     const currentYear = new Date().getFullYear(); // Get the current year
     const launchDate = new Date(launch * 1000); // Convert the timestamp to a Date object
 
-    if (launchDate.getFullYear() < currentYear - 1) {
-        return '#ff372d7f'; // Older than last year
-    } else if (launchDate.getFullYear() === currentYear - 1) {
-        return '#ff372dc3'; // Last year
-    } else if (launchDate.getFullYear() === currentYear) {
-        return '#FF382D'; // Current year
-    } else {
-        return '#ff372d70'; // Unknown or future year
+    switch (true) {
+        case launchDate.getFullYear() < currentYear - 1:
+            return '#ff372d7f'; // Older than last year
+        case launchDate.getFullYear() === currentYear - 1:
+            return '#ff372dc3'; // Last year
+        case launchDate.getFullYear() === currentYear:
+            return '#FF382D'; // Current year
+        default:
+            return '#ff372d70'; // Unknown or future year
     }
 };
 
@@ -47,14 +48,14 @@ export const filterMarkersByDate = (markers: any, dateFilterTerm: any) => {
 
         if (dateFilterTerm === 'Oldest') {
             // If the marker's year is not the oldest, hide it
-            if (markerYear !== currentYear - 1) {
-                marker.setVisible(false);
-            } else {
+            if (markerYear !== currentYear && markerYear !== currentYear - 1) {
                 marker.setVisible(true);
+            } else {
+                marker.setVisible(false);
             }
         } else if (dateFilterTerm === 'Newest') {
             // If the marker's year is not the newest, hide it
-            if (markerYear !== currentYear) {
+            if (markerYear !== currentYear && markerYear !== currentYear - 1) {
                 marker.setVisible(false);
             } else {
                 marker.setVisible(true);
@@ -70,6 +71,7 @@ export const filterMarkersByDate = (markers: any, dateFilterTerm: any) => {
             // Show all markers for the "Any" filter
             marker.setVisible(true);
         }
+        
 
         // this logic needs changing, otherwise on january, it may show no businesses. it needs to measure by months but the filtering method itself works and is slightly different from the technologies because it's not deleting the markers from the map.
 
