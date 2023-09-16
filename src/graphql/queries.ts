@@ -6,6 +6,7 @@ export const getFeaturedBusiness = gql `
         businesses{
             id
             name
+            launch
             lat
             lng
         }
@@ -14,6 +15,7 @@ export const getFeaturedBusiness = gql `
 export const getBusinessDetail = gql `
     query GetBusinessDetail($id: ID!) {
         business(id: $id) {
+            launch
             name
             address
             photos
@@ -51,6 +53,7 @@ export const getBusinesses = gql `
             id
             photos
             address
+            description
             name
             lat
             lng
