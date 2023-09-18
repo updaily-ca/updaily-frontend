@@ -140,7 +140,7 @@ const ExploreMap = ({ searchTerm, setSearchTerm, dateFilterTerm, filterTerm, use
                         handleMarkerClick(location.id);
                         const markerPosition = marker.getPosition();
                         map.current?.panTo(markerPosition);
-                        map.current?.setZoom(14);
+                        // map.current?.setZoom(14);
                     });
 
                     markers.current.push(marker);
@@ -215,7 +215,7 @@ const ExploreMap = ({ searchTerm, setSearchTerm, dateFilterTerm, filterTerm, use
             // Update the map center if userLat or userLng changes
             const newCenter = new window.google.maps.LatLng(newLat, newLng);
             map.current?.panTo(newCenter);
-            map.current?.setZoom(14);
+            // map.current?.setZoom(14);
 
         }
     }
