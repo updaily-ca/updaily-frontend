@@ -46,9 +46,13 @@ const HomePage = () => {
         performSearch(searchTerm, prevSearchTerm, setPrevSearchTerm)
     }
 
+    const setBusinessDetail: any = {};
+
     const handleCardClick = (id: any) => {
         console.log(id);
     }
+
+    const cSearchRef: any = {};
 
     const filteredBusinesses = {};
 
@@ -76,7 +80,9 @@ const HomePage = () => {
                     setNewLng={setNewLng}
                     searchTerm={searchTerm}
                     handleCardClick={handleCardClick}
+                    setBusinessDetail={setBusinessDetail}
                     filteredBusinesses={filteredBusinesses}
+                    // cSearchRef={cSearchRef}
                     vpNorthEast={vpNorthEast}
                     vpSouthWest={vpSouthWest}
                     isBusinessMode={isFilterBusiness} businesses={businesses} />

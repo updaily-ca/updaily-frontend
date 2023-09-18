@@ -5,6 +5,7 @@ interface BusinessSearchCardProps {
         photo: string
     },
     businessDetail: any,
+    setBusinessDetail: any,
     businesses: any[],
     vpNorthEast: LatLng,
     vpSouthWest: LatLng,
@@ -12,6 +13,7 @@ interface BusinessSearchCardProps {
     setNewLat: (lat: number) => void;
     setNewLng: (lng: number) => void;
     filteredBusinesses: any;
+    cSearchRef: React.RefObject<HTMLDivElement | null>;
 }
 
 interface LatLng {
@@ -19,9 +21,19 @@ interface LatLng {
     lng: number;
 }
 
-const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, images, businessDetail, filteredBusinesses, setNewLat, setNewLng, handleCardClick }) => {
+const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, images, businessDetail, setBusinessDetail, cSearchRef, filteredBusinesses, setNewLat, setNewLng, handleCardClick }) => {
 
-    const altPhoto = ""
+
+    const altPhoto = "";
+
+    console.log(businessDetail);
+
+    const scrollToFarLeft = () => {
+        if (cSearchRef.current) {
+            cSearchRef.current.style.scrollBehavior = 'smooth';
+            cSearchRef.current.scrollLeft = 0;
+        }
+    };
 
     return (
         <>
@@ -62,7 +74,8 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, im
                 <div onClick={() => {
                     setNewLat(business?.lat);
                     setNewLng(business?.lng);
-
+                    setBusinessDetail(business);
+                    scrollToFarLeft();
                 }}
 
                     key={business.id} className="search-card">

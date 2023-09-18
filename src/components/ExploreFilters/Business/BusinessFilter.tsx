@@ -55,7 +55,7 @@ const BusinessFilter: React.FC<BusinessFilterProps> = ({
     return (
         <div className={`c-businessfilter ${isFilterButtonClicked ? "active" : ""}`}>
             <div className="filter-card">
-                <label className="filter-card__subtitle">Search by location</label>
+                <label className="filter-card__subtitle">Search name</label>
 
                 <input
                     type="text"
@@ -75,15 +75,15 @@ const BusinessFilter: React.FC<BusinessFilterProps> = ({
                 <input type="text" className="filter-card__input filter-card__input--price-min" />
                 <input type="text" className="filter-card__input filter-card__input--price-max" />
             </div> */}
-            <div className="filter-card">
+            {/* <div className="filter-card">
                 <div className="filter-card__subtitle">Opening Times</div>
                 <div className="filter-card__btn">Morning</div>
                 <div className="filter-card__btn">Afternoon</div>
                 <div className="filter-card__btn">Evening</div>
                 <div className="filter-card__btn">Open Now</div>
-            </div>
+            </div> */}
             <div className="filter-card">
-                <div className="filter-card__subtitle">Search</div>
+                <div className="filter-card__subtitle">Filter</div>
                 {businessType
                     .sort((a, b) => a.localeCompare(b))
                     .map((businessType, index) => (

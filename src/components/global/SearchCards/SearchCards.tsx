@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import './SearchCards.scss';
 
 // import '../../../asset/home/search-icon.png';
@@ -16,6 +18,7 @@ interface SearchCardsProps {
     searchTerm: string;
     isBusinessMode: boolean,
     businessDetail?: { name: string, location: string, photos: string[], description: string },
+    setBusinessDetail: { name: string, location: string, photos: string[], description: string },
     businesses: any,
     vpNorthEast: LatLng;
     vpSouthWest: LatLng;
@@ -30,18 +33,22 @@ interface LatLng {
     lng: number;
 }
 
-const SearchCards: React.FC<SearchCardsProps> = ({ searchTerm, isBusinessMode, businessDetail, handleCardClick, businesses, filteredBusinesses, vpNorthEast, vpSouthWest, setNewLat, setNewLng }) => {
+const SearchCards: React.FC<SearchCardsProps> = ({ searchTerm, isBusinessMode, businessDetail, setBusinessDetail, handleCardClick, businesses, filteredBusinesses, vpNorthEast, vpSouthWest, setNewLat, setNewLng }) => {
+
+    const cSearchRef = useRef<HTMLDivElement | null>(null);
 
     return (
 
-        <div className="c-search"> {/* component - search */}
+        <div className="c-search" ref={cSearchRef}> {/* component - search */}
             {isBusinessMode ? <BusinessSearchCards
                 searchTerm={searchTerm}
                 handleCardClick={handleCardClick}
                 // filteredBusinesses={filteredBusinesses}
                 businessDetail={businessDetail}
+                setBusinessDetail={setBusinessDetail}
                 images={{ arrow, photo }}
                 businesses={businesses}
+                cSearchRef={cSearchRef}
                 filteredBusinesses={filteredBusinesses}
                 setNewLat={setNewLat} setNewLng={setNewLng}
                 vpNorthEast={vpNorthEast}

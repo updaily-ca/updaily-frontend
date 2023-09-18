@@ -138,6 +138,7 @@ const ExploreMap = ({ searchTerm, setSearchTerm, dateFilterTerm, filterTerm, use
 
                     marker.addListener("click", () => {
                         handleMarkerClick(location.id);
+                        map.current?.setZoom(14);
                     });
 
                     markers.current.push(marker);
