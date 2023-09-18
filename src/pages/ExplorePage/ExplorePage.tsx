@@ -126,6 +126,8 @@ const ExplorePage = () => {
         setModalOpen((prev) => !prev)
     }
 
+    const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+
     // Filtering
     const [filteredBusinesses, setFilteredBusinesses] = useState([]);
     useEffect(() => {
