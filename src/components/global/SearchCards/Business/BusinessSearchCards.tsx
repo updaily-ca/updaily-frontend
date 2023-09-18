@@ -35,6 +35,8 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, im
         }
     };
 
+    const filteredUniqueBusinesses = filteredBusinesses.filter((business: any) => business.id !== businessDetail.id);
+
     return (
         <>
 
@@ -60,17 +62,15 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, im
                                 : ''}
                         </p>
 
-
                         <img onClick={() => handleCardClick(businessDetail.id)} src={images.arrow} alt="right-arrow" className="search-card__arrow" />
 
                     </section>
 
-
-
                 </div>
             ) : null}
 
-            {filteredBusinesses.map((business: any) => (
+            {filteredUniqueBusinesses.map((business: any) => (
+
                 <div onClick={() => {
                     setNewLat(business?.lat);
                     setNewLng(business?.lng);
