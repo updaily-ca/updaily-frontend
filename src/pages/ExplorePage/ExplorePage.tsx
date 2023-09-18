@@ -101,12 +101,6 @@ const ExplorePage = () => {
         GetBusinessDetail()
     }
 
-    useEffect(() => {
-        if (businessData?.business) {
-            setBusinessDetail(businessData.business)
-        }
-    }, [businessData])
-
     const [GetBusinessDetail2, { loading: loading2, data: businessData2 }] = useLazyQuery(getBusinessDetail2, {
         variables: {
             id: cardId,
@@ -118,9 +112,6 @@ const ExplorePage = () => {
         await GetBusinessDetail2()
         setModalOpen(true)
     }
-    // useEffect(() => {
-    //     console.log(businessData2)
-    // }, [businessData2])
 
     const handleModalClick: any = () => {
         setModalOpen((prev) => !prev)
@@ -189,7 +180,7 @@ const ExplorePage = () => {
                 </aside>
                 <div className="map-container">
                     {userLocationAvailable ? (
-                        <ExploreMap filteredBusinesses={filteredBusinesses} businessType={businessType} searchTerm={searchTerm} setSearchTerm={setSearchTerm} dateFilterTerm={dateFilterTerm} filterTerm={filterTerm} userLat={userLat} userLng={userLng} newLat={newLat} newLng={newLng} setUserLat={setUserLat} setUserLng={setUserLng} businesses={businesses} handleMarkerClick={handleMarkerClick} vpNorthEast={vpNorthEast} setVpNorthEast={setVpNorthEast} vpSouthWest={vpSouthWest} setVpSouthWest={setVpSouthWest} />
+                        <ExploreMap filteredBusinesses={filteredBusinesses} businessType={businessType} searchTerm={searchTerm} setSearchTerm={setSearchTerm} dateFilterTerm={dateFilterTerm} filterTerm={filterTerm} userLat={userLat} userLng={userLng} newLat={newLat} newLng={newLng} setUserLat={setUserLat} setUserLng={setUserLng} businesses={businesses} setBusinessDetail={setBusinessDetail} handleMarkerClick={handleMarkerClick} vpNorthEast={vpNorthEast} setVpNorthEast={setVpNorthEast} vpSouthWest={vpSouthWest} setVpSouthWest={setVpSouthWest} />
 
                     ) : (
                         <div className="c-exploremap">

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 interface BusinessSearchCardProps {
     searchTerm: string;
     images: {
@@ -25,8 +27,6 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, im
 
 
     const altPhoto = "";
-
-    console.log(businessDetail);
 
     const scrollToFarLeft = () => {
         if (cSearchRef.current) {

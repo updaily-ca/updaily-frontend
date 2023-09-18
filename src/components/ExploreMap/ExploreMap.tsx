@@ -36,7 +36,7 @@ interface Business {
     name: string;
 }
 
-const ExploreMap = ({ searchTerm, setSearchTerm, dateFilterTerm, filterTerm, userLat, userLng, setUserLat, setUserLng, newLat, newLng, filteredBusinesses, businesses, handleMarkerClick, vpNorthEast, setVpNorthEast, vpSouthWest, setVpSouthWest }: any) => {
+const ExploreMap = ({ searchTerm, setSearchTerm, dateFilterTerm, filterTerm, userLat, userLng, setUserLat, setUserLng, newLat, newLng, filteredBusinesses, businesses, setBusinessDetail, handleMarkerClick, vpNorthEast, setVpNorthEast, vpSouthWest, setVpSouthWest }: any) => {
     const googleMaps = useGoogleMaps();
     const mapRef = useRef<HTMLDivElement | null>(null);
     const map = useRef<google.maps.Map | null>(null);
@@ -141,6 +141,10 @@ const ExploreMap = ({ searchTerm, setSearchTerm, dateFilterTerm, filterTerm, use
                         const markerPosition = marker.getPosition();
                         map.current?.panTo(markerPosition);
                         // map.current?.setZoom(14);
+
+                        if (location !== undefined) {
+                            setBusinessDetail(location);
+                        }
                     });
 
                     markers.current.push(marker);
