@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { scrollToFarLeft } from "../../../../utils/functions";
 
 interface BusinessSearchCardProps {
     searchTerm: string;
@@ -23,17 +24,10 @@ interface LatLng {
     lng: number;
 }
 
+
 const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, images, businessDetail, setBusinessDetail, cSearchRef, filteredBusinesses, setNewLat, setNewLng, handleCardClick }) => {
 
-
     const altPhoto = "";
-
-    const scrollToFarLeft = () => {
-        if (cSearchRef.current) {
-            cSearchRef.current.style.scrollBehavior = 'smooth';
-            cSearchRef.current.scrollLeft = 0;
-        }
-    };
 
     const filteredUniqueBusinesses = filteredBusinesses.filter((business: any) => business.id !== businessDetail.id);
 
@@ -75,7 +69,7 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, im
                     setNewLat(business?.lat);
                     setNewLng(business?.lng);
                     setBusinessDetail(business);
-                    scrollToFarLeft();
+                    scrollToFarLeft(cSearchRef);
                 }}
 
                     key={business.id} className="search-card">
