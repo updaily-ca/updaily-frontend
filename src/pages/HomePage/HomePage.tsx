@@ -87,9 +87,9 @@ const HomePage = () => {
 
                 {!isFilterBusiness ? (
 
-                    <h1 className="h-cc-searchcards__title">New events to explore this week</h1>
+                    <h2 className="h-cc-searchcards__title">New events to explore this week</h2>
 
-                ) : <h1 className="h-cc-searchcards__title">New businesses to explore this week</h1>
+                ) : <h2 className="h-cc-searchcards__title">New businesses to explore this week</h2>
                 }
 
                 <SearchCards
