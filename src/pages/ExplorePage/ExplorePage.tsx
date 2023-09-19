@@ -50,10 +50,14 @@ const ExplorePage = () => {
 
     const [cardId, setCardId] = useState(0)
 
-    const [modalInfo, setModalInfo] = useState({})
     const [modalOpen, setModalOpen] = useState<boolean>(false)
 
     const [businessDetail, setBusinessDetail]: any = useState({})
+
+    useEffect(() => {
+        console.log(businessDetail);
+    }, [businessDetail])
+
     const [id, setId] = useState(0)
 
     // const { data } = useQuery(getFeaturedBusiness)
@@ -116,7 +120,7 @@ const ExplorePage = () => {
         setModalOpen((prev) => !prev)
     }
 
-    const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+    // const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
     const [selectedBusinessTypes, setSelectedBusinessTypes] = useState<string[]>([]);
 
@@ -165,10 +169,7 @@ const ExplorePage = () => {
                             <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
                         </div>
                         {isFilterBusiness ? (
-                            <BusinessFilter businessType={businessType} searchTerm={searchTerm} setSearchTerm={setSearchTerm} dateFilterTerm={dateFilterTerm} setDateFilterTerm={setDateFilterTerm} address={address} setAddress={setAddress} isFilterButtonClicked={isFilterButtonClicked} gHandleSearchSubmit={handleSearchSubmit} gOnSearchError={gOnSearchError} gOnSearchSuccess={gOnSearchSuccess} activeFilterStates={activeFilterStates} setActiveFilterStates={setActiveFilterStates}
-
-                                selectedBusinessTypes={selectedBusinessTypes} // Pass the selected business types
-                                setSelectedBusinessTypes={setSelectedBusinessTypes} // Pass the function to update selected business types
+                            <BusinessFilter businessType={businessType} searchTerm={searchTerm} setSearchTerm={setSearchTerm} dateFilterTerm={dateFilterTerm} setDateFilterTerm={setDateFilterTerm} address={address} setAddress={setAddress} isFilterButtonClicked={isFilterButtonClicked} gHandleSearchSubmit={handleSearchSubmit} gOnSearchError={gOnSearchError} gOnSearchSuccess={gOnSearchSuccess} activeFilterStates={activeFilterStates} setActiveFilterStates={setActiveFilterStates} selectedBusinessTypes={selectedBusinessTypes} setSelectedBusinessTypes={setSelectedBusinessTypes}
                             />
                         ) : (
                             <EventFilter address={address} setAddress={setAddress} isFilterButtonClicked={isFilterButtonClicked} gHandleSearchSubmit={handleSearchSubmit} gOnSearchError={gOnSearchError} gOnSearchSuccess={gOnSearchSuccess} activeFilterStates={activeFilterStates} setActiveFilterStates={setActiveFilterStates} />

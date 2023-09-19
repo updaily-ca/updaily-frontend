@@ -100,8 +100,6 @@ const ExploreMap = ({ dateFilterTerm, userLat, userLng, setUserLat, setUserLng, 
                 const markerYear = calculateMarkerYear(location.launch);
                 const truncatedYear = markerYear.toString().slice(-2);
 
-
-
                 const markerExists = markers.current.some((existingMarker: any) => {
                     return (
                         existingMarker.getPosition().lat() === location.lat &&
