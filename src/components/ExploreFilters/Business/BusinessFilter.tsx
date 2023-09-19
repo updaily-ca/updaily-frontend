@@ -7,8 +7,6 @@ interface BusinessFilterProps {
     setSearchTerm: any;
     dateFilterTerm: any;
     setDateFilterTerm: any;
-    filterTerm: string;
-    setFilterTerm: any;
     isFilterButtonClicked: boolean;
     address: string;
     setAddress: (newAddress: string) => void;
@@ -18,16 +16,17 @@ interface BusinessFilterProps {
     activeFilterStates: any;
     setActiveFilterStates: any;
     businessType: string[];
+    selectedBusinessTypes: string[]; // New prop to store selected business types
+    setSelectedBusinessTypes: (selectedTypes: string[]) => void; // New prop to update selected types
+
 }
 
 const BusinessFilter: React.FC<BusinessFilterProps> = ({
     businessType,
     searchTerm,
     setSearchTerm,
-    filterTerm,
     dateFilterTerm,
     setDateFilterTerm,
-    setFilterTerm,
     isFilterButtonClicked,
     address,
     setAddress,
@@ -35,13 +34,34 @@ const BusinessFilter: React.FC<BusinessFilterProps> = ({
 
     activeFilterStates,
     setActiveFilterStates,
+
+    selectedBusinessTypes, // New prop to hold selected business types
+    setSelectedBusinessTypes, // New prop to update selected business types
+
+
 }) => {
 
 
 
-    const handleFilterClick = (type: any) => {
-        toggleFilter(type, activeFilterStates, setActiveFilterStates);
-        setFilterTerm(activeFilterStates[type] ? '' : type);
+    const handleFilterClick = (type: string) => {
+        // Clone the existing selected business types array
+        const updatedSelectedTypes = [...selectedBusinessTypes];
+
+        // Check if the clicked type is already selected
+        const isTypeSelected = updatedSelectedTypes.includes(type);
+
+        // If it's selected, remove it; otherwise, add it
+        if (isTypeSelected) {
+            const index = updatedSelectedTypes.indexOf(type);
+            if (index !== -1) {
+                updatedSelectedTypes.splice(index, 1);
+            }
+        } else {
+            updatedSelectedTypes.push(type);
+        }
+
+        // Update the selected business types
+        setSelectedBusinessTypes(updatedSelectedTypes);
     };
 
     const handleDateFilterClick = (type: any) => {
@@ -90,7 +110,7 @@ const BusinessFilter: React.FC<BusinessFilterProps> = ({
                         <div
                             onClick={() => handleFilterClick(businessType)}
                             key={businessType}
-                            className={`uc filter-card__btn ${activeFilterStates[businessType] ? "active" : ""}`}
+                            className={`uc filter-card__btn ${selectedBusinessTypes.includes(businessType) ? "active" : ""}`}
                         >
                             {businessType}
                         </div>

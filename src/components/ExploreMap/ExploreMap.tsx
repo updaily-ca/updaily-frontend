@@ -36,7 +36,7 @@ interface Business {
     name: string;
 }
 
-const ExploreMap = ({ searchTerm, setSearchTerm, dateFilterTerm, filterTerm, userLat, userLng, setUserLat, setUserLng, newLat, newLng, filteredBusinesses, businesses, setBusinessDetail, handleMarkerClick, vpNorthEast, setVpNorthEast, vpSouthWest, setVpSouthWest }: any) => {
+const ExploreMap = ({ dateFilterTerm, userLat, userLng, setUserLat, setUserLng, newLat, newLng, filteredBusinesses, setBusinessDetail, handleMarkerClick, vpNorthEast, setVpNorthEast, vpSouthWest, setVpSouthWest }: any) => {
     const googleMaps = useGoogleMaps();
     const mapRef = useRef<HTMLDivElement | null>(null);
     const map = useRef<google.maps.Map | null>(null);
