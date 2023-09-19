@@ -54,10 +54,6 @@ const ExplorePage = () => {
 
     const [businessDetail, setBusinessDetail]: any = useState({})
 
-    useEffect(() => {
-        console.log(businessDetail);
-    }, [businessDetail])
-
     const [id, setId] = useState(0)
 
     // const { data } = useQuery(getFeaturedBusiness)
