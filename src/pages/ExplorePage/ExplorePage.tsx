@@ -148,16 +148,9 @@ const ExplorePage = () => {
             return nameMatch && typeMatch && latMatch && lngMatch;
         });
 
-
-
         setFilteredBusinesses(newBusinesses || []);
 
     }, [selectedBusinessTypes, searchTerm, vpNorthEast, vpSouthWest]);
-
-
-
-
-
 
     return (
         <div className="explorepage-container">
