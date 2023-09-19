@@ -9,6 +9,7 @@
     overflow-x: auto;
     flex-direction: row;
     padding: 1rem;
+    margin-bottom: 1rem;
     gap: 1rem;
 
 
@@ -46,6 +47,10 @@
         // padding: 2rem;
         padding-bottom: 0.5rem;
     }
+}
+
+#p-home-page .c-search {
+    height: 13rem;
 }
 
 .search-card {

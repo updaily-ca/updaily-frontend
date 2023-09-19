@@ -93,7 +93,7 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, im
                             <div className="search-card__established">🚀 {new Date(business.launch * 1000).getFullYear()}</div>
 
                             <p className="search-card__description">
-                                {business?.description
+                                {business.description
                                     ? business.description.split(' ').slice(0, 15).join(' ') + (business.description.split(' ').length > 15 ? ' ...' : '')
                                     : ''}
                             </p>
