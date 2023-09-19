@@ -1,5 +1,5 @@
 import { performSearch, useDocumentTitle } from "../../utils/functions"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { getFeaturedBusiness } from "../../graphql/queries"
 import { useQuery } from "@apollo/client"
 
@@ -31,7 +31,7 @@ const HomePage = () => {
 
     const { data } = useQuery(getFeaturedBusiness);
 
-    const businesses = data?.businesses?.slice(0, 4);
+    const businesses = data?.businesses?.slice(0, 6);
 
     const [searchTerm, setSearchTerm] = useState<string>("")
     const [prevSearchTerm, setPrevSearchTerm] = useState<string>("")
@@ -54,7 +54,18 @@ const HomePage = () => {
 
     const cSearchRef: any = {};
 
-    const filteredBusinesses = {};
+    const [filteredBusinesses, setFilteredBusinesses]: any = useState(null);
+
+
+    useEffect(() => {
+        // console.log(data);
+        console.log(businesses);
+
+        setFilteredBusinesses(businesses);
+        // console.log(businesses[0].id);
+
+    }, [data]);
+
 
     return (
         <div id="p-home-page">
@@ -73,7 +84,14 @@ const HomePage = () => {
             </section>
             <section className="h-cc-searchcards">
                 {/* home page - component container - search cards */}
-                <h1 className="h-cc-searchcards__title">New events to explore this week</h1>
+
+                {!isFilterBusiness ? (
+
+                    <h1 className="h-cc-searchcards__title">New events to explore this week</h1>
+
+                ) : <h1 className="h-cc-searchcards__title">New businesses to explore this week</h1>
+                }
+
                 <SearchCards
 
                     setNewLat={setNewLat}
@@ -87,6 +105,7 @@ const HomePage = () => {
                     vpSouthWest={vpSouthWest}
                     isBusinessMode={isFilterBusiness} businesses={businesses} />
             </section>
+
             <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
         </div>
     )
