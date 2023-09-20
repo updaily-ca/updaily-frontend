@@ -25,8 +25,6 @@
 
 ![image](https://github.com/updaily-ca/updaily-frontend/assets/126236947/5d0261ad-3cb9-4156-8db0-3a50f7d43e79)
 
-![image](https://github.com/updaily-ca/updaily-frontend/assets/126236947/a16d571f-1c4f-405c-a6bd-234d2d1fb1ac)
-
 
 
 # Getting Started with Create React App
