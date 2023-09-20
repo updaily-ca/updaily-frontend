@@ -1,8 +1,7 @@
-import { performSearch, useDocumentTitle } from "../../utils/functions";
+import { useDocumentTitle } from "../../utils/functions";
 import { useEffect, useState } from "react";
 import { getFeaturedBusiness } from "../../graphql/queries";
 import { useQuery } from "@apollo/client";
-import { gHandleSearch, gOnSearchError } from "../../utils/google";
 import useGoogleMaps from "../../App";
 
 import { useNavigate } from "react-router";
@@ -145,7 +144,6 @@ const HomePage = () => {
                     handleCardClick={handleCardClick}
                     setBusinessDetail={setBusinessDetail}
                     filteredBusinesses={filteredBusinesses}
-                    // cSearchRef={cSearchRef}
                     vpNorthEast={vpNorthEast}
                     vpSouthWest={vpSouthWest}
                     isBusinessMode={isBusinessMode}
