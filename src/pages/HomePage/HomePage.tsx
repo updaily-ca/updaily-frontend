@@ -1,14 +1,18 @@
-import { performSearch, useDocumentTitle } from "../../utils/functions"
-import { useEffect, useState } from "react"
-import { getFeaturedBusiness } from "../../graphql/queries"
-import { useQuery } from "@apollo/client"
+import { performSearch, useDocumentTitle } from "../../utils/functions";
+import { useEffect, useState } from "react";
+import { getFeaturedBusiness } from "../../graphql/queries";
+import { useQuery } from "@apollo/client";
+import { gHandleSearch, gOnSearchError } from "../../utils/google";
+import useGoogleMaps from "../../App";
 
-import SearchCards from "../../components/global/SearchCards/SearchCards"
-import FilterButton from "../../components/global/FilterButton/FilterButton"
+import { useNavigate } from "react-router";
 
-import "./HomePage.scss"
+import SearchCards from "../../components/global/SearchCards/SearchCards";
+import FilterButton from "../../components/global/FilterButton/FilterButton";
 
-import searchIcon from "../../asset/home/search-icon.png"
+import "./HomePage.scss";
+
+import searchIcon from "../../asset/home/search-icon.png";
 
 interface LatLng {
     lat: number;
@@ -16,58 +20,87 @@ interface LatLng {
 }
 
 const HomePage = () => {
-    useDocumentTitle("Home Page")
+    useDocumentTitle("Home Page");
 
     const [newLat, setNewLat]: any = useState(0);
     const [newLng, setNewLng]: any = useState(0);
 
+    const googleMaps = useGoogleMaps();
+
     const [vpNorthEast, setVpNorthEast] = useState<LatLng>({ lat: 0, lng: 0 });
     const [vpSouthWest, setVpSouthWest] = useState<LatLng>({ lat: 0, lng: 0 });
 
-    const [isFilterBusiness, setIsFilterBusiness] = useState<boolean>(false)
+    const [isBusinessMode, setIsBusinessMode] = useState<boolean>(false);
     const toggleBusinessMode = (): void => {
-        setIsFilterBusiness((prevState) => !prevState)
-    }
+        setIsBusinessMode((prevState) => !prevState);
+    };
 
     const { data } = useQuery(getFeaturedBusiness);
 
     const businesses = data?.businesses?.slice(0, 6);
 
-    const [searchTerm, setSearchTerm] = useState<string>("")
-    const [prevSearchTerm, setPrevSearchTerm] = useState<string>("")
+    const [searchTerm, setSearchTerm] = useState<string>("");
 
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === "Enter") {
-            performSearch(searchTerm, prevSearchTerm, setPrevSearchTerm)
-        }
-    }
-
-    const handleSearchClick = () => {
-        performSearch(searchTerm, prevSearchTerm, setPrevSearchTerm)
-    }
+    const [location, setLocation] = useState<string>("");
 
     const setBusinessDetail: any = {};
 
     const handleCardClick = (id: any) => {
         console.log(id);
-    }
-
-    const cSearchRef: any = {};
+    };
 
     const [filteredBusinesses, setFilteredBusinesses]: any = useState(null);
 
     const isHomePage = true;
 
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // console.log(data);
-        // console.log(businesses);
-
         setFilteredBusinesses(businesses);
-        // console.log(businesses[0].id);
-
     }, [data]);
 
+    const [urlLat, setUrlLat] = useState<number>(0);
+    const [urlLng, setUrlLng]: any = useState<number>(0);
+
+    const [apiLoaded, setApiLoaded] = useState(false);
+
+    useEffect(() => {
+        if (googleMaps) {
+            const input = document.getElementById("location");
+
+            if (window.google && window.google.maps && window.google.maps.places) {
+                const map = window.google.maps.places;
+                const autocomplete = new map.Autocomplete(input, {
+                    types: ["geocode"],
+                    componentRestrictions: { country: "CA" },
+                });
+
+                autocomplete.addListener("place_changed", () => {
+                    const place = autocomplete.getPlace();
+                    if (place && place.geometry && place.geometry.location) {
+                        const { lat, lng } = place.geometry.location;
+
+                        setUrlLat(lat());
+                        setUrlLng(lng());
+
+                        setLocation(place.formatted_address);
+                    }
+                });
+            }
+
+            setApiLoaded(true);
+        }
+    }, [googleMaps]);
+
+    if (!apiLoaded) {
+        return <p>Loading...</p>;
+    }
+
+    const handleKeyPress = () => {
+        if (urlLat !== 0) {
+            navigate(`/explore?lat=${urlLat}&lng=${urlLng}`);
+        }
+    };
 
     return (
         <div id="p-home-page">
@@ -77,25 +110,34 @@ const HomePage = () => {
                 <p className="home-hero__description">Search for restaurants, events or businesses in Vancouver.</p>
 
                 <div className="home-search">
-                    <input type="text" className="home-search__input" placeholder="" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyDown={handleKeyDown} />
-                    <div className="home-search__btn" onClick={handleSearchClick}>
-                        <img className="home-search__btn--icon" src={searchIcon} alt="" />
-                        <span className="home-search__btn--search">Search</span>
+                    <input
+                        type="text"
+                        className="home-search__input"
+                        id="location"
+                        placeholder=""
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        onKeyDown={handleKeyPress}
+                    />
+
+                    <div className="home-search__btn">
+                        <img className="home-search__btn--icon" onClick={handleKeyPress} src={searchIcon} alt="" />
+                        <span className="home-search__btn--search" onClick={handleKeyPress}>
+                            Search
+                        </span>
                     </div>
                 </div>
             </section>
             <section className="h-cc-searchcards">
                 {/* home page - component container - search cards */}
 
-                {!isFilterBusiness ? (
-
+                {!isBusinessMode ? (
                     <h2 className="h-cc-searchcards__title">New events to explore this week</h2>
-
-                ) : <h2 className="h-cc-searchcards__title">New businesses to explore this week</h2>
-                }
+                ) : (
+                    <h2 className="h-cc-searchcards__title">New businesses to explore this week</h2>
+                )}
 
                 <SearchCards
-
                     setNewLat={setNewLat}
                     setNewLng={setNewLng}
                     searchTerm={searchTerm}
@@ -106,12 +148,14 @@ const HomePage = () => {
                     // cSearchRef={cSearchRef}
                     vpNorthEast={vpNorthEast}
                     vpSouthWest={vpSouthWest}
-                    isBusinessMode={isFilterBusiness} businesses={businesses} />
+                    isBusinessMode={isBusinessMode}
+                    businesses={businesses}
+                />
             </section>
 
-            <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
+            <FilterButton isBusinessMode={isBusinessMode} toggleBusinessMode={toggleBusinessMode} />
         </div>
-    )
-}
+    );
+};
 
-export default HomePage
+export default HomePage;

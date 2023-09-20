@@ -5,6 +5,7 @@ import EventFilter from "../../components/ExploreFilters/Event/EventFilter"
 import FilterButton from "../../components/global/FilterButton/FilterButton"
 import SearchCards from "../../components/global/SearchCards/SearchCards"
 import { gHandleSearch, gOnSearchError, gOnSearchSuccess } from "../../utils/google"
+import { useSearchParams } from "react-router-dom";
 
 import { businessType, eventType } from "../../utils/FormData"
 
@@ -32,7 +33,7 @@ const ExplorePage = () => {
     const [vpSouthWest, setVpSouthWest] = useState<LatLng>({ lat: 0, lng: 0 })
 
     const [address, setAddress] = useState<string>("")
-    const [isFilterBusiness, setIsFilterBusiness] = useState<boolean>(false)
+    const [isBusinessMode, setIsBusinessMode] = useState<boolean>(false)
 
     const [isFilterButtonClicked, toggleFilterButton] = useToggleClass(false)
 
@@ -61,7 +62,7 @@ const ExplorePage = () => {
     const businesses = businessesData?.businesses?.slice(0, 100)
 
     const toggleBusinessMode = () => {
-        setIsFilterBusiness((prevState) => !prevState)
+        setIsBusinessMode((prevState) => !prevState)
     }
 
     const handleSearchSubmit = (e: React.FormEvent) => {
@@ -154,6 +155,15 @@ const ExplorePage = () => {
 
     }, [selectedBusinessTypes, searchTerm, vpNorthEast, vpSouthWest]);
 
+
+    const [searchParams] = useSearchParams();
+
+    const urlLatParam = searchParams.get("lat");
+    const urlLngParam = searchParams.get("lng");
+
+    const urlLat = urlLatParam !== null ? parseFloat(urlLatParam) : 0;
+    const urlLng = urlLngParam !== null ? parseFloat(urlLngParam) : 0;
+
     return (
         <div className="explorepage-container">
             <div id="p-explorepage">
@@ -164,9 +174,9 @@ const ExplorePage = () => {
                                 Filters
                             </div>
 
-                            <FilterButton isBusinessMode={isFilterBusiness} toggleBusinessMode={toggleBusinessMode} />
+                            <FilterButton isBusinessMode={isBusinessMode} toggleBusinessMode={toggleBusinessMode} />
                         </div>
-                        {isFilterBusiness ? (
+                        {isBusinessMode ? (
                             <BusinessFilter businessType={businessType} searchTerm={searchTerm} setSearchTerm={setSearchTerm} dateFilterTerm={dateFilterTerm} setDateFilterTerm={setDateFilterTerm} address={address} setAddress={setAddress} isFilterButtonClicked={isFilterButtonClicked} gHandleSearchSubmit={handleSearchSubmit} gOnSearchError={gOnSearchError} gOnSearchSuccess={gOnSearchSuccess} activeFilterStates={activeFilterStates} setActiveFilterStates={setActiveFilterStates} selectedBusinessTypes={selectedBusinessTypes} setSelectedBusinessTypes={setSelectedBusinessTypes}
                             />
                         ) : (
@@ -176,7 +186,7 @@ const ExplorePage = () => {
                 </aside>
                 <div className="map-container">
                     {userLocationAvailable ? (
-                        <ExploreMap filteredBusinesses={filteredBusinesses} businessType={businessType} searchTerm={searchTerm} setSearchTerm={setSearchTerm} dateFilterTerm={dateFilterTerm} userLat={userLat} userLng={userLng} newLat={newLat} newLng={newLng} setUserLat={setUserLat} setUserLng={setUserLng} businesses={businesses} setBusinessDetail={setBusinessDetail} handleMarkerClick={handleMarkerClick} vpNorthEast={vpNorthEast} setVpNorthEast={setVpNorthEast} vpSouthWest={vpSouthWest} setVpSouthWest={setVpSouthWest} />
+                        <ExploreMap filteredBusinesses={filteredBusinesses} businessType={businessType} searchTerm={searchTerm} setSearchTerm={setSearchTerm} dateFilterTerm={dateFilterTerm} userLat={userLat} userLng={userLng} newLat={newLat} newLng={newLng} setUserLat={setUserLat} setUserLng={setUserLng} urlLat={urlLat} urlLng={urlLng} businesses={businesses} setBusinessDetail={setBusinessDetail} handleMarkerClick={handleMarkerClick} vpNorthEast={vpNorthEast} setVpNorthEast={setVpNorthEast} vpSouthWest={vpSouthWest} setVpSouthWest={setVpSouthWest} />
 
                     ) : (
                         <div className="c-exploremap">
@@ -187,7 +197,7 @@ const ExplorePage = () => {
                     )}
 
                     <div className="e-cc-searchcards">
-                        <SearchCards searchTerm={searchTerm} handleCardClick={handleCardClick} businessDetail={businessDetail} isHomePage={isHomePage} setBusinessDetail={setBusinessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest} setNewLat={setNewLat} filteredBusinesses={filteredBusinesses} setNewLng={setNewLng} />
+                        <SearchCards searchTerm={searchTerm} handleCardClick={handleCardClick} businessDetail={businessDetail} isHomePage={isHomePage} setBusinessDetail={setBusinessDetail} isBusinessMode={isBusinessMode} businesses={businesses} vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest} setNewLat={setNewLat} filteredBusinesses={filteredBusinesses} setNewLng={setNewLng} />
                     </div>
                 </div>
             </div>

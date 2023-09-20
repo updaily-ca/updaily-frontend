@@ -36,7 +36,7 @@ interface Business {
     name: string;
 }
 
-const ExploreMap = ({ dateFilterTerm, userLat, userLng, setUserLat, setUserLng, newLat, newLng, filteredBusinesses, setBusinessDetail, handleMarkerClick, vpNorthEast, setVpNorthEast, vpSouthWest, setVpSouthWest }: any) => {
+const ExploreMap = ({ dateFilterTerm, userLat, userLng, setUserLat, setUserLng, newLat, newLng, urlLat, urlLng, filteredBusinesses, setBusinessDetail, handleMarkerClick, vpNorthEast, setVpNorthEast, vpSouthWest, setVpSouthWest }: any) => {
     const googleMaps = useGoogleMaps();
     const mapRef = useRef<HTMLDivElement | null>(null);
     const map = useRef<google.maps.Map | null>(null);
@@ -51,9 +51,12 @@ const ExploreMap = ({ dateFilterTerm, userLat, userLng, setUserLat, setUserLng, 
             (position) => {
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
+
                 setUserLat(latitude);
                 setUserLng(longitude);
+
                 setUserLocationAvailable(true);
+
             },
             (error) => {
                 console.error("Error getting GPS coordinates:", error.message);
@@ -152,9 +155,23 @@ const ExploreMap = ({ dateFilterTerm, userLat, userLng, setUserLat, setUserLng, 
         });
 
         if (userLocationAvailable && googleMaps && userLat !== null && userLng !== null) {
-            if (!map.current) {
+            if (!map.current && urlLat === 0) {
                 const mapOptions = {
                     center: { lat: userLat, lng: userLng },
+                    zoom: 12,
+                    styles: [
+                        {
+                            featureType: "poi",
+                            stylers: [{ visibility: "off" }],
+                        },
+                    ],
+                };
+                map.current = new window.google.maps.Map(mapRef.current, mapOptions);
+            }
+
+            if (!map.current && urlLat !== 0) {
+                const mapOptions = {
+                    center: { lat: urlLat, lng: urlLng },
                     zoom: 12,
                     styles: [
                         {
@@ -216,15 +233,28 @@ const ExploreMap = ({ dateFilterTerm, userLat, userLng, setUserLat, setUserLng, 
 
             // Update the map center if userLat or userLng changes
             const newCenter = new window.google.maps.LatLng(newLat, newLng);
-            map.current?.panTo(newCenter);
+            const urlCenter = new window.google.maps.LatLng(urlLat, urlLng);
+
+            if (urlLat === 0) {
+                map.current?.panTo(newCenter);
+            }
+
+            else {
+                map.current?.panTo(urlCenter);
+            }
             // map.current?.setZoom(14);
 
         }
+
+
     }
 
     useEffect(() => {
         mapChange();
-    }, [newLat, newLng]);
+
+        // console.log('userLat', userLat);
+
+    }, [newLat, newLng, urlLat, urlLng]);
 
 
     return <div className="c-exploremap">

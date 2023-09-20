@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { scrollToFarLeft } from "../../../../utils/functions";
 import { useNavigate } from "react-router-dom";
 
+
 interface BusinessSearchCardProps {
     searchTerm: string;
     isHomePage: boolean,
@@ -82,10 +83,7 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, im
                         }
                         else {
                             // console.log('is home')
-                            navigate('/explore/');
-                            setNewLat(business.lat);
-                            setNewLng(business.lng);
-                            // console.log(business.lat);
+                            navigate(`/explore?lat=${business.lat}&lng=${business.lng}`);
                         }
                     }}
 

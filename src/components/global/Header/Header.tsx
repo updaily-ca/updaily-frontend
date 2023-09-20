@@ -38,7 +38,7 @@ const Header = () => {
                         </NavLink>
                     </li>
                     <li className="navbar__item">
-                        <NavLink to="/explore/" className="navbar__link" onClick={handleNavLinkClick} >
+                        <NavLink to="/explore" className="navbar__link" onClick={handleNavLinkClick} >
                             <span className="navbar__link--first hidden-tablet">02</span>
                             <span className="navbar__link--second">Explore</span>
                         </NavLink>
@@ -49,14 +49,6 @@ const Header = () => {
                             <span className="navbar__link--second">About</span>
                         </NavLink>
                     </li>
-
-                    <li className='navbar__item'>
-                        <NavLink to="/devpage" className="navbar__link" onClick={handleNavLinkClick} >
-                            <span className="navbar__link--first hidden-tablet">04</span>
-                            <span className="navbar__link--second">Dev</span>
-                        </NavLink>
-                    </li>
-
 
                     <li className='navbar__item'>
                         <NavLink to="/register" className="navbar__link navbar__link--register" onClick={handleNavLinkClick} >
