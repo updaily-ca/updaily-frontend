@@ -1,3 +1,22 @@
+# Project Features
+
+- Register form, with loading progress. Convert address into latitude and longitude coordinates for the explore page.
+- Explore page, with the ability to toggle between "events" and "businesses". These are shown on the map, and can be filtered with a combination filter function.
+- The viewport area is measured, and businesses more than two miles outside of the viewport area are not shown, to improve optimisation.
+- Cards are shown displaying each business or event, and when a card is clicked it moves the map to center on that location. It also makes the first card an "active" card, and you can then click on the arrow icon to open a modal with details about that business or event.
+- A bounce function has been added, so that API calls are reduced.
+- The search function searches through the names of the businesses in the database.
+
+# Technologies used
+
+- TypeScript
+- Google Maps API
+- GraphQL
+- FireBase
+- PostGreSQL
+- Cloudinary
+- AWS (to host the database)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
