@@ -77,3 +77,10 @@ export const handleUpload = async (images: File[]): Promise<string[]> => {
     }
     return uploadUrls
 }
+
+export const scrollToFarLeft = (cSearchRef: React.RefObject<HTMLDivElement | null>) => {
+    if (cSearchRef.current) {
+        cSearchRef.current.style.scrollBehavior = 'smooth';
+        cSearchRef.current.scrollLeft = 0;
+    }
+};

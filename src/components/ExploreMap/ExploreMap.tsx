@@ -36,7 +36,7 @@ interface Business {
     name: string;
 }
 
-const ExploreMap = ({ searchTerm, setSearchTerm, dateFilterTerm, filterTerm, userLat, userLng, setUserLat, setUserLng, newLat, newLng, filteredBusinesses, businesses, handleMarkerClick, vpNorthEast, setVpNorthEast, vpSouthWest, setVpSouthWest }: any) => {
+const ExploreMap = ({ dateFilterTerm, userLat, userLng, setUserLat, setUserLng, newLat, newLng, filteredBusinesses, setBusinessDetail, handleMarkerClick, vpNorthEast, setVpNorthEast, vpSouthWest, setVpSouthWest }: any) => {
     const googleMaps = useGoogleMaps();
     const mapRef = useRef<HTMLDivElement | null>(null);
     const map = useRef<google.maps.Map | null>(null);
@@ -100,8 +100,6 @@ const ExploreMap = ({ searchTerm, setSearchTerm, dateFilterTerm, filterTerm, use
                 const markerYear = calculateMarkerYear(location.launch);
                 const truncatedYear = markerYear.toString().slice(-2);
 
-
-
                 const markerExists = markers.current.some((existingMarker: any) => {
                     return (
                         existingMarker.getPosition().lat() === location.lat &&
@@ -138,6 +136,13 @@ const ExploreMap = ({ searchTerm, setSearchTerm, dateFilterTerm, filterTerm, use
 
                     marker.addListener("click", () => {
                         handleMarkerClick(location.id);
+                        const markerPosition = marker.getPosition();
+                        map.current?.panTo(markerPosition);
+                        // map.current?.setZoom(14);
+
+                        if (location !== undefined) {
+                            setBusinessDetail(location);
+                        }
                     });
 
                     markers.current.push(marker);
@@ -211,8 +216,8 @@ const ExploreMap = ({ searchTerm, setSearchTerm, dateFilterTerm, filterTerm, use
 
             // Update the map center if userLat or userLng changes
             const newCenter = new window.google.maps.LatLng(newLat, newLng);
-            map.current?.setCenter(newCenter);
-            map.current?.setZoom(14);
+            map.current?.panTo(newCenter);
+            // map.current?.setZoom(14);
 
         }
     }

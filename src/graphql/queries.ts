@@ -7,6 +7,7 @@ export const getFeaturedBusiness = gql `
             id
             name
             launch
+            photos
             lat
             lng
         }

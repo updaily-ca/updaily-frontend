@@ -9,6 +9,7 @@
     overflow-x: auto;
     flex-direction: row;
     padding: 1rem;
+    margin-bottom: 1rem;
     gap: 1rem;
 
 
@@ -48,6 +49,10 @@
     }
 }
 
+#p-home-page .c-search {
+    height: 13rem;
+}
+
 .search-card {
     margin: auto;
     background-color: $bright;
@@ -55,6 +60,7 @@
     flex-direction: row;
     // min-width: 15.3125rem;
     min-width: 25rem;
+    height: 8rem;
     // height: 20rem;
     padding: 1rem;
     cursor: pointer;
@@ -63,7 +69,8 @@
     transition: all 0.125s ease-in-out;
 
 
-    background: rgba(255, 255, 255, 0.2473);
+    background: rgba(255, 255, 255, 0.473);
+    // background-color: $bright;
     border-radius: 1rem;
     box-shadow: 0 $px5 2rem rgba(0, 0, 0, 0.1);
     backdrop-filter: blur($px5);
@@ -76,7 +83,7 @@
     }
 
     &:hover {
-        background: rgba(255, 255, 255, 0.8473);
+        background: rgba(255, 255, 255, 0.6473);
     }
 
     &--event {
@@ -126,12 +133,13 @@
     }
 
     &__description {
-        margin: 1rem 0;
+        margin: 0.25rem 0;
         font-size: $px12;
     }
 
     &__established {
         font-size: small;
+        margin-top: -0.25rem;
         margin-left: auto;
     }
 
