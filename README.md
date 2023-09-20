@@ -13,9 +13,21 @@
 - Google Maps API
 - GraphQL
 - FireBase
-- PostGreSQL
+- PostgreSQL
 - Cloudinary
 - AWS (to host the database)
+
+## Screenshots
+
+![image](https://github.com/updaily-ca/updaily-frontend/assets/126236947/3db98291-3a3c-4f92-a15c-a5a8f93833e4)
+
+![image](https://github.com/updaily-ca/updaily-frontend/assets/126236947/43974660-54ed-4e3b-85c5-07fe53de330b)
+
+![image](https://github.com/updaily-ca/updaily-frontend/assets/126236947/5d0261ad-3cb9-4156-8db0-3a50f7d43e79)
+
+![image](https://github.com/updaily-ca/updaily-frontend/assets/126236947/a16d571f-1c4f-405c-a6bd-234d2d1fb1ac)
+
+
 
 # Getting Started with Create React App
 
