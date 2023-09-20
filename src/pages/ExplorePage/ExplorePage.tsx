@@ -123,6 +123,8 @@ const ExplorePage = () => {
     // Filtering
     const [filteredBusinesses, setFilteredBusinesses] = useState([]);
 
+    const isHomePage = false;
+
     useEffect(() => {
         const newBusinesses = businesses?.filter((business: { lat: number, lng: number, name: string, type: string }) => {
             const businessLatLng: LatLng = {
@@ -185,7 +187,7 @@ const ExplorePage = () => {
                     )}
 
                     <div className="e-cc-searchcards">
-                        <SearchCards searchTerm={searchTerm} handleCardClick={handleCardClick} businessDetail={businessDetail} setBusinessDetail={setBusinessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest} setNewLat={setNewLat} filteredBusinesses={filteredBusinesses} setNewLng={setNewLng} />
+                        <SearchCards searchTerm={searchTerm} handleCardClick={handleCardClick} businessDetail={businessDetail} isHomePage={isHomePage} setBusinessDetail={setBusinessDetail} isBusinessMode={isFilterBusiness} businesses={businesses} vpNorthEast={vpNorthEast} vpSouthWest={vpSouthWest} setNewLat={setNewLat} filteredBusinesses={filteredBusinesses} setNewLng={setNewLng} />
                     </div>
                 </div>
             </div>

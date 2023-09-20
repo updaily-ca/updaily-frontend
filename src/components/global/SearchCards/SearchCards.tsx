@@ -16,6 +16,7 @@ interface LatLng {
 
 interface SearchCardsProps {
     searchTerm: string;
+    isHomePage: boolean,
     isBusinessMode: boolean,
     businessDetail?: { name: string, location: string, photos: string[], description: string },
     setBusinessDetail: { name: string, location: string, photos: string[], description: string },
@@ -33,7 +34,7 @@ interface LatLng {
     lng: number;
 }
 
-const SearchCards: React.FC<SearchCardsProps> = ({ searchTerm, isBusinessMode, businessDetail, setBusinessDetail, handleCardClick, businesses, filteredBusinesses, vpNorthEast, vpSouthWest, setNewLat, setNewLng }) => {
+const SearchCards: React.FC<SearchCardsProps> = ({ searchTerm, isBusinessMode, isHomePage, businessDetail, setBusinessDetail, handleCardClick, businesses, filteredBusinesses, vpNorthEast, vpSouthWest, setNewLat, setNewLng }) => {
 
     const cSearchRef = useRef<HTMLDivElement | null>(null);
 
@@ -43,7 +44,7 @@ const SearchCards: React.FC<SearchCardsProps> = ({ searchTerm, isBusinessMode, b
             {isBusinessMode ? <BusinessSearchCards
                 searchTerm={searchTerm}
                 handleCardClick={handleCardClick}
-                // filteredBusinesses={filteredBusinesses}
+                isHomePage={isHomePage}
                 businessDetail={businessDetail}
                 setBusinessDetail={setBusinessDetail}
                 images={{ arrow, photo }}

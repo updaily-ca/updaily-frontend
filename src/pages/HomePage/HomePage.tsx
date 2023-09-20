@@ -56,10 +56,12 @@ const HomePage = () => {
 
     const [filteredBusinesses, setFilteredBusinesses]: any = useState(null);
 
+    const isHomePage = true;
+
 
     useEffect(() => {
         // console.log(data);
-        console.log(businesses);
+        // console.log(businesses);
 
         setFilteredBusinesses(businesses);
         // console.log(businesses[0].id);
@@ -97,6 +99,7 @@ const HomePage = () => {
                     setNewLat={setNewLat}
                     setNewLng={setNewLng}
                     searchTerm={searchTerm}
+                    isHomePage={isHomePage}
                     handleCardClick={handleCardClick}
                     setBusinessDetail={setBusinessDetail}
                     filteredBusinesses={filteredBusinesses}

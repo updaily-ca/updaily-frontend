@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { scrollToFarLeft } from "../../../../utils/functions";
+import { useNavigate } from "react-router-dom";
 
 interface BusinessSearchCardProps {
     searchTerm: string;
+    isHomePage: boolean,
     images: {
         arrow: string
         photo: string
@@ -25,11 +27,15 @@ interface LatLng {
 }
 
 
-const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, images, businessDetail, setBusinessDetail, cSearchRef, filteredBusinesses, setNewLat, setNewLng, handleCardClick }) => {
+
+const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, images, isHomePage, businessDetail, setBusinessDetail, cSearchRef, filteredBusinesses, setNewLat, setNewLng, handleCardClick }) => {
+
+    const navigate = useNavigate();
 
     const altPhoto = "";
 
     const filteredUniqueBusinesses = filteredBusinesses?.filter((business: any) => business?.id !== businessDetail?.id);
+
 
     return (
         <>
@@ -63,17 +69,24 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, im
                 </div>
             ) : null}
 
-            {/* {filteredUniqueBusinesses?.map((business: any) => ( */}
-
-
             {filteredUniqueBusinesses?.map((business: any) => (
                 business.photos && business.photos.length > 0 ? (
 
                     <div onClick={() => {
-                        setNewLat(business?.lat);
-                        setNewLng(business?.lng);
-                        setBusinessDetail(business);
-                        scrollToFarLeft(cSearchRef);
+
+                        if (!isHomePage) {
+                            setNewLat(business?.lat);
+                            setNewLng(business?.lng);
+                            setBusinessDetail(business);
+                            scrollToFarLeft(cSearchRef);
+                        }
+                        else {
+                            // console.log('is home')
+                            navigate('/explore/');
+                            setNewLat(business.lat);
+                            setNewLng(business.lng);
+                            // console.log(business.lat);
+                        }
                     }}
 
                         key={business?.id} className="search-card">
@@ -93,13 +106,15 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, im
                             <div className="search-card__established">🚀 {new Date(business.launch * 1000).getFullYear()}</div>
 
                             <p className="search-card__description">
+
                                 {business.description
                                     ? business.description.split(' ').slice(0, 15).join(' ') + (business.description.split(' ').length > 15 ? ' ...' : '')
                                     : ''}
                             </p>
 
-
-                            <img onClick={() => handleCardClick(business.id)} src={images.arrow} alt="right-arrow" className="search-card__arrow" />
+                            {!isHomePage ? <img onClick={() =>
+                                handleCardClick(business.id)} src={images.arrow} alt="right-arrow" className="search-card__arrow" />
+                                : null}
 
                         </section>
 
