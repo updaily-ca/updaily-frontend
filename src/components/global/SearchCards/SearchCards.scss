@@ -9,6 +9,7 @@
     overflow-x: auto;
     flex-direction: row;
     padding: 1rem;
+    margin-bottom: 1rem;
     gap: 1rem;
 
 
@@ -44,30 +45,45 @@
 
     @include desktop {
         // padding: 2rem;
-        padding-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
     }
+}
+
+#p-home-page .c-search {
+    height: 13rem;
 }
 
 .search-card {
     margin: auto;
+    background-color: $bright;
     display: flex;
-    flex-direction: column;
-    min-width: 15.3125rem;
-    height: 20rem;
+    flex-direction: row;
+    // min-width: 15.3125rem;
+    min-width: 25rem;
+    height: 8rem;
+    // height: 20rem;
     padding: 1rem;
+    cursor: pointer;
     border: thin solid $search-border;
     border-radius: $px5;
+    transition: all 0.125s ease-in-out;
 
 
     background: rgba(255, 255, 255, 0.473);
+    // background-color: $bright;
     border-radius: 1rem;
     box-shadow: 0 $px5 2rem rgba(0, 0, 0, 0.1);
     backdrop-filter: blur($px5);
     -webkit-backdrop-filter: blur($px5);
     border: thin solid rgba(255, 255, 255, 0.3);
 
+
     @include desktop {
         max-width: 20%;
+    }
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.6473);
     }
 
     &--event {
@@ -78,15 +94,30 @@
         background-color: transparent;
     }
 
+    &__side {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        padding: 0;
+        padding-left: 1rem;
+        justify-content: space-between;
+    }
+
     &__title {
         color: $dark;
         font-size: 1.2rem;
         font-weight: 500;
         margin-top: 1rem;
+
+        @include tablet {
+            margin-top: 0;
+        }
     }
 
     &__photo {
-        order: -1;
+        display: flex;
+        width: 50%;
+        // order: -1;
 
         &--image {
             width: 100%;
@@ -102,8 +133,14 @@
     }
 
     &__description {
-        margin-top: 1rem;
+        margin: 0.25rem 0;
         font-size: $px12;
+    }
+
+    &__established {
+        font-size: small;
+        margin-top: -0.25rem;
+        margin-left: auto;
     }
 
     &__arrow {
@@ -115,5 +152,11 @@
         margin-left: auto;
         border-radius: 2rem;
         padding: 0.5rem;
+        transition: all 0.125s ease-in-out;
+
+        &:hover {
+            scale: 1.2;
+            transition: all 0.5s ease-in-out;
+        }
     }
 }

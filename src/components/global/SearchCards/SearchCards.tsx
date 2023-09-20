@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import './SearchCards.scss';
 
 // import '../../../asset/home/search-icon.png';
@@ -14,14 +16,17 @@ interface LatLng {
 
 interface SearchCardsProps {
     searchTerm: string;
+    isHomePage: boolean,
     isBusinessMode: boolean,
     businessDetail?: { name: string, location: string, photos: string[], description: string },
+    setBusinessDetail: { name: string, location: string, photos: string[], description: string },
     businesses: any,
     vpNorthEast: LatLng;
     vpSouthWest: LatLng;
     handleCardClick: (id: any) => void,
     setNewLat: (lat: number) => void;
     setNewLng: (lng: number) => void;
+    filteredBusinesses: any;
 }
 
 interface LatLng {
@@ -29,18 +34,23 @@ interface LatLng {
     lng: number;
 }
 
-const SearchCards: React.FC<SearchCardsProps> = ({ searchTerm, isBusinessMode, businessDetail, handleCardClick, businesses, vpNorthEast, vpSouthWest, setNewLat, setNewLng }) => {
+const SearchCards: React.FC<SearchCardsProps> = ({ searchTerm, isBusinessMode, isHomePage, businessDetail, setBusinessDetail, handleCardClick, businesses, filteredBusinesses, vpNorthEast, vpSouthWest, setNewLat, setNewLng }) => {
+
+    const cSearchRef = useRef<HTMLDivElement | null>(null);
 
     return (
 
-        <div className="c-search"> {/* component - search */}
+        <div className="c-search" ref={cSearchRef}> {/* component - search */}
             {isBusinessMode ? <BusinessSearchCards
                 searchTerm={searchTerm}
                 handleCardClick={handleCardClick}
-                // filteredBusinesses={filteredBusinesses}
+                isHomePage={isHomePage}
                 businessDetail={businessDetail}
+                setBusinessDetail={setBusinessDetail}
                 images={{ arrow, photo }}
                 businesses={businesses}
+                cSearchRef={cSearchRef}
+                filteredBusinesses={filteredBusinesses}
                 setNewLat={setNewLat} setNewLng={setNewLng}
                 vpNorthEast={vpNorthEast}
                 vpSouthWest={vpSouthWest}

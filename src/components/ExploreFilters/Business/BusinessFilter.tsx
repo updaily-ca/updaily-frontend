@@ -5,8 +5,8 @@ import "./BusinessFilter.scss";
 interface BusinessFilterProps {
     searchTerm: string;
     setSearchTerm: any;
-    filterTerm: string;
-    setFilterTerm: any;
+    dateFilterTerm: any;
+    setDateFilterTerm: any;
     isFilterButtonClicked: boolean;
     address: string;
     setAddress: (newAddress: string) => void;
@@ -16,14 +16,17 @@ interface BusinessFilterProps {
     activeFilterStates: any;
     setActiveFilterStates: any;
     businessType: string[];
+    selectedBusinessTypes: string[]; // New prop to store selected business types
+    setSelectedBusinessTypes: (selectedTypes: string[]) => void; // New prop to update selected types
+
 }
 
 const BusinessFilter: React.FC<BusinessFilterProps> = ({
     businessType,
     searchTerm,
     setSearchTerm,
-    filterTerm,
-    setFilterTerm,
+    dateFilterTerm,
+    setDateFilterTerm,
     isFilterButtonClicked,
     address,
     setAddress,
@@ -31,20 +34,48 @@ const BusinessFilter: React.FC<BusinessFilterProps> = ({
 
     activeFilterStates,
     setActiveFilterStates,
+
+    selectedBusinessTypes, // New prop to hold selected business types
+    setSelectedBusinessTypes, // New prop to update selected business types
+
+
 }) => {
 
 
 
-    const handleFilterClick = (type: any) => {
-        toggleFilter(type, activeFilterStates, setActiveFilterStates);
-        setFilterTerm(activeFilterStates[type] ? '' : type);
+    const handleFilterClick = (type: string) => {
+        // Clone the existing selected business types array
+        const updatedSelectedTypes = [...selectedBusinessTypes];
+
+        // Check if the clicked type is already selected
+        const isTypeSelected = updatedSelectedTypes.includes(type);
+
+        // If it's selected, remove it; otherwise, add it
+        if (isTypeSelected) {
+            const index = updatedSelectedTypes.indexOf(type);
+            if (index !== -1) {
+                updatedSelectedTypes.splice(index, 1);
+            }
+        } else {
+            updatedSelectedTypes.push(type);
+        }
+
+        // Update the selected business types
+        setSelectedBusinessTypes(updatedSelectedTypes);
     };
 
+    const handleDateFilterClick = (type: any) => {
+        if (type === "Newest" || type === "This Year" || type === "Any" || type === 'Oldest') {
+            // Handle date filter selection here
+            // You can use setFilterTerm to set the date filter value
+            setDateFilterTerm(type);
+        }
+    }
 
     return (
         <div className={`c-businessfilter ${isFilterButtonClicked ? "active" : ""}`}>
             <div className="filter-card">
-                <label className="filter-card__subtitle">Search by location</label>
+                <label className="filter-card__subtitle">Search name</label>
 
                 <input
                     type="text"
@@ -59,42 +90,59 @@ const BusinessFilter: React.FC<BusinessFilterProps> = ({
                         }
                     }} />
             </div>
-            <div className="filter-card">
+            {/* <div className="filter-card">
                 <label className="filter-card__subtitle">Price Range</label>
                 <input type="text" className="filter-card__input filter-card__input--price-min" />
                 <input type="text" className="filter-card__input filter-card__input--price-max" />
-            </div>
-            <div className="filter-card">
+            </div> */}
+            {/* <div className="filter-card">
                 <div className="filter-card__subtitle">Opening Times</div>
                 <div className="filter-card__btn">Morning</div>
                 <div className="filter-card__btn">Afternoon</div>
                 <div className="filter-card__btn">Evening</div>
                 <div className="filter-card__btn">Open Now</div>
-            </div>
+            </div> */}
             <div className="filter-card">
-                <div className="filter-card__subtitle">Search</div>
+                <div className="filter-card__subtitle">Filter</div>
                 {businessType
                     .sort((a, b) => a.localeCompare(b))
                     .map((businessType, index) => (
                         <div
                             onClick={() => handleFilterClick(businessType)}
                             key={businessType}
-                            className={`uc filter-card__btn ${activeFilterStates[businessType] ? "active" : ""}`}
+                            className={`uc filter-card__btn ${selectedBusinessTypes.includes(businessType) ? "active" : ""}`}
                         >
                             {businessType}
                         </div>
                     ))}
             </div>
-            <div className="filter-card">
+
+            <div className="filter-card filter-card--date">
                 <div className="filter-card__subtitle">Business Age</div>
-                <div className="filter-card__btn">Newest</div>
-                <div className="filter-card__btn">This Year</div>
-                <div className="filter-card__btn">Any</div>
+                <div
+                    className={`filter-card__btn ${dateFilterTerm === "Newest" ? "active" : ""}`}
+                    onClick={() => handleDateFilterClick("Newest")}>
+                    Newest
+                </div>
+                <div
+                    className={`filter-card__btn ${dateFilterTerm === "This Year" ? "active" : ""}`}
+                    onClick={() => handleDateFilterClick("This Year")}>
+                    This Year
+                </div>
+
+                <div
+                    className={`filter-card__btn ${dateFilterTerm === "Oldest" ? "active" : ""}`}
+                    onClick={() => handleDateFilterClick("Oldest")}>
+                    Oldest
+                </div>
+
+                <div
+                    className={`filter-card__btn ${dateFilterTerm === "Any" ? "active" : ""}`}
+                    onClick={() => handleDateFilterClick("Any")}>
+                    Any
+                </div>
             </div>
-            <div className="c-businessfilter__search-btn" onClick={gHandleSearchSubmit}>
-                Search
-            </div>
-        </div >
+        </div>
     );
 };
 
