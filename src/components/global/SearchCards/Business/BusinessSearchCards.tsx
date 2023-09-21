@@ -10,6 +10,7 @@ interface BusinessSearchCardProps {
         arrow: string
         photo: string
     },
+    isBusinessMode: boolean;
     businessDetail: any,
     setBusinessDetail: any,
     businesses: any[],
@@ -29,7 +30,7 @@ interface LatLng {
 
 
 
-const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, images, isHomePage, businessDetail, setBusinessDetail, cSearchRef, filteredBusinesses, setNewLat, setNewLng, handleCardClick }) => {
+const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, images, isHomePage, isBusinessMode, businessDetail, setBusinessDetail, cSearchRef, filteredBusinesses, setNewLat, setNewLng, handleCardClick }) => {
 
     const navigate = useNavigate();
 
@@ -83,7 +84,7 @@ const BusinessSearchCards: React.FC<BusinessSearchCardProps> = ({ searchTerm, im
                         }
                         else {
                             // console.log('is home')
-                            navigate(`/explore?lat=${business.lat}&lng=${business.lng}`);
+                            navigate(`/explore?lat=${business.lat}&lng=${business.lng}&business=${isBusinessMode}`);
                         }
                     }}
 

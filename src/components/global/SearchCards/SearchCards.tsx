@@ -45,6 +45,7 @@ const SearchCards: React.FC<SearchCardsProps> = ({ searchTerm, isBusinessMode, i
                 searchTerm={searchTerm}
                 handleCardClick={handleCardClick}
                 isHomePage={isHomePage}
+                isBusinessMode={isBusinessMode}
                 businessDetail={businessDetail}
                 setBusinessDetail={setBusinessDetail}
                 images={{ arrow, photo }}

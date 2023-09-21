@@ -97,7 +97,7 @@ const HomePage = () => {
 
     const handleKeyPress = () => {
         if (urlLat !== 0) {
-            navigate(`/explore?lat=${urlLat}&lng=${urlLng}`);
+            navigate(`/explore?lat=${urlLat}&lng=${urlLng}&business=${isBusinessMode}`);
         }
     };
 

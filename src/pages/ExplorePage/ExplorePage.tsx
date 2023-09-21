@@ -164,6 +164,18 @@ const ExplorePage = () => {
     const urlLat = urlLatParam !== null ? parseFloat(urlLatParam) : 0;
     const urlLng = urlLngParam !== null ? parseFloat(urlLngParam) : 0;
 
+    const setIsBusinessModeFromQuery = () => {
+        const businessParam = searchParams.get("business");
+
+        setIsBusinessMode(businessParam === "true");
+    };
+
+    useEffect(() => {
+        setIsBusinessModeFromQuery();
+    }, []);
+
+
+
     return (
         <div className="explorepage-container">
             <div id="p-explorepage">
