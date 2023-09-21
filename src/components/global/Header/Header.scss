@@ -123,6 +123,15 @@
         @include tablet {
             margin-top: unset;
         }
+
+        &--register {
+            padding: 1rem;
+            padding-top: 0;
+
+            @include tablet {
+                padding: 0;
+            }
+        }
     }
 
     &__link {

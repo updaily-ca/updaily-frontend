@@ -63,14 +63,14 @@
 
     .e-cc-searchcards {
         width: 100%;
-        margin: -20.5rem auto 0 auto;
+        margin: -13rem auto 0 auto;
 
         box-sizing: border-box;
         z-index: -0;
         transition: margin 0.25s cubic-bezier(0.98, 0.13, 0.88, 0.69);
 
-        @include tablet {
-            margin: -31.75rem auto 0 auto;
+
+        @include desktop {
             margin-top: -12rem;
         }
     }

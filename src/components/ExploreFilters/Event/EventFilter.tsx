@@ -74,11 +74,6 @@ const EventFilter: React.FC<EventFilterProps> = ({
                 <div className="filter-card__btn">This Year</div>
                 <div className="filter-card__btn">Any</div>
             </div>
-            <div
-                className="c-eventfilter__search-btn"
-                onClick={gHandleSearchSubmit}>
-                Search
-            </div>
         </div>
     )
 }

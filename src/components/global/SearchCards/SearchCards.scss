@@ -51,6 +51,7 @@
 
 #p-home-page .c-search {
     height: 13rem;
+    padding-top: 0;
 }
 
 .search-card {
@@ -67,8 +68,6 @@
     border: thin solid $search-border;
     border-radius: $px5;
     transition: all 0.125s ease-in-out;
-
-
     background: rgba(255, 255, 255, 0.473);
     // background-color: $bright;
     border-radius: 1rem;

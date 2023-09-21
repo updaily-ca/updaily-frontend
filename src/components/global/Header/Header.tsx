@@ -43,14 +43,14 @@ const Header = () => {
                             <span className="navbar__link--second">Explore</span>
                         </NavLink>
                     </li>
-                    <li className='navbar__item'>
+                    {/* <li className='navbar__item'>
                         <NavLink to="/about" className="navbar__link" onClick={handleNavLinkClick} >
                             <span className="navbar__link--first hidden-tablet">03</span>
                             <span className="navbar__link--second">About</span>
                         </NavLink>
-                    </li>
+                    </li> */}
 
-                    <li className='navbar__item'>
+                    <li className='navbar__item navbar__item--register'>
                         <NavLink to="/register" className="navbar__link navbar__link--register" onClick={handleNavLinkClick} >
                             Register Business
                         </NavLink>

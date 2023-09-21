@@ -11,49 +11,55 @@ const EventSearchCards: React.FC<EventSearchCardProps> = ({ images }) => {
 
     return (
         <>
-            <article className="search-card search-card--event">
-                <h2 className="search-card__title">Shipyards Night Market</h2>
+
+            <div className="search-card search-card--event">
+
                 <div className="search-card__photo">
                     <img src={images.photo} alt={altPhoto} className="search-card__photo--image" />
                 </div>
-                <p className="search-card__location">North Vancouver</p>
-                <p className="search-card__description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur, rem.</p>
 
-                <img src={images.arrow} alt="right-arrow" className="search-card__arrow" />
-            </article>
+                <section className="search-card__side">
 
-            <article className="search-card">
-                <h2 className="search-card__title">Shipyards Night Market</h2>
+                    <h2 className="search-card__title">Shipyards Night Market</h2>
+
+                    <p className="search-card__location">North Vancouver</p>
+                    <p className="search-card__description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur, rem.</p>
+
+                </section>
+            </div>
+
+            <div className="search-card search-card--event">
+
                 <div className="search-card__photo">
-                    <img src={images.photo} alt="altPhoto" className="search-card__photo--image" />{" "}
+                    <img src={images.photo} alt={altPhoto} className="search-card__photo--image" />
                 </div>
-                <p className="search-card__location">North Vancouver</p>
-                <p className="search-card__description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur, rem.</p>
 
-                <img src={images.arrow} alt="right-arrow" className="search-card__arrow" />
-            </article>
+                <section className="search-card__side">
 
-            <article className="search-card">
-                <h2 className="search-card__title">Shipyards Night Market</h2>
+                    <h2 className="search-card__title">Shipyards Night Market</h2>
+
+                    <p className="search-card__location">North Vancouver</p>
+                    <p className="search-card__description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur, rem.</p>
+
+                </section>
+            </div>
+
+            <div className="search-card search-card--event">
+
                 <div className="search-card__photo">
-                    <img src={images.photo} alt="altPhoto" className="search-card__photo--image" />
+                    <img src={images.photo} alt={altPhoto} className="search-card__photo--image" />
                 </div>
-                <p className="search-card__location">North Vancouver</p>
-                <p className="search-card__description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur, rem.</p>
 
-                <img src={images.arrow} alt="right-arrow" className="search-card__arrow" />
-            </article>
+                <section className="search-card__side">
 
-            <article className="search-card">
-                <h2 className="search-card__title">Shipyards Night Market</h2>
-                <div className="search-card__photo">
-                    <img src={images.photo} alt="altPhoto" className="search-card__photo--image" />
-                </div>
-                <p className="search-card__location">North Vancouver</p>
-                <p className="search-card__description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur, rem.</p>
+                    <h2 className="search-card__title">Shipyards Night Market</h2>
 
-                <img src={images.arrow} alt="right-arrow" className="search-card__arrow" />
-            </article>
+                    <p className="search-card__location">North Vancouver</p>
+                    <p className="search-card__description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur, rem.</p>
+
+                </section>
+            </div>
+
         </>
     )
 }
