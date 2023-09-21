@@ -1,11 +1,26 @@
 # Project Features
 
-- Register form, with loading progress. Convert address into latitude and longitude coordinates for the explore page.
-- Explore page, with the ability to toggle between "events" and "businesses". These are shown on the map, and can be filtered with a combination filter function.
-- The viewport area is measured, and businesses more than two miles outside of the viewport area are not shown, to improve optimisation.
+- The design was split 50/50 between Neat and Philip using Figma.
+
+- Comprehrensive registration form, with progress bar.
+
+* Convert address into latitude and longitude coordinates for the explore page.
+
+- Explore page, with a toggle between "events" and "businesses". These are shown on the map, and can be filtered with a combination filter function. If the user arrives at the explore page by clicking one of the business cards, the toggle button is automatically moved.
+
+- For optimisation purposes, the viewport area is measured, and businesses more than two miles outside of the viewport area are not shown.
+
 - Cards are shown displaying each business or event, and when a card is clicked it moves the map to center on that location. It also makes the first card an "active" card, and you can then click on the arrow icon to open a modal with details about that business or event.
-- A bounce function has been added, so that API calls are reduced.
-- The search function searches through the names of the businesses in the database.
+
+- To reduce API calls, a debounce function has been added.
+
+- The search function on the home page converts locations into lat/long values and then this is used to search the map in the explore map page.
+
+- The search function on the explore page searches through the database and can be used in combination with filters.
+
+- A modal with a fade in has been added to allow the user to view more details about the business, by clicking each business.
+
+- When a marker is clicked on the map, it becomes the active card and the search cards scroll to the far left. The first card shown is the "active" card.
 
 # Technologies used
 
@@ -24,8 +39,6 @@
 ![image](https://github.com/updaily-ca/updaily-frontend/assets/126236947/43974660-54ed-4e3b-85c5-07fe53de330b)
 
 ![image](https://github.com/updaily-ca/updaily-frontend/assets/126236947/5d0261ad-3cb9-4156-8db0-3a50f7d43e79)
-
-
 
 # Getting Started with Create React App
 
