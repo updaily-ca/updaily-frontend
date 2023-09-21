@@ -4,7 +4,7 @@
 
 - Comprehrensive registration form, with progress bar.
 
-* Convert address into latitude and longitude coordinates for the explore page.
+- Convert address into latitude and longitude coordinates for the explore page.
 
 - Explore page, with a toggle between "events" and "businesses". These are shown on the map, and can be filtered with a combination filter function. If the user arrives at the explore page by clicking one of the business cards, the toggle button is automatically moved.
 
