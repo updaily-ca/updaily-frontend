@@ -29,7 +29,7 @@ const HomePage = () => {
     const [vpNorthEast, setVpNorthEast] = useState<LatLng>({ lat: 0, lng: 0 });
     const [vpSouthWest, setVpSouthWest] = useState<LatLng>({ lat: 0, lng: 0 });
 
-    const [isBusinessMode, setIsBusinessMode] = useState<boolean>(false);
+    const [isBusinessMode, setIsBusinessMode] = useState<boolean>(true);
     const toggleBusinessMode = (): void => {
         setIsBusinessMode((prevState) => !prevState);
     };

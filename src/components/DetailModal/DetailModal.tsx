@@ -1,7 +1,7 @@
 import "./DetailModal.scss"
 import closeBtn from "../../asset/detail/icons8-close-48.png"
 import { useEffect, useState } from "react"
-import {Carousel} from 'antd';
+import { Carousel } from 'antd';
 // Icons
 import location_icon from "../../asset/detail/icons8-location-48.png";
 import time_icon from "../../asset/detail/icons8-time-50.png";
@@ -50,8 +50,14 @@ const DetailModal = ({ business, modalOpen, handleModalClick }: DetailModalProp)
         <>
             {modalOpen && isRendered && (
                 <div className={`modal ${isRendered && isOpenClassAdded ? "modal--open" : "modal--closed"}`}>
+
                     <div className="modal__content">
-                        {/* <img onClick={handleCloseModal} className="modal__close-btn" src={closeBtn} alt="close btn" /> */}
+
+                        <div className="modal__close-wrapper">
+                            <img onClick={handleCloseModal} className="modal__close-btn" src={closeBtn} alt="close btn" />
+                        </div>
+
+
                         {/* Render Images as Courasel on Mobile */}
                         <div className="hide">
                             <Carousel autoplay>
@@ -103,7 +109,7 @@ const DetailModal = ({ business, modalOpen, handleModalClick }: DetailModalProp)
                                 <p className="business__desc">{description}</p>
                             </div>
                             {/* Write a review button */}
-                            <button className="business__review-btn">Write a review</button>
+                            {/* <button className="business__review-btn">Write a review</button> */}
                         </div>
                     </div>
                 </div>

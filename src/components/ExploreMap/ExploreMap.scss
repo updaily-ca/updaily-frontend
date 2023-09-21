@@ -10,7 +10,7 @@
     }
 
     &__map {
-        height: 100dvh;
+        height: 85dvh;
 
         @include tablet {
             height: calc(100dvh - 5rem);
