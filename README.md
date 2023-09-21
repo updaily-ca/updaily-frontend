@@ -34,6 +34,8 @@
 
 ## Screenshots
 
+![image](https://github.com/updaily-ca/updaily-frontend/assets/126236947/a53f604e-ae42-4a57-a3d5-0496404531ba)
+
 ![image](https://github.com/updaily-ca/updaily-frontend/assets/126236947/3db98291-3a3c-4f92-a15c-a5a8f93833e4)
 
 ![image](https://github.com/updaily-ca/updaily-frontend/assets/126236947/43974660-54ed-4e3b-85c5-07fe53de330b)
