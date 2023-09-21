@@ -32,6 +32,8 @@
 - Cloudinary
 - AWS (to host the database)
 
+[![Video](https://img.youtube.com/vi/YjZp7ax6p8E/0.jpg)](https://www.youtube.com/watch?v=YjZp7ax6p8E)
+
 ## Screenshots
 
 ![image](https://github.com/updaily-ca/updaily-frontend/assets/126236947/a53f604e-ae42-4a57-a3d5-0496404531ba)
