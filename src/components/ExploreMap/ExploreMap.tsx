@@ -1,11 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useGoogleMaps from "../../App";
-import { useQuery } from "@apollo/client";
 import { debounce } from "../../utils/google";
 
 import { calculateMarkerColor, calculateMarkerYear, filterMarkersByDate } from "../../utils/gMap";
 
-import { getFeaturedBusiness } from "../../graphql/queries";
 import "./ExploreMap.scss";
 
 declare global {
@@ -23,19 +21,6 @@ interface Location {
     launch: number;
 }
 
-interface LatLng {
-    lat: number;
-    lng: number;
-}
-
-interface Business {
-    type: any;
-    id: number;
-    lat: number;
-    lng: number;
-    name: string;
-}
-
 const ExploreMap = ({ dateFilterTerm, userLat, userLng, setUserLat, setUserLng, newLat, newLng, urlLat, urlLng, filteredBusinesses, setBusinessDetail, handleMarkerClick, vpNorthEast, setVpNorthEast, vpSouthWest, setVpSouthWest }: any) => {
     const googleMaps = useGoogleMaps();
     const mapRef = useRef<HTMLDivElement | null>(null);
@@ -43,9 +28,7 @@ const ExploreMap = ({ dateFilterTerm, userLat, userLng, setUserLat, setUserLng, 
     const markers = useRef<google.maps.Marker[]>([]);
 
     const [userLocationAvailable, setUserLocationAvailable] = useState<boolean>(false);
-    const { loading, error, data } = useQuery(getFeaturedBusiness);
 
-    // useEffect(() => {
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -65,7 +48,6 @@ const ExploreMap = ({ dateFilterTerm, userLat, userLng, setUserLat, setUserLng, 
     } else {
         console.error("Geolocation is not available in this browser.");
     }
-    // }, []);
 
 
     useEffect(() => {
@@ -107,7 +89,6 @@ const ExploreMap = ({ dateFilterTerm, userLat, userLng, setUserLat, setUserLng, 
                     return (
                         existingMarker.getPosition().lat() === location.lat &&
                         existingMarker.getPosition().lng() === location.lng
-                        // existingMarker.getTitle() === `Location ${index + 1}`
                     );
                 });
 
@@ -123,7 +104,6 @@ const ExploreMap = ({ dateFilterTerm, userLat, userLng, setUserLat, setUserLng, 
                         },
 
                         icon: {
-                            // path: window.google.maps.SymbolPath.FORWARD_OPEN_ARROW,
                             path: window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
                             fillColor: markerColor,
                             fillOpacity: 1,
@@ -134,7 +114,6 @@ const ExploreMap = ({ dateFilterTerm, userLat, userLng, setUserLat, setUserLng, 
                         launch: location.launch,
                     });
 
-                    // Add the new marker to the map
                     marker.setMap(map.current);
 
                     marker.addListener("click", () => {
@@ -242,17 +221,14 @@ const ExploreMap = ({ dateFilterTerm, userLat, userLng, setUserLat, setUserLng, 
             else {
                 map.current?.panTo(urlCenter);
             }
-            // map.current?.setZoom(14);
+            map.current?.setZoom(14);
 
         }
-
 
     }
 
     useEffect(() => {
         mapChange();
-
-        // console.log('userLat', userLat);
 
     }, [newLat, newLng, urlLat, urlLng]);
 
