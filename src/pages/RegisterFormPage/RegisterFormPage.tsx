@@ -43,7 +43,6 @@ const RegisterFormPage = () => {
     const [launchingDate, setLauchingDate] = useState(0);
     // Form 2
     const [selectedImages, setSelectedImages] = useState([]);
-    const [imagesURL, setImagesURL]: any[] = useState([]);
     // Form 3 - Event
     const [eventType, setEventType] = useState("");
     const[desc, setDesc] = useState("");
@@ -62,7 +61,6 @@ const RegisterFormPage = () => {
     const [accessibility3,setAccessibility3] = useState(true);
     // Form 4 - Business
     const [selectedMenu, setSelectedMenu] = useState([]);
-    const [menuUrls, setMenuUrls] = useState<string[]>([]);
     // Form 5 - Event
     const [pwd, setPwd] = useState("");
     const [matchPwd, setMatchPwd] = useState("");
@@ -88,7 +86,7 @@ const RegisterFormPage = () => {
         }
     }
     // GraphQL to add new business
-    const [addNewBusiness, {data, loading, error}] = useMutation(addBusiness);
+    const [addNewBusiness, {error}] = useMutation(addBusiness);
     // handle business submit
     const handleBusinessSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

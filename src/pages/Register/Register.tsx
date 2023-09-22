@@ -47,7 +47,7 @@ const Register = () => {
             </div>
             <NextButton handleNext={handleSubmit} text="Next" />
             {/* Login link */}
-            <p className="register__login">Already have an account? <a href="#" className="register__highlight">Login</a></p>
+            <p className="register__login">Already have an account? <a href="/login" className="register__highlight">Login</a></p>
         </main>
     )
 }
