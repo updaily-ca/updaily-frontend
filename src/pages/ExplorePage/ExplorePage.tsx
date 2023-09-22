@@ -7,10 +7,10 @@ import SearchCards from "../../components/global/SearchCards/SearchCards"
 import { gHandleSearch, gOnSearchError, gOnSearchSuccess } from "../../utils/google"
 import { useSearchParams } from "react-router-dom";
 
-import { businessType, eventType } from "../../utils/FormData"
+import { businessType } from "../../utils/FormData"
 
 import { useQuery, useLazyQuery } from "@apollo/client"
-import { getBusinesses, getFeaturedBusiness, getBusinessDetail2 } from "../../graphql/queries"
+import { getBusinesses, getBusinessDetail2 } from "../../graphql/queries"
 import { getBusinessDetail } from "../../graphql/queries"
 import ExploreMap from "../../components/ExploreMap/ExploreMap"
 
@@ -91,7 +91,7 @@ const ExplorePage = () => {
         console.error("Geolocation is not available in this browser.")
     }
 
-    const [GetBusinessDetail, { loading, data: businessData }] = useLazyQuery(getBusinessDetail, {
+    const [GetBusinessDetail] = useLazyQuery(getBusinessDetail, {
         variables: {
             id: id,
         },
@@ -124,7 +124,7 @@ const ExplorePage = () => {
     // Filtering
     const [filteredBusinesses, setFilteredBusinesses] = useState([]);
 
-    const isHomePage = false;
+    const isHomePage: boolean = false;
 
     useEffect(() => {
         const newBusinesses = businesses?.filter((business: { lat: number, lng: number, name: string, type: string }) => {

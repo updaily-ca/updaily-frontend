@@ -7,7 +7,7 @@ import { getFeaturedBusiness } from '../../../graphql/queries';
 const Footer = () => {
 
     // Fetch Featured Business
-    const { loading, error, data } = useQuery(getFeaturedBusiness);
+    const { loading, data } = useQuery(getFeaturedBusiness);
     return (
         <div id="c-footer">
 

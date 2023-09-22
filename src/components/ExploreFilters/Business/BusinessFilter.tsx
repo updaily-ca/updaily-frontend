@@ -1,5 +1,3 @@
-import { businessType } from "../../../utils/FormData";
-import { toggleFilter } from "../../../utils/functions";
 import "./BusinessFilter.scss";
 
 interface BusinessFilterProps {

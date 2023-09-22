@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { scrollToFarLeft } from "../../../../utils/functions";
 import { useNavigate } from "react-router-dom";
 

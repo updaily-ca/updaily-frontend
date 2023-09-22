@@ -29,8 +29,6 @@ const Upload = ({selectedImages, setSelectedImages} : UploadProps) => {
         getRootProps,
         getInputProps,
         isDragActive,
-        isDragAccept,
-        isDragReject,
     } = useDropzone({onDrop});
     return (
         <div className="container">

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useToggleClass } from '../../../utils/functions';
 import './FilterButton.scss';
 
 interface FilterButtonProps {
@@ -8,7 +7,6 @@ interface FilterButtonProps {
 }
 
 const FilterButton: React.FC<FilterButtonProps> = ({ isBusinessMode, toggleBusinessMode }) => {
-    const [isOpen, toggleClass] = useToggleClass(isBusinessMode);
 
     return (
         <div

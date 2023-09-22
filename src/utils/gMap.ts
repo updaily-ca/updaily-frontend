@@ -77,4 +77,3 @@ export const filterMarkersByDate = (markers: any, dateFilterTerm: any) => {
 
     });
 }
- 

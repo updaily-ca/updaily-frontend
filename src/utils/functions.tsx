@@ -1,4 +1,3 @@
-import { upload } from "@testing-library/user-event/dist/upload";
 import { useEffect, useState } from "react"
 
 export const useDocumentTitle = (title: string): void => {

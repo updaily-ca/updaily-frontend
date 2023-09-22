@@ -13,11 +13,6 @@ interface DetailModalProp {
     handleModalClick: () => void
 }
 
-// Styles for Carousel
-const contentStyle: React.CSSProperties = {
-    height: '200px'
-};
-
 const DetailModal = ({ business, modalOpen, handleModalClick }: DetailModalProp) => {
     const { name, photos, address, openinghours, cuisine, pricerange, description } = business.business;
     const [isOpenClassAdded, setIsOpenClassAdded] = useState(false)
