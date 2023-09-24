@@ -1,3 +1,5 @@
+[https://updaily.netlify.app/](https://updaily.netlify.app/)
+
 # Project Features
 
 - The design was split 50/50 between Neat and Philip using Figma.
@@ -31,8 +33,6 @@
 - PostgreSQL
 - Cloudinary
 - AWS (to host the database)
-
-[![Video](https://img.youtube.com/vi/YjZp7ax6p8E/0.jpg)](https://www.youtube.com/watch?v=YjZp7ax6p8E)
 
 ## Screenshots
 
