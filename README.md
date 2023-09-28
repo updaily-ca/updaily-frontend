@@ -1,5 +1,7 @@
 [https://updaily.netlify.app/](https://updaily.netlify.app/)
 
+# Events are hardcoded but businesses are live.
+
 # Project Features
 
 - The design was split 50/50 between Neat and Philip using Figma.
