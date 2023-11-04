@@ -22,7 +22,7 @@ const EventSearchCards: React.FC<EventSearchCardProps> = ({ images }) => {
 
                     <h2 className="search-card__title">Shipyards Night Market</h2>
 
-                    <p className="search-card__location">North Vancouver</p>
+                    <p className="search-card__location">Hardcoded Location</p>
                     <p className="search-card__description">Events are currently hardcoded. Please click the event button and toggle to business.</p>
 
                 </section>
@@ -38,7 +38,7 @@ const EventSearchCards: React.FC<EventSearchCardProps> = ({ images }) => {
 
                     <h2 className="search-card__title">Shipyards Night Market</h2>
 
-                    <p className="search-card__location">North Vancouver</p>
+                    <p className="search-card__location">Hardcoded Location</p>
                     <p className="search-card__description">Events are currently hardcoded. Please click the event button and toggle to business.</p>
 
                 </section>
@@ -54,7 +54,7 @@ const EventSearchCards: React.FC<EventSearchCardProps> = ({ images }) => {
 
                     <h2 className="search-card__title">Shipyards Night Market</h2>
 
-                    <p className="search-card__location">North Vancouver</p>
+                    <p className="search-card__location">Hardcoded Location</p>
                     <p className="search-card__description">Events are currently hardcoded. Please click the event button and toggle to business.</p>
 
                 </section>
