@@ -19,7 +19,7 @@ interface LatLng {
 }
 
 const HomePage = () => {
-    useDocumentTitle("Home Page");
+    useDocumentTitle("UpDaily - Home Page");
 
     const [newLat, setNewLat]: any = useState(0);
     const [newLng, setNewLng]: any = useState(0);
