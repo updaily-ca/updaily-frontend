@@ -113,7 +113,7 @@ const HomePage = () => {
                         type="text"
                         className="home-search__input"
                         id="location"
-                        placeholder=""
+                        placeholder="Search a location in Vancouver, e.g. Kitsilano."
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
                         onKeyDown={handleKeyPress}
