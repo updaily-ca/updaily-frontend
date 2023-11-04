@@ -36,7 +36,7 @@ const HomePage = () => {
 
     const { data } = useQuery(getFeaturedBusiness);
 
-    const businesses = data?.businesses?.slice(0, 6);
+    const businesses = data?.businesses?.slice(0, 5);
 
     const [searchTerm, setSearchTerm] = useState<string>("");
 
