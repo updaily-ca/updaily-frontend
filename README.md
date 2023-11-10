@@ -1,5 +1,7 @@
 [https://updaily.netlify.app/](https://updaily.netlify.app/)
 
+You can view the design on figma [https://www.figma.com/file/72rF9xOu4KbyIFjffPhTE8/Project?type=design&node-id=0%3A1&mode=design&t=nKJqTK9t23kJQxBB-1](https://www.figma.com/file/72rF9xOu4KbyIFjffPhTE8/Project?type=design&node-id=0%3A1&mode=design&t=nKJqTK9t23kJQxBB-1)
+
 # Events are hardcoded but businesses are live.
 
 # Project Features
